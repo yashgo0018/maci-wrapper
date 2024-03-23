@@ -24,7 +24,7 @@ contract PollManager is Params, DomainObjs {
 		string[] options;
 	}
 
-	mapping(uint256 => PollData) public polls;
+	mapping(uint256 => PollData) internal polls;
 	uint256 public totalPolls;
 
 	MACI public maci;
@@ -101,9 +101,10 @@ contract PollManager is Params, DomainObjs {
 		});
 	}
 
-	function paginatePolls(
+	function fetchPolls(
 		uint256 _page,
-		uint256 _perPage
+		uint256 _perPage,
+		bool _ascending
 	) public view returns (PollData[] memory polls_) {
 		uint256 start = (_page - 1) * _perPage + 1;
 		uint256 end = start + _perPage - 1;
@@ -111,9 +112,26 @@ contract PollManager is Params, DomainObjs {
 			end = totalPolls;
 		}
 
-		polls_ = new PollData[](end - start + 1);
-		for (uint256 i = start; i <= end; i++) {
-			polls_[i - start] = polls[i];
+		if (start > totalPolls) {
+			return new PollData[](0);
 		}
+
+		polls_ = new PollData[](end - start + 1);
+
+		uint256 index = 0;
+		for (uint256 i = start; i <= end; i++) {
+			if (_ascending) {
+				polls_[index++] = polls[i];
+			} else {
+				polls_[index++] = polls[totalPolls - i + 1];
+			}
+		}
+	}
+
+	function fetchPoll(
+		uint256 _pollId
+	) public view returns (PollData memory poll_) {
+		require(_pollId <= totalPolls && _pollId != 0, "poll does not exist");
+		return polls[_pollId];
 	}
 }

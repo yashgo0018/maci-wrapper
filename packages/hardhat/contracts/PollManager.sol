@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "./maci-contracts/MACI.sol";
 import { Params } from "./maci-contracts/utilities/Params.sol";
 import { DomainObjs } from "./maci-contracts/utilities/DomainObjs.sol";
 
-contract PollManager is Ownable, Params, DomainObjs {
+contract PollManager is Params, DomainObjs {
 	struct PollContracts {
 		address poll;
 		address messageProcessor;
@@ -16,19 +15,17 @@ contract PollManager is Ownable, Params, DomainObjs {
 
 	struct PollData {
 		string name;
-		bytes options;
+		bytes encodedOptions;
 		string ipfsHash;
 		address creator;
 		PollContracts pollContracts;
 		uint256 endTime;
 		uint256 numOfOptions;
+		string[] options;
 	}
-
-	uint256 public fees;
 
 	mapping(uint256 => PollData) public polls;
 	uint256 public totalPolls;
-	uint256 public duration;
 
 	MACI public maci;
 
@@ -38,18 +35,17 @@ contract PollManager is Ownable, Params, DomainObjs {
 	address public vkRegistry;
 	bool public useSubsidy;
 
+	modifier onlyOwner() {
+		require(msg.sender == owner(), "only owner can call this function");
+		_;
+	}
+
 	constructor(MACI _maci) {
-		fees = 0.01 ether;
 		maci = _maci;
-		duration = 600;
 	}
 
-	function setFees(uint256 _fees) public onlyOwner {
-		fees = _fees;
-	}
-
-	function setNewVotingTime(uint256 _duration) public onlyOwner {
-		duration = _duration;
+	function owner() public view returns (address) {
+		return maci.owner();
 	}
 
 	function setConfig(
@@ -68,14 +64,15 @@ contract PollManager is Ownable, Params, DomainObjs {
 
 	function createPoll(
 		string calldata _name,
-		bytes calldata _options,
+		string[] calldata _options,
 		string calldata _ipfsHash,
-		uint256 numOfOptions
-	) public payable onlyOwner {
-		require(msg.value == fees, "incorrect fees sent");
+		uint256 _duration
+	) public onlyOwner {
+		// TODO: check if the number of options are more than limit
 
+		// deploy the poll contracts
 		MACI.PollContracts memory c = maci.deployPoll(
-			duration,
+			_duration,
 			treeDepths,
 			coordinatorPubKey,
 			verifier,
@@ -83,20 +80,40 @@ contract PollManager is Ownable, Params, DomainObjs {
 			useSubsidy
 		);
 
+		// encode options to bytes for retrieval
+		bytes memory encodedOptions = abi.encode(_options);
+
 		// create poll
 		polls[++totalPolls] = PollData({
 			name: _name,
-			options: _options,
+			encodedOptions: encodedOptions,
+			numOfOptions: _options.length,
 			ipfsHash: _ipfsHash,
 			creator: msg.sender,
-			endTime: block.timestamp + duration,
+			endTime: block.timestamp + _duration,
 			pollContracts: PollContracts({
 				poll: c.poll,
 				messageProcessor: c.messageProcessor,
 				tally: c.tally,
 				subsidy: c.subsidy
 			}),
-			numOfOptions: numOfOptions
+			options: _options
 		});
+	}
+
+	function paginatePolls(
+		uint256 _page,
+		uint256 _perPage
+	) public view returns (PollData[] memory polls_) {
+		uint256 start = (_page - 1) * _perPage + 1;
+		uint256 end = start + _perPage - 1;
+		if (end > totalPolls) {
+			end = totalPolls;
+		}
+
+		polls_ = new PollData[](end - start + 1);
+		for (uint256 i = start; i <= end; i++) {
+			polls_[i - start] = polls[i];
+		}
 	}
 }

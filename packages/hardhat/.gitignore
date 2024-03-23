@@ -17,3 +17,4 @@ cache-zk
 deployments/localhost
 
 zkeys
+coordinatorKeyPair.json

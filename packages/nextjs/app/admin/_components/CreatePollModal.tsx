@@ -41,7 +41,7 @@ export default function Example({ show, setOpen }: { show: boolean; setOpen: (va
   const { writeAsync, data, isLoading } = useScaffoldContractWrite({
     contractName: "PollManager",
     functionName: "createPoll",
-    args: [pollData?.title, pollData?.options || [], "", BigInt(pollData?.options?.length || 0)],
+    args: [pollData?.title, pollData?.options || [], "", 300n],
   });
 
   console.log(data);

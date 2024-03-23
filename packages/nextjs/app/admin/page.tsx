@@ -26,8 +26,8 @@ export default function AdminPage() {
 
   const { data: polls } = useScaffoldContractRead({
     contractName: "PollManager",
-    functionName: "paginatePolls",
-    args: [1n, 10n],
+    functionName: "fetchPolls",
+    args: [1n, 10n, true],
   });
 
   console.log(totalPolls);

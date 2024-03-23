@@ -36,23 +36,39 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     subsidyZkeyPath ? extractVk(subsidyZkeyPath) : null,
   ]).then(vks => vks.map(vk => (vk ? VerifyingKey.fromObj(vk) : null)));
 
-  await vkRegistry.setVerifyingKeys(
+  const messageBatchSize = 5 ** messageBatchDepth;
+  const processVkParam = processVk!.asContractParam() as IVerifyingKeyStruct;
+  const tallyVkParam = tallyVk!.asContractParam() as IVerifyingKeyStruct;
+
+  const hasProcessVk = await vkRegistry.hasProcessVk(
     stateTreeDepth,
-    intStateTreeDepth,
     messageTreeDepth,
     voteOptionTreeDepth,
-    5 ** messageBatchDepth,
-    processVk!.asContractParam() as IVerifyingKeyStruct,
-    tallyVk!.asContractParam() as IVerifyingKeyStruct,
+    messageBatchSize,
   );
-
-  if (subsidyVk)
-    await vkRegistry.setSubsidyKeys(
+  if (!hasProcessVk) {
+    await vkRegistry.setVerifyingKeys(
       stateTreeDepth,
       intStateTreeDepth,
+      messageTreeDepth,
       voteOptionTreeDepth,
-      subsidyVk.asContractParam() as IVerifyingKeyStruct,
+      messageBatchSize,
+      processVkParam,
+      tallyVkParam,
     );
+  }
+
+  if (subsidyVk) {
+    const hasSubsidyVk = await vkRegistry.hasSubsidyVk(stateTreeDepth, intStateTreeDepth, voteOptionTreeDepth);
+    if (!hasSubsidyVk) {
+      await vkRegistry.setSubsidyKeys(
+        stateTreeDepth,
+        intStateTreeDepth,
+        voteOptionTreeDepth,
+        subsidyVk.asContractParam() as IVerifyingKeyStruct,
+      );
+    }
+  }
 };
 
 export default deployContracts;

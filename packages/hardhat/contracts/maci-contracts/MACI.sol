@@ -255,9 +255,9 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 			nextPollId++;
 		}
 
-		if (pollId > 0) {
-			if (!stateAq.treeMerged()) revert PreviousPollNotCompleted(pollId);
-		}
+		// if (pollId > 0) {
+		// 	if (!stateAq.treeMerged()) revert PreviousPollNotCompleted(pollId);
+		// }
 
 		MaxValues memory maxValues = MaxValues({
 			maxMessages: uint256(TREE_ARITY) ** _treeDepths.messageTreeDepth,

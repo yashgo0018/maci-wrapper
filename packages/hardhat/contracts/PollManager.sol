@@ -17,8 +17,8 @@ contract PollManager is Params, DomainObjs {
 		string name;
 		bytes encodedOptions;
 		string ipfsHash;
-		address creator;
 		PollContracts pollContracts;
+		uint256 startTime;
 		uint256 endTime;
 		uint256 numOfOptions;
 		string[] options;
@@ -34,6 +34,20 @@ contract PollManager is Params, DomainObjs {
 	address public verifier;
 	address public vkRegistry;
 	bool public useSubsidy;
+
+	event PollCreated(
+		uint256 indexed pollId,
+		address indexed creator,
+		address indexed poll,
+		string name,
+		string[] options,
+		string ipfsHash,
+		address messageProcessor,
+		address tally,
+		address subsidy,
+		uint256 startTime,
+		uint256 endTime
+	);
 
 	modifier onlyOwner() {
 		require(msg.sender == owner(), "only owner can call this function");
@@ -83,14 +97,17 @@ contract PollManager is Params, DomainObjs {
 		// encode options to bytes for retrieval
 		bytes memory encodedOptions = abi.encode(_options);
 
+		uint256 startTime = block.timestamp;
+		uint256 endTime = block.timestamp + _duration;
+
 		// create poll
 		polls[++totalPolls] = PollData({
 			name: _name,
 			encodedOptions: encodedOptions,
 			numOfOptions: _options.length,
 			ipfsHash: _ipfsHash,
-			creator: msg.sender,
-			endTime: block.timestamp + _duration,
+			startTime: startTime,
+			endTime: endTime,
 			pollContracts: PollContracts({
 				poll: c.poll,
 				messageProcessor: c.messageProcessor,
@@ -99,6 +116,20 @@ contract PollManager is Params, DomainObjs {
 			}),
 			options: _options
 		});
+
+		emit PollCreated(
+			totalPolls,
+			msg.sender,
+			c.poll,
+			_name,
+			_options,
+			_ipfsHash,
+			c.messageProcessor,
+			c.tally,
+			c.subsidy,
+			startTime,
+			endTime
+		);
 	}
 
 	function fetchPolls(
@@ -120,11 +151,11 @@ contract PollManager is Params, DomainObjs {
 
 		uint256 index = 0;
 		for (uint256 i = start; i <= end; i++) {
-			if (_ascending) {
-				polls_[index++] = polls[i];
-			} else {
-				polls_[index++] = polls[totalPolls - i + 1];
+			uint256 pollIndex = i;
+			if (!_ascending) {
+				pollIndex = totalPolls - i + 1;
 			}
+			polls_[index++] = polls[pollIndex];
 		}
 	}
 

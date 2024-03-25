@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import RegisterButton from "./_components/RegisterButton";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
@@ -20,6 +21,9 @@ const Home: NextPage = () => {
           <div className="flex justify-center items-center space-x-2">
             <p className="my-2 font-medium">Connected Address:</p>
             <Address address={connectedAddress} />
+          </div>
+          <div>
+            <RegisterButton />
           </div>
           <p className="text-center text-lg">
             Get started by editing{" "}

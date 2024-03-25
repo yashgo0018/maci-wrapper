@@ -73,6 +73,8 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 	/// balance per user
 	InitialVoiceCreditProxy public immutable initialVoiceCreditProxy;
 
+	mapping(uint256 => mapping(uint256 => bool)) public isPublicKeyRegistered; // pubkey.x => pubkey.y => bool
+
 	/// @notice Poll Manager contract that create polls
 	address public manager;
 
@@ -114,6 +116,7 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 	error PreviousPollNotCompleted(uint256 pollId);
 	error PollDoesNotExist(uint256 pollId);
 	error SignupTemporaryBlocked();
+	error PubKeyAlreadyRegistered();
 
 	/// @notice Create a new instance of the MACI contract.
 	/// @param _pollFactory The PollFactory contract
@@ -184,6 +187,10 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 		bytes memory _signUpGatekeeperData,
 		bytes memory _initialVoiceCreditProxyData
 	) public virtual {
+		// check if the pubkey is already registered
+		if (isPublicKeyRegistered[_pubKey.x][_pubKey.y])
+			revert PubKeyAlreadyRegistered();
+
 		// prevent new signups until we merge the roots (possible DoS)
 		if (subtreesMerged) revert SignupTemporaryBlocked();
 
@@ -220,6 +227,8 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 			StateLeaf(_pubKey, voiceCreditBalance, timestamp)
 		);
 		uint256 stateIndex = stateAq.enqueue(stateLeaf);
+
+		isPublicKeyRegistered[_pubKey.x][_pubKey.y] = true;
 
 		emit SignUp(
 			stateIndex,

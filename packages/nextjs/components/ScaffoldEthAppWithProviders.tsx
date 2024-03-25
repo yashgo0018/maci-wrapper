@@ -9,6 +9,7 @@ import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
 import { BlockieAvatar } from "~~/components/scaffold-eth";
 import { ProgressBar } from "~~/components/scaffold-eth/ProgressBar";
+import AuthContextProvider from "~~/contexts/AuthContext";
 import { useNativeCurrencyPrice } from "~~/hooks/scaffold-eth";
 import { useGlobalState } from "~~/services/store/store";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
@@ -53,7 +54,9 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
         avatar={BlockieAvatar}
         theme={mounted ? (isDarkMode ? darkTheme() : lightTheme()) : lightTheme()}
       >
-        <ScaffoldEthApp>{children}</ScaffoldEthApp>
+        <AuthContextProvider>
+          <ScaffoldEthApp>{children}</ScaffoldEthApp>
+        </AuthContextProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   );

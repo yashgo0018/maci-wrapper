@@ -23,7 +23,7 @@ const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.10",
+    version: "0.8.20",
     settings: {
       optimizer: {
         enabled: true,
@@ -43,10 +43,10 @@ const config: HardhatUserConfig = {
     // View the networks that are pre-configured.
     // If the network you are looking for is not here you can add new network settings
     hardhat: {
-      forking: {
-        url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
-        enabled: process.env.MAINNET_FORKING_ENABLED === "true",
-      },
+      // forking: {
+      //   url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
+      //   enabled: process.env.MAINNET_FORKING_ENABLED === "true",
+      // },
     },
     mainnet: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,

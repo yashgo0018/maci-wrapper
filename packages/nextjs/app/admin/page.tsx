@@ -48,30 +48,38 @@ export default function AdminPage() {
     <div className="container mx-auto pt-10">
       <div className="flex">
         <div className="flex-1 text-2xl">Polls</div>
-        <button className="bg-primary px-3 py-2 rounded-lg" onClick={() => setOpenCreatePollModal(true)}>
+        <button
+          className="border border-slate-600 bg-primary px-3 py-2 rounded-lg font-bold"
+          onClick={() => setOpenCreatePollModal(true)}
+        >
           Create Poll
         </button>
       </div>
+
       {polls && polls.length !== 0 ? (
-        <div>
-          <div className="mb-2">
-            {polls.map((poll: any) => (
-              <div key={poll.id} className="bg-neutral text-neutral-content p-4 mt-4 rounded-lg">
-                <div className="text-xl font-bold">{poll.title}</div>
-                <div className="mt-2">
-                  {poll.options.map((option: string, index: number) => (
-                    <div key={index} className="flex items-center">
-                      <input type="radio" name={poll.title} value={option} />
-                      <label className="ml-2">{option}</label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-          {/** paginator */}
+        <>
+          <table className="border-separate w-full mt-7 mb-4">
+            <thead>
+              <tr className="text-lg font-extralight">
+                <th className="border border-slate-600 bg-primary">Poll Name</th>
+                <th className="border border-slate-600 bg-primary">End Time</th>
+                <th className="border border-slate-600 bg-primary">Start Time</th>
+                <th className="border border-slate-600 bg-primary">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {polls.map((poll: any) => (
+                <tr key={poll.id} className="pt-10 text-center">
+                  <td>{poll.name}</td>
+                  <td>{new Date(Number(poll.startTime) * 1000).toLocaleString()}</td>
+                  <td>{new Date(Number(poll.endTime) * 1000).toLocaleString()}</td>
+                  <td>Poll Open</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
           <Paginator currentPage={currentPage} totalPages={totalPages} setPageNumber={setCurrentPage} />
-        </div>
+        </>
       ) : (
         <div>No polls found</div>
       )}

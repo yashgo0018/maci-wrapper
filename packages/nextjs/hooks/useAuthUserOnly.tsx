@@ -13,7 +13,7 @@ export function useAuthUserOnly({ inverted }: { inverted?: boolean }) {
     if (!inverted && !isRegistered) {
       permanentRedirect("/register");
     }
-  }, [isRegistered]);
+  }, [isRegistered, inverted]);
 
   return;
 }

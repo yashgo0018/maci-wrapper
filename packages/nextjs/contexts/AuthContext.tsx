@@ -24,9 +24,7 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   const { data: isRegistered, refetch: refetchIsRegistered } = useScaffoldContractRead({
     contractName: "MACI",
     functionName: "isPublicKeyRegistered",
-    args: keypair
-      ? [BigInt(keypair.pubKey.asContractParam().x), BigInt(keypair.pubKey.asContractParam().y)]
-      : [undefined, undefined],
+    args: keypair ? keypair.pubKey.rawPubKey : [undefined, undefined],
   });
 
   useScaffoldEventSubscriber({

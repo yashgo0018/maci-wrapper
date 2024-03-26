@@ -38,7 +38,7 @@ export class Message {
    */
   asContractParam = (): IMessageContractParams => ({
     msgType: this.msgType.toString(),
-    data: this.data.map((x: bigint) => x.toString()),
+    data: this.data,
   });
 
   /**

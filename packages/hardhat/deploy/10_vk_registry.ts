@@ -34,7 +34,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     extractVk(processMessagesZkeyPath),
     extractVk(tallyVotesZkeyPath),
     subsidyZkeyPath ? extractVk(subsidyZkeyPath) : null,
-  ]).then(vks => vks.map(vk => (vk ? VerifyingKey.fromObj(vk) : null)));
+  ]).then(vks => vks.map(vk => (vk ? VerifyingKey.fromObj(vk as any) : null)));
 
   const messageBatchSize = 5 ** messageBatchDepth;
   const processVkParam = processVk!.asContractParam() as IVerifyingKeyStruct;

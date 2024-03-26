@@ -4,6 +4,7 @@ import { randomBytes } from "crypto";
 import type { PrivKey } from "./types";
 
 import { SNARK_FIELD_SIZE } from "./constants";
+import { IG1ContractParams, IG2ContractParams } from "../domainobjs";
 
 /**
  * @notice A class representing a point on the first group (G1)
@@ -39,10 +40,10 @@ export class G1Point {
    * Return the point as a contract param in the form of an object
    * @returns the point as a contract param
    */
-  asContractParam(): { x: string; y: string } {
+  asContractParam(): IG1ContractParams {
     return {
-      x: this.x.toString(),
-      y: this.y.toString(),
+      x: this.x,
+      y: this.y,
     };
   }
 }
@@ -83,10 +84,10 @@ export class G2Point {
    * Return the point as a contract param in the form of an object
    * @returns the point as a contract param
    */
-  asContractParam(): { x: string[]; y: string[] } {
+  asContractParam(): IG2ContractParams {
     return {
-      x: this.x.map(n => n.toString()),
-      y: this.y.map(n => n.toString()),
+      x: this.x,
+      y: this.y,
     };
   }
 

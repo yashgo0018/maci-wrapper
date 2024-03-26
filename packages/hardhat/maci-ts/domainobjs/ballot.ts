@@ -111,9 +111,9 @@ export class Ballot {
    */
   toJSON(): IJsonBallot {
     return {
-      votes: this.votes.map(x => x.toString()),
-      nonce: this.nonce.toString(),
-      voteOptionTreeDepth: this.voteOptionTreeDepth.toString(),
+      votes: this.votes,
+      nonce: this.nonce,
+      voteOptionTreeDepth: this.voteOptionTreeDepth,
     };
   }
 

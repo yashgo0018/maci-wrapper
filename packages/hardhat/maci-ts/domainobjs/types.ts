@@ -40,7 +40,7 @@ export interface IJsonStateLeaf {
   timestamp: string;
 }
 
-export type BigNumberish = number | string | bigint;
+export type BigNumberish = bigint;
 
 export interface IG1ContractParams {
   x: BigNumberish;
@@ -86,5 +86,5 @@ export interface IMessageContractParams {
 export interface IJsonBallot {
   votes: BigNumberish[];
   nonce: BigNumberish;
-  voteOptionTreeDepth: BigNumberish;
+  voteOptionTreeDepth: number;
 }

@@ -97,8 +97,8 @@ export class StateLeaf implements IStateLeaf {
   asContractParam(): IStateLeafContractParams {
     return {
       pubKey: this.pubKey.asContractParam(),
-      voiceCreditBalance: this.voiceCreditBalance.toString(),
-      timestamp: this.timestamp.toString(),
+      voiceCreditBalance: this.voiceCreditBalance,
+      timestamp: this.timestamp,
     };
   }
 

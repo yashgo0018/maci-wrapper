@@ -1,6 +1,6 @@
 "use client";
 
-import { Keypair, PrivKey, PubKey } from "@se-2/hardhat/maci-ts/domainobjs";
+import { Keypair, PrivKey } from "@se-2/hardhat/maci-ts/domainobjs";
 import { decodeAbiParameters } from "viem";
 
 export function fetchOrCreateUserKeyPair(address?: string) {
@@ -25,10 +25,4 @@ export function fetchOrCreateUserKeyPair(address?: string) {
 
 export function decodeOptions(encodedData: `0x${string}`) {
   return decodeAbiParameters([{ type: "string[]" }], encodedData)[0];
-}
-
-export function keyToParam(key?: PubKey): { x: bigint; y: bigint } | undefined {
-  if (!key) return undefined;
-  const p = key.asContractParam();
-  return { x: BigInt(p.x), y: BigInt(p.y) };
 }

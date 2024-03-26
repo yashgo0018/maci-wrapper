@@ -6,14 +6,17 @@ import CreatePollModal from "./_components/CreatePollModal";
 import { useAccount } from "wagmi";
 import Paginator from "~~/components/Paginator";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { useFetchPolls } from "~~/hooks/useFetchPolls";
+import { useTotalPages } from "~~/hooks/useTotalPages";
 
 export default function AdminPage() {
   const { address } = useAccount();
   const [openCreatePollModal, setOpenCreatePollModal] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-
   const { data: admin } = useScaffoldContractRead({ contractName: "MACI", functionName: "owner" });
+  const [limit] = useState(10);
+  const { totalPolls, polls } = useFetchPolls(currentPage, limit);
+  const totalPages = useTotalPages(totalPolls, limit);
 
   useEffect(() => {
     if (!admin || !address) return;
@@ -21,28 +24,6 @@ export default function AdminPage() {
       redirect("/");
     }
   }, [address, admin]);
-
-  const { data: totalPolls } = useScaffoldContractRead({
-    contractName: "PollManager",
-    functionName: "totalPolls",
-  });
-
-  const { data: polls } = useScaffoldContractRead({
-    contractName: "PollManager",
-    functionName: "fetchPolls",
-    args: [BigInt(currentPage), 10n, true],
-  });
-
-  useEffect(() => {
-    if (!totalPolls) {
-      setTotalPages(0);
-      return;
-    }
-    setTotalPages(Math.ceil(Number(totalPolls) / 10));
-  }, [totalPolls]);
-
-  console.log(totalPolls);
-  console.log(polls);
 
   return (
     <div className="container mx-auto pt-10">

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { permanentRedirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useAuthContext } from "~~/contexts/AuthContext";
 
 export function useAuthUserOnly({ inverted }: { inverted?: boolean }) {
@@ -7,11 +7,11 @@ export function useAuthUserOnly({ inverted }: { inverted?: boolean }) {
 
   useEffect(() => {
     if (inverted && isRegistered) {
-      permanentRedirect("/");
+      redirect("/polls");
     }
 
     if (!inverted && !isRegistered) {
-      permanentRedirect("/register");
+      redirect("/");
     }
   }, [isRegistered, inverted]);
 

@@ -59,7 +59,9 @@ export default function AdminPage() {
               ))}
             </tbody>
           </table>
-          <Paginator currentPage={currentPage} totalPages={totalPages} setPageNumber={setCurrentPage} />
+          {totalPages > 1 && (
+            <Paginator currentPage={currentPage} totalPages={totalPages} setPageNumber={setCurrentPage} />
+          )}
         </>
       ) : (
         <div>No polls found</div>

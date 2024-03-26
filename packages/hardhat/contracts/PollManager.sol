@@ -14,6 +14,7 @@ contract PollManager is Params, DomainObjs {
 	}
 
 	struct PollData {
+		uint256 id;
 		string name;
 		bytes encodedOptions;
 		string ipfsHash;
@@ -25,6 +26,7 @@ contract PollManager is Params, DomainObjs {
 	}
 
 	mapping(uint256 => PollData) internal polls;
+	mapping(address => uint256) public pollIdByAddress; // poll address => poll id
 	uint256 public totalPolls;
 
 	MACI public maci;
@@ -38,13 +40,10 @@ contract PollManager is Params, DomainObjs {
 	event PollCreated(
 		uint256 indexed pollId,
 		address indexed creator,
-		address indexed poll,
+		PollContracts pollContracts,
 		string name,
 		string[] options,
 		string ipfsHash,
-		address messageProcessor,
-		address tally,
-		address subsidy,
 		uint256 startTime,
 		uint256 endTime
 	);
@@ -97,37 +96,39 @@ contract PollManager is Params, DomainObjs {
 		// encode options to bytes for retrieval
 		bytes memory encodedOptions = abi.encode(_options);
 
-		uint256 startTime = block.timestamp;
 		uint256 endTime = block.timestamp + _duration;
+		uint256 pollId = ++totalPolls;
+
+		PollContracts memory pollContracts = PollContracts({
+			poll: c.poll,
+			messageProcessor: c.messageProcessor,
+			tally: c.tally,
+			subsidy: c.subsidy
+		});
+
+		pollIdByAddress[c.poll] = pollId;
 
 		// create poll
-		polls[++totalPolls] = PollData({
+		polls[pollId] = PollData({
+			id: pollId,
 			name: _name,
 			encodedOptions: encodedOptions,
 			numOfOptions: _options.length,
 			ipfsHash: _ipfsHash,
-			startTime: startTime,
+			startTime: block.timestamp,
 			endTime: endTime,
-			pollContracts: PollContracts({
-				poll: c.poll,
-				messageProcessor: c.messageProcessor,
-				tally: c.tally,
-				subsidy: c.subsidy
-			}),
+			pollContracts: pollContracts,
 			options: _options
 		});
 
 		emit PollCreated(
-			totalPolls,
+			pollId,
 			msg.sender,
-			c.poll,
+			pollContracts,
 			_name,
 			_options,
 			_ipfsHash,
-			c.messageProcessor,
-			c.tally,
-			c.subsidy,
-			startTime,
+			block.timestamp,
 			endTime
 		);
 	}

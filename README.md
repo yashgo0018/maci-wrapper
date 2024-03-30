@@ -1,25 +1,18 @@
-# 🏗 Scaffold-ETH 2
+# Scaffold ETH 2 + MACI Voting Template
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+Welcome to the Scaffold ETH 2 + MACI Voting Template! This template is a powerful starting point for developers aiming to build decentralized voting applications that prioritize privacy and resist collusion. Combining the rapid development environment of Scaffold ETH with the innovative Minimal Anti-Collusion Infrastructure (MACI), this template offers a robust foundation for creating secure and transparent voting systems on the Ethereum blockchain.
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+## Features
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
-
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
-
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+- **Voter Registration**: Secure registration process through the MACI contract, enabling eligible voting.
+- **Poll Management**: Admins can easily create and manage polls, including question and options setup.
+- **Secure Voting**: Leverage MACI's privacy-preserving technology to ensure votes are cast anonymously and securely.
+- **Results Display**: Transparent display of poll results after the voting phase concludes.
+- **Admin Dashboard**: Comprehensive admin interface for poll oversight, including current status and results analytics.
 
 ## Requirements
 
-Before you begin, you need to install the following tools:
+Ensure you have the following tools installed before you proceed:
 
 - [Node (>= v18.17)](https://nodejs.org/en/download/)
 - Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
@@ -27,54 +20,60 @@ Before you begin, you need to install the following tools:
 
 ## Quickstart
 
-To get started with Scaffold-ETH 2, follow the steps below:
+Jumpstart your development with these simple steps:
 
-1. Clone this repo & install dependencies
+1. **Clone and Set Up the Project**
 
-```
+```bash
 git clone https://github.com/scaffold-eth/scaffold-eth-2.git
 cd scaffold-eth-2
 yarn install
 ```
 
-2. Run a local network in the first terminal:
+2. **Start a Local Ethereum Network**
 
-```
+In your first terminal window, run:
+
+```bash
 yarn chain
 ```
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
+This initiates a local Ethereum network via Hardhat for development and testing purposes. Adjust the network settings in `hardhat.config.ts` as needed.
 
-3. On a second terminal, deploy the test contract:
+3. **Deploy Contracts**
 
-```
+In a second terminal, deploy your test contract with:
+
+```bash
 yarn deploy
 ```
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
+Find the contract in `packages/hardhat/contracts`. This script deploys your contract to the local network, with customization available in `packages/hardhat/deploy`.
 
-4. On a third terminal, start your NextJS app:
+4. **Launch the NextJS Application**
 
-```
+In a third terminal, start the NextJS frontend:
+
+```bash
 yarn start
 ```
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+Navigate to `http://localhost:3000` to interact with your dApp. Modify your app configuration in `packages/nextjs/scaffold.config.ts` as necessary.
 
-Run smart contract test with `yarn hardhat:test`
+## Usage
 
-- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend in `packages/nextjs/pages`
-- Edit your deployment scripts in `packages/hardhat/deploy`
+After setting up the project, you can:
 
-## Documentation
+- **Register**: Use the app's interface to register with the MACI contract and gain voting rights.
+- **Create Polls**: As an admin, you can create polls with custom questions and options.
+- **Vote**: Registered voters can participate in polls, utilizing MACI's secure voting mechanism.
+- **View Results**: Access poll outcomes after the voting phase ends.
+- **Admin Dashboard**: Monitor and manage ongoing polls, including viewing detailed poll status.
 
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
+## Contributing
 
-To know more about its features, check out our [website](https://scaffoldeth.io).
+Your contributions are welcome! Feel free to report issues, submit fixes, or suggest new features to enhance the project.
 
-## Contributing to Scaffold-ETH 2
+## License
 
-We welcome contributions to Scaffold-ETH 2!
-
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+This project is licensed under the [MIT License](LICENSE).

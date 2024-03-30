@@ -1,6 +1,7 @@
 import { type ContractFactory, type Signer, BaseContract } from "ethers";
 
 import type { IDeployMaciArgs, IDeployedMaci, IDeployedPoseidonContracts } from "./types";
+import hre from "hardhat";
 
 import {
   AccQueueQuinaryMaci,
@@ -52,9 +53,8 @@ export const linkPoseidonLibraries = async (
   quiet = false,
 ): Promise<ContractFactory> => {
   log(`Linking Poseidon libraries to ${solFileToLink}`, quiet);
-  const { ethers } = await import("hardhat");
 
-  const contractFactory = await ethers.getContractFactory(solFileToLink, {
+  const contractFactory = await hre.ethers.getContractFactory(solFileToLink, {
     signer: signer || (await getDefaultSigner()),
     libraries: {
       PoseidonT3: poseidonT3Address,
@@ -81,9 +81,8 @@ export const deployContract = async <T extends BaseContract>(
   ...args: unknown[]
 ): Promise<T> => {
   log(`Deploying ${contractName}`, quiet);
-  const { ethers } = await import("hardhat");
 
-  const contractFactory = await ethers.getContractFactory(contractName, signer || (await getDefaultSigner()));
+  const contractFactory = await hre.ethers.getContractFactory(contractName, signer || (await getDefaultSigner()));
   const feeData = await getFeeData();
   const contract = await contractFactory.deploy(...args, {
     maxFeePerGas: feeData?.maxFeePerGas,

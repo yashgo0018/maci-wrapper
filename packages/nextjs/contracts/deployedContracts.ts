@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     ConstantInitialVoiceCreditProxy: {
-      address: "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi: [
         {
           inputs: [
@@ -48,9 +48,10 @@ const deployedContracts = {
       inheritedFunctions: {
         getVoiceCredits: "contracts/maci-contracts/initialVoiceCreditProxy/InitialVoiceCreditProxy.sol",
       },
+      deploymentBlockNumber: 1,
     },
     FreeForAllGatekeeper: {
-      address: "0x59b670e9fA9D0A427751Af201D676719a970857b",
+      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
       abi: [
         {
           inputs: [],
@@ -90,9 +91,10 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {},
+      deploymentBlockNumber: 3,
     },
     MACI: {
-      address: "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+      address: "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
       abi: [
         {
           inputs: [
@@ -1082,9 +1084,10 @@ const deployedContracts = {
         renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
         transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
       },
+      deploymentBlockNumber: 25,
     },
     MessageProcessorFactory: {
-      address: "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
+      address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
       abi: [
         {
           inputs: [],
@@ -1137,9 +1140,10 @@ const deployedContracts = {
       inheritedFunctions: {
         MESSAGE_DATA_LENGTH: "contracts/maci-contracts/utilities/DomainObjs.sol",
       },
+      deploymentBlockNumber: 19,
     },
     PollFactory: {
-      address: "0xc5a5C42992dECbae36851359345FE25997F5C42d",
+      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
       abi: [
         {
           inputs: [],
@@ -1264,9 +1268,10 @@ const deployedContracts = {
         MESSAGE_DATA_LENGTH: "contracts/maci-contracts/utilities/DomainObjs.sol",
         deploy: "contracts/maci-contracts/interfaces/IPollFactory.sol",
       },
+      deploymentBlockNumber: 17,
     },
     PollManager: {
-      address: "0x851356ae760d987E095750cCeb3bC6014560891C",
+      address: "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
       abi: [
         {
           inputs: [
@@ -1797,9 +1802,10 @@ const deployedContracts = {
       inheritedFunctions: {
         MESSAGE_DATA_LENGTH: "contracts/maci-contracts/utilities/DomainObjs.sol",
       },
+      deploymentBlockNumber: 31,
     },
     PoseidonT3: {
-      address: "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f",
+      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
       abi: [
         {
           inputs: [
@@ -1822,9 +1828,10 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {},
+      deploymentBlockNumber: 9,
     },
     PoseidonT4: {
-      address: "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
       abi: [
         {
           inputs: [
@@ -1847,9 +1854,10 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {},
+      deploymentBlockNumber: 11,
     },
     PoseidonT5: {
-      address: "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
       abi: [
         {
           inputs: [
@@ -1872,9 +1880,10 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {},
+      deploymentBlockNumber: 13,
     },
     PoseidonT6: {
-      address: "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
+      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
       abi: [
         {
           inputs: [
@@ -1897,9 +1906,10 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {},
+      deploymentBlockNumber: 15,
     },
     SubsidyFactory: {
-      address: "0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690",
+      address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
       abi: [
         {
           inputs: [
@@ -1944,9 +1954,10 @@ const deployedContracts = {
       inheritedFunctions: {
         deploy: "contracts/maci-contracts/interfaces/ITallySubsidyFactory.sol",
       },
+      deploymentBlockNumber: 23,
     },
     TallyFactory: {
-      address: "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
+      address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
       abi: [
         {
           inputs: [
@@ -1991,9 +2002,10 @@ const deployedContracts = {
       inheritedFunctions: {
         deploy: "contracts/maci-contracts/interfaces/ITallySubsidyFactory.sol",
       },
+      deploymentBlockNumber: 21,
     },
     TopupCredit: {
-      address: "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       abi: [
         {
           inputs: [],
@@ -2401,9 +2413,10 @@ const deployedContracts = {
         renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
         transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
       },
+      deploymentBlockNumber: 7,
     },
     Verifier: {
-      address: "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
+      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
       abi: [
         {
           inputs: [],
@@ -2563,9 +2576,10 @@ const deployedContracts = {
       inheritedFunctions: {
         verify: "contracts/maci-contracts/interfaces/IVerifier.sol",
       },
+      deploymentBlockNumber: 5,
     },
     VkRegistry: {
-      address: "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
+      address: "0x9A676e781A523b5d0C0e43731313A708CB607508",
       abi: [
         {
           inputs: [],
@@ -3946,6 +3960,7 @@ const deployedContracts = {
         getSubsidyVk: "contracts/maci-contracts/interfaces/IVkRegistry.sol",
         getTallyVk: "contracts/maci-contracts/interfaces/IVkRegistry.sol",
       },
+      deploymentBlockNumber: 28,
     },
   },
 } as const;

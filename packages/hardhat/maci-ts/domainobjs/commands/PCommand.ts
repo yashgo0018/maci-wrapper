@@ -166,7 +166,10 @@ export class PCommand implements ICommand {
 
     const ciphertext: Ciphertext = poseidonEncrypt(plaintext, sharedKey, BigInt(0));
 
-    const message = new Message(BigInt(1), ciphertext as bigint[]);
+    const message = new Message(
+      BigInt(1),
+      ciphertext as [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint],
+    );
 
     return message;
   };
@@ -181,8 +184,8 @@ export class PCommand implements ICommand {
    */
   static decrypt = (message: Message, sharedKey: EcdhSharedKey, force = false): IDecryptMessage => {
     const decrypted = force
-      ? poseidonDecryptWithoutCheck(message.data, sharedKey, BigInt(0), 7)
-      : poseidonDecrypt(message.data, sharedKey, BigInt(0), 7);
+      ? poseidonDecryptWithoutCheck(message.data as unknown as bigint[], sharedKey, BigInt(0), 7)
+      : poseidonDecrypt(message.data as unknown as bigint[], sharedKey, BigInt(0), 7);
 
     const p = BigInt(decrypted[0].toString());
 

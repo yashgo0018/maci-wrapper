@@ -3,6 +3,7 @@ import { DeployFunction } from "hardhat-deploy/types";
 import { MACI, PollManager, Verifier, VkRegistry } from "../typechain-types";
 import fs from "fs";
 import { Keypair } from "../maci-ts/domainobjs";
+import { useQuadraticVoting } from "../constants";
 
 function fetchOrCreateKeyPair(filePath: string) {
   let keypair: Keypair | null = null;
@@ -26,7 +27,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
 
   await hre.deployments.deploy("PollManager", {
     from: deployer,
-    args: [await maci.getAddress()],
+    args: [await maci.getAddress(), useQuadraticVoting],
     log: true,
     autoMine: true,
   });

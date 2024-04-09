@@ -1,7 +1,7 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { type WitnessTester } from "circomkit";
-import { Keypair } from "../domainobjs";
+import { Keypair } from "../../domainobjs";
 
 import { circomkitInstance } from "./utils/utils";
 

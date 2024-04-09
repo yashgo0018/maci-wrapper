@@ -174,7 +174,6 @@ export const genMaciStateFromContract = async (
   };
   const batchSizes = {
     tallyBatchSize: STATE_TREE_ARITY ** Number(onChainTreeDepths.intStateTreeDepth),
-    subsidyBatchSize: STATE_TREE_ARITY ** Number(onChainTreeDepths.intStateTreeDepth),
     messageBatchSize: STATE_TREE_ARITY ** Number(onChainTreeDepths.messageTreeSubDepth),
   };
 
@@ -229,7 +228,18 @@ export const genMaciStateFromContract = async (
     const message = new Message(
       BigInt(event.args._message[0]),
 
-      event.args._message[1].map(x => BigInt(x)),
+      event.args._message[1].map(x => BigInt(x)) as [
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+      ],
     );
 
     const encPubKey = new PubKey(event.args._encPubKey.map(x => BigInt(x.toString())) as [bigint, bigint]);
@@ -253,7 +263,18 @@ export const genMaciStateFromContract = async (
     };
     const message = new Message(
       BigInt(event.args._message[0]),
-      event.args._message[1].map(x => BigInt(x)),
+      event.args._message[1].map(x => BigInt(x)) as [
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+      ],
     );
 
     actions.push({

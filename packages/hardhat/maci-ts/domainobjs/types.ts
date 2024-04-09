@@ -79,12 +79,12 @@ export interface IStateLeafContractParams {
 }
 
 export interface IMessageContractParams {
-  msgType: string;
-  data: BigNumberish[];
+  msgType: BigNumberish;
+  data: [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint];
 }
 
 export interface IJsonBallot {
-  votes: BigNumberish[];
-  nonce: BigNumberish;
+  votes: string[];
+  nonce: string;
   voteOptionTreeDepth: number;
 }

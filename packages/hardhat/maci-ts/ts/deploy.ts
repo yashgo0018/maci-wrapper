@@ -1,7 +1,6 @@
 import { type ContractFactory, type Signer, BaseContract } from "ethers";
 
 import type { IDeployMaciArgs, IDeployedMaci, IDeployedPoseidonContracts } from "./types";
-import hre from "hardhat";
 
 import {
   AccQueueQuinaryMaci,
@@ -15,7 +14,6 @@ import {
   MockVerifier,
   PollFactory,
   MessageProcessorFactory,
-  SubsidyFactory,
   TallyFactory,
   PoseidonT3,
   PoseidonT4,
@@ -26,7 +24,6 @@ import {
   TopupCredit,
   Verifier,
   VkRegistry,
-  TallyNonQvFactory,
 } from "../../typechain-types";
 
 import { parseArtifact } from "./abi";
@@ -53,8 +50,9 @@ export const linkPoseidonLibraries = async (
   quiet = false,
 ): Promise<ContractFactory> => {
   log(`Linking Poseidon libraries to ${solFileToLink}`, quiet);
+  const { ethers } = await import("hardhat");
 
-  const contractFactory = await hre.ethers.getContractFactory(solFileToLink, {
+  const contractFactory = await ethers.getContractFactory(solFileToLink, {
     signer: signer || (await getDefaultSigner()),
     libraries: {
       PoseidonT3: poseidonT3Address,
@@ -81,8 +79,9 @@ export const deployContract = async <T extends BaseContract>(
   ...args: unknown[]
 ): Promise<T> => {
   log(`Deploying ${contractName}`, quiet);
+  const { ethers } = await import("hardhat");
 
-  const contractFactory = await hre.ethers.getContractFactory(contractName, signer || (await getDefaultSigner()));
+  const contractFactory = await ethers.getContractFactory(contractName, signer || (await getDefaultSigner()));
   const feeData = await getFeeData();
   const contract = await contractFactory.deploy(...args, {
     maxFeePerGas: feeData?.maxFeePerGas,
@@ -264,7 +263,6 @@ export const deployMaci = async ({
   signer,
   poseidonAddresses,
   stateTreeDepth = 10,
-  useQv = true,
   quiet = true,
 }: IDeployMaciArgs): Promise<IDeployedMaci> => {
   const { PoseidonT3Contract, PoseidonT4Contract, PoseidonT5Contract, PoseidonT6Contract } =
@@ -282,14 +280,7 @@ export const deployMaci = async ({
     poseidonT6,
   }));
 
-  const contractsToLink = [
-    "MACI",
-    "PollFactory",
-    "MessageProcessorFactory",
-    "TallyFactory",
-    "TallyNonQvFactory",
-    "SubsidyFactory",
-  ];
+  const contractsToLink = ["MACI", "PollFactory", "MessageProcessorFactory", "TallyFactory"];
 
   // Link Poseidon contracts to MACI
   const linkedContractFactories = await Promise.all(
@@ -306,14 +297,9 @@ export const deployMaci = async ({
     ),
   );
 
-  const [
-    maciContractFactory,
-    pollFactoryContractFactory,
-    messageProcessorFactory,
-    tallyFactory,
-    tallyFactoryNonQv,
-    subsidyFactory,
-  ] = await Promise.all(linkedContractFactories);
+  const [maciContractFactory, pollFactoryContractFactory, messageProcessorFactory, tallyFactory] = await Promise.all(
+    linkedContractFactories,
+  );
 
   const pollFactoryContract = await deployContractWithLinkedLibraries<PollFactory>(
     pollFactoryContractFactory,
@@ -329,21 +315,16 @@ export const deployMaci = async ({
 
   // deploy either the qv or non qv tally factory - they both implement the same interface
   // so as long as maci is concerned, they are interchangeable
-  const tallyFactoryContract = useQv
-    ? await deployContractWithLinkedLibraries<TallyFactory>(tallyFactory, "TallyFactory", quiet)
-    : await deployContractWithLinkedLibraries<TallyNonQvFactory>(tallyFactoryNonQv, "TallyNonQvFactory", quiet);
-
-  const subsidyFactoryContract = await deployContractWithLinkedLibraries<SubsidyFactory>(
-    subsidyFactory,
-    "SubsidyFactory",
+  const tallyFactoryContract = await deployContractWithLinkedLibraries<TallyFactory>(
+    tallyFactory,
+    "TallyFactory",
     quiet,
   );
 
-  const [pollAddr, mpAddr, tallyAddr, subsidyAddr] = await Promise.all([
+  const [pollAddr, mpAddr, tallyAddr] = await Promise.all([
     pollFactoryContract.getAddress(),
     messageProcessorFactoryContract.getAddress(),
     tallyFactoryContract.getAddress(),
-    subsidyFactoryContract.getAddress(),
   ]);
 
   const maciContract = await deployContractWithLinkedLibraries<MACI>(
@@ -353,7 +334,6 @@ export const deployMaci = async ({
     pollAddr,
     mpAddr,
     tallyAddr,
-    subsidyAddr,
     signUpTokenGatekeeperContractAddress,
     initialVoiceCreditBalanceAddress,
     topupCreditContractAddress,

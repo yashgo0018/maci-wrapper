@@ -15,10 +15,11 @@ contract PollManager is Params, DomainObjs {
 
 	struct PollData {
 		uint256 id;
+		uint256 maciPollId;
 		string name;
 		bytes encodedOptions;
 		string ipfsHash;
-		PollContracts pollContracts;
+		MACI.PollContracts pollContracts;
 		uint256 startTime;
 		uint256 endTime;
 		uint256 numOfOptions;
@@ -36,11 +37,13 @@ contract PollManager is Params, DomainObjs {
 	address public verifier;
 	address public vkRegistry;
 	bool public useSubsidy;
+	bool public isQv;
 
 	event PollCreated(
 		uint256 indexed pollId,
+		uint256 indexed maciPollId,
 		address indexed creator,
-		PollContracts pollContracts,
+		MACI.PollContracts pollContracts,
 		string name,
 		string[] options,
 		string ipfsHash,
@@ -53,8 +56,9 @@ contract PollManager is Params, DomainObjs {
 		_;
 	}
 
-	constructor(MACI _maci) {
+	constructor(MACI _maci, bool _isQv) {
 		maci = _maci;
+		isQv = _isQv;
 	}
 
 	function owner() public view returns (address) {
@@ -84,13 +88,13 @@ contract PollManager is Params, DomainObjs {
 		// TODO: check if the number of options are more than limit
 
 		// deploy the poll contracts
-		MACI.PollContracts memory c = maci.deployPoll(
+		MACI.PollContracts memory pollContracts = maci.deployPoll(
 			_duration,
 			treeDepths,
 			coordinatorPubKey,
 			verifier,
 			vkRegistry,
-			useSubsidy
+			isQv
 		);
 
 		// encode options to bytes for retrieval
@@ -99,18 +103,13 @@ contract PollManager is Params, DomainObjs {
 		uint256 endTime = block.timestamp + _duration;
 		uint256 pollId = ++totalPolls;
 
-		PollContracts memory pollContracts = PollContracts({
-			poll: c.poll,
-			messageProcessor: c.messageProcessor,
-			tally: c.tally,
-			subsidy: c.subsidy
-		});
-
-		pollIdByAddress[c.poll] = pollId;
+		pollIdByAddress[pollContracts.poll] = pollId;
+		uint256 maciPollId = maci.getPollId(pollContracts.poll);
 
 		// create poll
 		polls[pollId] = PollData({
 			id: pollId,
+			maciPollId: maciPollId,
 			name: _name,
 			encodedOptions: encodedOptions,
 			numOfOptions: _options.length,
@@ -123,6 +122,7 @@ contract PollManager is Params, DomainObjs {
 
 		emit PollCreated(
 			pollId,
+			maciPollId,
 			msg.sender,
 			pollContracts,
 			_name,

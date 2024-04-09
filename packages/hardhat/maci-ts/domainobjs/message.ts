@@ -11,7 +11,7 @@ import type { IMessageContractParams } from "./types";
 export class Message {
   msgType: bigint;
 
-  data: bigint[];
+  data: [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint];
 
   static DATA_LENGTH = 10;
 
@@ -20,7 +20,7 @@ export class Message {
    * @param msgType the type of the message
    * @param data the data of the message
    */
-  constructor(msgType: bigint, data: bigint[]) {
+  constructor(msgType: bigint, data: [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint]) {
     assert(data.length === Message.DATA_LENGTH);
     this.msgType = msgType;
     this.data = data;
@@ -37,8 +37,8 @@ export class Message {
    * @returns the message as a contract param
    */
   asContractParam = (): IMessageContractParams => ({
-    msgType: this.msgType.toString(),
-    data: this.data,
+    msgType: this.msgType,
+    data: this.data as [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint],
   });
 
   /**
@@ -61,7 +61,18 @@ export class Message {
   copy = (): Message =>
     new Message(
       BigInt(this.msgType.toString()),
-      this.data.map((x: bigint) => BigInt(x.toString())),
+      this.data.map((x: bigint) => BigInt(x.toString())) as [
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+      ],
     );
 
   /**
@@ -95,7 +106,7 @@ export class Message {
   static fromJSON(json: IMessageContractParams): Message {
     return new Message(
       BigInt(json.msgType),
-      json.data.map(x => BigInt(x)),
+      json.data.map(x => BigInt(x)) as [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint],
     );
   }
 }

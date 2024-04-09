@@ -3,7 +3,7 @@ pragma solidity ^0.8.10;
 
 import { IPollFactory } from "./interfaces/IPollFactory.sol";
 import { IMessageProcessorFactory } from "./interfaces/IMPFactory.sol";
-import { ITallySubsidyFactory } from "./interfaces/ITallySubsidyFactory.sol";
+import { ITallyFactory } from "./interfaces/ITallyFactory.sol";
 import { InitialVoiceCreditProxy } from "./initialVoiceCreditProxy/InitialVoiceCreditProxy.sol";
 import { SignUpGatekeeper } from "./gatekeepers/SignUpGatekeeper.sol";
 import { AccQueue } from "./trees/AccQueue.sol";
@@ -39,6 +39,7 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 
 	/// @notice A mapping of poll IDs to Poll contracts.
 	mapping(uint256 => address) public polls;
+	mapping(address => uint256) public pollIds;
 
 	/// @notice Whether the subtrees have been merged (can merge root before new signup)
 	bool public subtreesMerged;
@@ -56,10 +57,7 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 	IMessageProcessorFactory public immutable messageProcessorFactory;
 
 	/// @notice Factory contract that deploy a Tally contract
-	ITallySubsidyFactory public immutable tallyFactory;
-
-	/// @notice Factory contract that deploy a Subsidy contract
-	ITallySubsidyFactory public immutable subsidyFactory;
+	ITallyFactory public immutable tallyFactory;
 
 	/// @notice The state AccQueue. Represents a mapping between each user's public key
 	/// and their voice credit balance.
@@ -83,7 +81,6 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 		address poll;
 		address messageProcessor;
 		address tally;
-		address subsidy;
 	}
 
 	// Events
@@ -115,6 +112,7 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 	error MaciPubKeyLargerThanSnarkFieldSize();
 	error PreviousPollNotCompleted(uint256 pollId);
 	error PollDoesNotExist(uint256 pollId);
+	error PollAddressDoesNotExist(address pollAddr);
 	error SignupTemporaryBlocked();
 	error PubKeyAlreadyRegistered();
 
@@ -122,7 +120,6 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 	/// @param _pollFactory The PollFactory contract
 	/// @param _messageProcessorFactory The MessageProcessorFactory contract
 	/// @param _tallyFactory The TallyFactory contract
-	/// @param _subsidyFactory The SubsidyFactory contract
 	/// @param _signUpGatekeeper The SignUpGatekeeper contract
 	/// @param _initialVoiceCreditProxy The InitialVoiceCreditProxy contract
 	/// @param _topupCredit The TopupCredit contract
@@ -130,8 +127,7 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 	constructor(
 		IPollFactory _pollFactory,
 		IMessageProcessorFactory _messageProcessorFactory,
-		ITallySubsidyFactory _tallyFactory,
-		ITallySubsidyFactory _subsidyFactory,
+		ITallyFactory _tallyFactory,
 		SignUpGatekeeper _signUpGatekeeper,
 		InitialVoiceCreditProxy _initialVoiceCreditProxy,
 		TopupCredit _topupCredit,
@@ -150,7 +146,6 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 		pollFactory = _pollFactory;
 		messageProcessorFactory = _messageProcessorFactory;
 		tallyFactory = _tallyFactory;
-		subsidyFactory = _subsidyFactory;
 		topupCredit = _topupCredit;
 		signUpGatekeeper = _signUpGatekeeper;
 		initialVoiceCreditProxy = _initialVoiceCreditProxy;
@@ -245,7 +240,7 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 	/// @param _coordinatorPubKey The coordinator's public key
 	/// @param _verifier The Verifier Contract
 	/// @param _vkRegistry The VkRegistry Contract
-	/// @param useSubsidy If true, the Poll will use the Subsidy contract
+	/// @param _isQv Whether to support QV or not
 	/// @return pollAddr a new Poll contract address
 	function deployPoll(
 		uint256 _duration,
@@ -253,8 +248,8 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 		PubKey memory _coordinatorPubKey,
 		address _verifier,
 		address _vkRegistry,
-		bool useSubsidy
-	) public virtual onlyManager returns (PollContracts memory pollAddr) {
+		bool _isQv
+	) public virtual onlyOwner returns (PollContracts memory pollAddr) {
 		// cache the poll to a local variable so we can increment it
 		uint256 pollId = nextPollId;
 
@@ -290,35 +285,26 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 			_verifier,
 			_vkRegistry,
 			p,
-			_owner
+			_owner,
+			_isQv
 		);
 		address tally = tallyFactory.deploy(
 			_verifier,
 			_vkRegistry,
 			p,
 			mp,
-			_owner
+			_owner,
+			_isQv
 		);
 
-		address subsidy;
-		if (useSubsidy) {
-			subsidy = subsidyFactory.deploy(
-				_verifier,
-				_vkRegistry,
-				p,
-				mp,
-				_owner
-			);
-		}
-
 		polls[pollId] = p;
+		pollIds[p] = pollId;
 
 		// store the addresses in a struct so they can be returned
 		pollAddr = PollContracts({
 			poll: p,
 			messageProcessor: mp,
-			tally: tally,
-			subsidy: subsidy
+			tally: tally
 		});
 
 		emit DeployPoll(
@@ -363,5 +349,10 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 	function getPoll(uint256 _pollId) public view returns (address poll) {
 		if (_pollId >= nextPollId) revert PollDoesNotExist(_pollId);
 		poll = polls[_pollId];
+	}
+
+	function getPollId(address _poll) public view returns (uint256 pollId) {
+		if (pollIds[_poll] >= nextPollId) revert PollAddressDoesNotExist(_poll);
+		pollId = pollIds[_poll];
 	}
 }

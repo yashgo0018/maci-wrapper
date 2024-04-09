@@ -4,9 +4,10 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAccount } from "wagmi";
 import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
-import { useOutsideClick } from "~~/hooks/scaffold-eth";
+import { useOutsideClick, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 type HeaderMenuLink = {
   label: string;
@@ -26,12 +27,21 @@ export const menuLinks: HeaderMenuLink[] = [
   },
 ];
 
+const adminPageLink: HeaderMenuLink = {
+  label: "Admin",
+  href: "/admin",
+};
+
 export const HeaderMenuLinks = () => {
   const pathname = usePathname();
 
+  const { address } = useAccount();
+
+  const { data: owner } = useScaffoldContractRead({ contractName: "MACI", functionName: "owner" });
+
   return (
     <>
-      {menuLinks.map(({ label, href, icon }) => {
+      {[...menuLinks, ...(address === owner ? [adminPageLink] : [])].map(({ label, href, icon }) => {
         const isActive = pathname === href;
         return (
           <li key={href}>

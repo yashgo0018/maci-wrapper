@@ -24,6 +24,7 @@ contract PollManager is Params, DomainObjs {
 		uint256 endTime;
 		uint256 numOfOptions;
 		string[] options;
+		string tallyJsonCID;
 	}
 
 	mapping(uint256 => PollData) internal polls;
@@ -49,6 +50,12 @@ contract PollManager is Params, DomainObjs {
 		string ipfsHash,
 		uint256 startTime,
 		uint256 endTime
+	);
+
+	event PollTallyCIDUpdated(
+		uint256 indexed pollId,
+		uint256 indexed maciPollId,
+		string tallyJsonCID
 	);
 
 	modifier onlyOwner() {
@@ -117,7 +124,8 @@ contract PollManager is Params, DomainObjs {
 			startTime: block.timestamp,
 			endTime: endTime,
 			pollContracts: pollContracts,
-			options: _options
+			options: _options,
+			tallyJsonCID: ""
 		});
 
 		emit PollCreated(
@@ -131,6 +139,17 @@ contract PollManager is Params, DomainObjs {
 			block.timestamp,
 			endTime
 		);
+	}
+
+	function updatePollTallyCID(
+		uint256 _pollId,
+		string calldata _tallyJsonCID
+	) public onlyOwner {
+		require(_pollId <= totalPolls && _pollId != 0, "poll does not exist");
+		PollData storage poll = polls[_pollId];
+		poll.tallyJsonCID = _tallyJsonCID;
+
+		emit PollTallyCIDUpdated(_pollId, poll.maciPollId, _tallyJsonCID);
 	}
 
 	function fetchPolls(

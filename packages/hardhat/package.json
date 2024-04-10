@@ -20,7 +20,7 @@
     "@commander-js/extra-typings": "^12.0.1",
     "@openzeppelin/contracts": "~4.8.1",
     "@typechain/ethers-v6": "~0.5.1",
-    "@zk-kit/eddsa-poseidon": "^0.10.0",
+    "@zk-kit/eddsa-poseidon": "^0.11.0",
     "@zk-kit/poseidon-cipher": "^0.3.0",
     "benny": "^3.7.1",
     "circomkit": "^0.0.24",

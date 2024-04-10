@@ -31,7 +31,7 @@ export class PubKey {
    * Create a copy of the public key
    * @returns a copy of the public key
    */
-  copy = (): PubKey => new PubKey([this.rawPubKey[0], this.rawPubKey[1]]);
+  copy = (): PubKey => new PubKey([BigInt(this.rawPubKey[0].toString()), BigInt(this.rawPubKey[1].toString())]);
 
   /**
    * Return this public key as smart contract parameters

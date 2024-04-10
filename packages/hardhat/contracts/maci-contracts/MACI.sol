@@ -249,7 +249,7 @@ contract MACI is IMACI, Params, Utilities, Ownable {
 		address _verifier,
 		address _vkRegistry,
 		bool _isQv
-	) public virtual onlyOwner returns (PollContracts memory pollAddr) {
+	) public virtual onlyManager returns (PollContracts memory pollAddr) {
 		// cache the poll to a local variable so we can increment it
 		uint256 pollId = nextPollId;
 

@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { genRandomSalt } from "@se-2/hardhat/maci-ts/crypto";
 import { Keypair, Message, PCommand, PubKey } from "@se-2/hardhat/maci-ts/domainobjs";
 import { useContractRead, useContractWrite } from "wagmi";
-import PollAbi from "~~/abi/Poll.json";
+import PollAbi from "~~/abi/Poll";
 import VoteCard from "~~/components/card/VoteCard";
 import { useAuthContext } from "~~/contexts/AuthContext";
 import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
@@ -18,7 +18,7 @@ export default function PollDetail() {
 
   useAuthUserOnly({});
 
-  const { keypair } = useAuthContext();
+  const { keypair, stateIndex } = useAuthContext();
 
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
   const handleCardClick = (index: number) => {
@@ -27,6 +27,7 @@ export default function PollDetail() {
 
   const castVote = async () => {
     console.log("Voting for candidate", clickedIndex);
+    console.log("A", message?.message.asContractParam(), message?.encKeyPair.pubKey.asContractParam());
     // navigate to the home page
     try {
       // setLoaderMessage("Casting the vote, please wait...");
@@ -43,14 +44,12 @@ export default function PollDetail() {
     abi: PollAbi,
     address: poll?.pollContracts.poll,
     functionName: "maxValues",
-    args: [],
   });
 
   const { data: coordinatorPubKeyResult } = useContractRead({
     abi: PollAbi,
     address: poll?.pollContracts.poll,
     functionName: "coordinatorPubKey",
-    args: [],
   });
 
   const [message, setMessage] = useState<{ message: Message; encKeyPair: Keypair }>();
@@ -61,7 +60,7 @@ export default function PollDetail() {
     abi: PollAbi,
     address: poll?.pollContracts.poll,
     functionName: "publishMessage",
-    args: [message?.message.asContractParam(), message?.encKeyPair.pubKey.asContractParam()],
+    args: message ? [message.message.asContractParam(), message.encKeyPair.pubKey.asContractParam()] : undefined,
   });
 
   const [coordinatorPubKey, setCoordinatorPubKey] = useState<PubKey>();
@@ -77,14 +76,15 @@ export default function PollDetail() {
     ]);
 
     setCoordinatorPubKey(coordinatorPubKey_);
-  }, [`coordinatorPubKeyResult`]);
+  }, [coordinatorPubKeyResult]);
 
   useEffect(() => {
-    if (!clickedIndex || !coordinatorPubKey || !keypair) {
+    if (!clickedIndex || !coordinatorPubKey || !keypair || !stateIndex) {
       return;
     }
+
     const command: PCommand = new PCommand(
-      1n, // stateindex
+      stateIndex, // stateindex
       keypair.pubKey, // userMaciPubKey
       BigInt(clickedIndex),
       1n,
@@ -100,7 +100,7 @@ export default function PollDetail() {
     const message = command.encrypt(signature, Keypair.genEcdhSharedKey(encKeyPair.privKey, coordinatorPubKey));
 
     setMessage({ message, encKeyPair });
-  }, [id, clickedIndex, coordinatorPubKey, keypair]);
+  }, [id, clickedIndex, coordinatorPubKey, keypair, stateIndex]);
 
   console.log(maxValues && (maxValues as any)[1]);
   console.log(coordinatorPubKeyResult);

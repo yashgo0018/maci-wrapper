@@ -46,7 +46,8 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        getVoiceCredits: "contracts/maci-contracts/initialVoiceCreditProxy/InitialVoiceCreditProxy.sol",
+        getVoiceCredits:
+          "contracts/maci-contracts/initialVoiceCreditProxy/InitialVoiceCreditProxy.sol",
       },
       deploymentBlockNumber: 1,
     },
@@ -94,7 +95,7 @@ const deployedContracts = {
       deploymentBlockNumber: 3,
     },
     MACI: {
-      address: "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+      address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
       abi: [
         {
           inputs: [
@@ -109,13 +110,8 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "contract ITallySubsidyFactory",
+              internalType: "contract ITallyFactory",
               name: "_tallyFactory",
-              type: "address",
-            },
-            {
-              internalType: "contract ITallySubsidyFactory",
-              name: "_subsidyFactory",
               type: "address",
             },
             {
@@ -161,6 +157,17 @@ const deployedContracts = {
         {
           inputs: [],
           name: "MaciPubKeyLargerThanSnarkFieldSize",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "pollAddr",
+              type: "address",
+            },
+          ],
+          name: "PollAddressDoesNotExist",
           type: "error",
         },
         {
@@ -241,11 +248,6 @@ const deployedContracts = {
                 {
                   internalType: "address",
                   name: "tally",
-                  type: "address",
-                },
-                {
-                  internalType: "address",
-                  name: "subsidy",
                   type: "address",
                 },
               ],
@@ -390,7 +392,7 @@ const deployedContracts = {
             },
             {
               internalType: "bool",
-              name: "useSubsidy",
+              name: "_isQv",
               type: "bool",
             },
           ],
@@ -411,11 +413,6 @@ const deployedContracts = {
                 {
                   internalType: "address",
                   name: "tally",
-                  type: "address",
-                },
-                {
-                  internalType: "address",
-                  name: "subsidy",
                   type: "address",
                 },
               ],
@@ -441,6 +438,25 @@ const deployedContracts = {
               internalType: "address",
               name: "poll",
               type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_poll",
+              type: "address",
+            },
+          ],
+          name: "getPollId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
             },
           ],
           stateMutability: "view",
@@ -868,6 +884,25 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "pollIds",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "uint256",
               name: "",
               type: "uint256",
@@ -986,19 +1021,6 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "subsidyFactory",
-          outputs: [
-            {
-              internalType: "contract ITallySubsidyFactory",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
           name: "subtreesMerged",
           outputs: [
             {
@@ -1015,7 +1037,7 @@ const deployedContracts = {
           name: "tallyFactory",
           outputs: [
             {
-              internalType: "contract ITallySubsidyFactory",
+              internalType: "contract ITallyFactory",
               name: "",
               type: "address",
             },
@@ -1076,7 +1098,8 @@ const deployedContracts = {
         hash4: "contracts/maci-contracts/utilities/Utilities.sol",
         hash5: "contracts/maci-contracts/utilities/Utilities.sol",
         hashLeftRight: "contracts/maci-contracts/utilities/Utilities.sol",
-        hashMessageAndEncPubKey: "contracts/maci-contracts/utilities/Utilities.sol",
+        hashMessageAndEncPubKey:
+          "contracts/maci-contracts/utilities/Utilities.sol",
         hashStateLeaf: "contracts/maci-contracts/utilities/Utilities.sol",
         padAndHashMessage: "contracts/maci-contracts/utilities/Utilities.sol",
         sha256Hash: "contracts/maci-contracts/utilities/Utilities.sol",
@@ -1084,7 +1107,7 @@ const deployedContracts = {
         renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
         transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
       },
-      deploymentBlockNumber: 25,
+      deploymentBlockNumber: 23,
     },
     MessageProcessorFactory: {
       address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
@@ -1124,6 +1147,11 @@ const deployedContracts = {
               name: "_owner",
               type: "address",
             },
+            {
+              internalType: "bool",
+              name: "_isQv",
+              type: "bool",
+            },
           ],
           name: "deploy",
           outputs: [
@@ -1138,7 +1166,8 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        MESSAGE_DATA_LENGTH: "contracts/maci-contracts/utilities/DomainObjs.sol",
+        MESSAGE_DATA_LENGTH:
+          "contracts/maci-contracts/utilities/DomainObjs.sol",
       },
       deploymentBlockNumber: 19,
     },
@@ -1265,13 +1294,14 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        MESSAGE_DATA_LENGTH: "contracts/maci-contracts/utilities/DomainObjs.sol",
+        MESSAGE_DATA_LENGTH:
+          "contracts/maci-contracts/utilities/DomainObjs.sol",
         deploy: "contracts/maci-contracts/interfaces/IPollFactory.sol",
       },
       deploymentBlockNumber: 17,
     },
     PollManager: {
-      address: "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
+      address: "0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690",
       abi: [
         {
           inputs: [
@@ -1279,6 +1309,11 @@ const deployedContracts = {
               internalType: "contract MACI",
               name: "_maci",
               type: "address",
+            },
+            {
+              internalType: "bool",
+              name: "_isQv",
+              type: "bool",
             },
           ],
           stateMutability: "nonpayable",
@@ -1291,6 +1326,12 @@ const deployedContracts = {
               indexed: true,
               internalType: "uint256",
               name: "pollId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "maciPollId",
               type: "uint256",
             },
             {
@@ -1316,14 +1357,9 @@ const deployedContracts = {
                   name: "tally",
                   type: "address",
                 },
-                {
-                  internalType: "address",
-                  name: "subsidy",
-                  type: "address",
-                },
               ],
               indexed: false,
-              internalType: "struct PollManager.PollContracts",
+              internalType: "struct MACI.PollContracts",
               name: "pollContracts",
               type: "tuple",
             },
@@ -1359,6 +1395,31 @@ const deployedContracts = {
             },
           ],
           name: "PollCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "maciPollId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "tallyJsonCID",
+              type: "string",
+            },
+          ],
+          name: "PollTallyCIDUpdated",
           type: "event",
         },
         {
@@ -1438,6 +1499,11 @@ const deployedContracts = {
                   type: "uint256",
                 },
                 {
+                  internalType: "uint256",
+                  name: "maciPollId",
+                  type: "uint256",
+                },
+                {
                   internalType: "string",
                   name: "name",
                   type: "string",
@@ -1469,13 +1535,8 @@ const deployedContracts = {
                       name: "tally",
                       type: "address",
                     },
-                    {
-                      internalType: "address",
-                      name: "subsidy",
-                      type: "address",
-                    },
                   ],
-                  internalType: "struct PollManager.PollContracts",
+                  internalType: "struct MACI.PollContracts",
                   name: "pollContracts",
                   type: "tuple",
                 },
@@ -1498,6 +1559,11 @@ const deployedContracts = {
                   internalType: "string[]",
                   name: "options",
                   type: "string[]",
+                },
+                {
+                  internalType: "string",
+                  name: "tallyJsonCID",
+                  type: "string",
                 },
               ],
               internalType: "struct PollManager.PollData",
@@ -1536,6 +1602,11 @@ const deployedContracts = {
                   type: "uint256",
                 },
                 {
+                  internalType: "uint256",
+                  name: "maciPollId",
+                  type: "uint256",
+                },
+                {
                   internalType: "string",
                   name: "name",
                   type: "string",
@@ -1567,13 +1638,8 @@ const deployedContracts = {
                       name: "tally",
                       type: "address",
                     },
-                    {
-                      internalType: "address",
-                      name: "subsidy",
-                      type: "address",
-                    },
                   ],
-                  internalType: "struct PollManager.PollContracts",
+                  internalType: "struct MACI.PollContracts",
                   name: "pollContracts",
                   type: "tuple",
                 },
@@ -1597,10 +1663,28 @@ const deployedContracts = {
                   name: "options",
                   type: "string[]",
                 },
+                {
+                  internalType: "string",
+                  name: "tallyJsonCID",
+                  type: "string",
+                },
               ],
               internalType: "struct PollManager.PollData[]",
               name: "polls_",
               type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "isQv",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
             },
           ],
           stateMutability: "view",
@@ -1760,6 +1844,24 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "_tallyJsonCID",
+              type: "string",
+            },
+          ],
+          name: "updatePollTallyCID",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "useSubsidy",
           outputs: [
@@ -1800,9 +1902,10 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        MESSAGE_DATA_LENGTH: "contracts/maci-contracts/utilities/DomainObjs.sol",
+        MESSAGE_DATA_LENGTH:
+          "contracts/maci-contracts/utilities/DomainObjs.sol",
       },
-      deploymentBlockNumber: 31,
+      deploymentBlockNumber: 48,
     },
     PoseidonT3: {
       address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
@@ -1908,54 +2011,6 @@ const deployedContracts = {
       inheritedFunctions: {},
       deploymentBlockNumber: 15,
     },
-    SubsidyFactory: {
-      address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
-      abi: [
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_verifier",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_vkRegistry",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_poll",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_messageProcessor",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_owner",
-              type: "address",
-            },
-          ],
-          name: "deploy",
-          outputs: [
-            {
-              internalType: "address",
-              name: "subsidyAddr",
-              type: "address",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-      ],
-      inheritedFunctions: {
-        deploy: "contracts/maci-contracts/interfaces/ITallySubsidyFactory.sol",
-      },
-      deploymentBlockNumber: 23,
-    },
     TallyFactory: {
       address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
       abi: [
@@ -1986,6 +2041,11 @@ const deployedContracts = {
               name: "_owner",
               type: "address",
             },
+            {
+              internalType: "bool",
+              name: "_isQv",
+              type: "bool",
+            },
           ],
           name: "deploy",
           outputs: [
@@ -2000,7 +2060,7 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        deploy: "contracts/maci-contracts/interfaces/ITallySubsidyFactory.sol",
+        deploy: "contracts/maci-contracts/interfaces/ITallyFactory.sol",
       },
       deploymentBlockNumber: 21,
     },
@@ -2579,7 +2639,7 @@ const deployedContracts = {
       deploymentBlockNumber: 5,
     },
     VkRegistry: {
-      address: "0x9A676e781A523b5d0C0e43731313A708CB607508",
+      address: "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
       abi: [
         {
           inputs: [],
@@ -2594,11 +2654,6 @@ const deployedContracts = {
         {
           inputs: [],
           name: "ProcessVkNotSet",
-          type: "error",
-        },
-        {
-          inputs: [],
-          name: "SubsidyVkAlreadySet",
           type: "error",
         },
         {
@@ -2644,6 +2699,12 @@ const deployedContracts = {
               name: "_sig",
               type: "uint256",
             },
+            {
+              indexed: false,
+              internalType: "enum IVkRegistry.Mode",
+              name: "mode",
+              type: "uint8",
+            },
           ],
           name: "ProcessVkSet",
           type: "event",
@@ -2657,18 +2718,11 @@ const deployedContracts = {
               name: "_sig",
               type: "uint256",
             },
-          ],
-          name: "SubsidyVkSet",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
             {
               indexed: false,
-              internalType: "uint256",
-              name: "_sig",
-              type: "uint256",
+              internalType: "enum IVkRegistry.Mode",
+              name: "mode",
+              type: "uint8",
             },
           ],
           name: "TallyVkSet",
@@ -2698,35 +2752,6 @@ const deployedContracts = {
             },
           ],
           name: "genProcessVkSig",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "sig",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "pure",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_stateTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_intStateTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_voteOptionTreeDepth",
-              type: "uint256",
-            },
-          ],
-          name: "genSubsidyVkSig",
           outputs: [
             {
               internalType: "uint256",
@@ -2787,6 +2812,11 @@ const deployedContracts = {
               internalType: "uint256",
               name: "_messageBatchSize",
               type: "uint256",
+            },
+            {
+              internalType: "enum IVkRegistry.Mode",
+              name: "_mode",
+              type: "uint8",
             },
           ],
           name: "getProcessVk",
@@ -2893,6 +2923,11 @@ const deployedContracts = {
               internalType: "uint256",
               name: "_sig",
               type: "uint256",
+            },
+            {
+              internalType: "enum IVkRegistry.Mode",
+              name: "_mode",
+              type: "uint8",
             },
           ],
           name: "getProcessVkBySig",
@@ -3010,227 +3045,10 @@ const deployedContracts = {
               name: "_voteOptionTreeDepth",
               type: "uint256",
             },
-          ],
-          name: "getSubsidyVk",
-          outputs: [
             {
-              components: [
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "x",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct Pairing.G1Point",
-                  name: "alpha1",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "beta2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "gamma2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "delta2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "x",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct Pairing.G1Point[]",
-                  name: "ic",
-                  type: "tuple[]",
-                },
-              ],
-              internalType: "struct SnarkCommon.VerifyingKey",
-              name: "vk",
-              type: "tuple",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_sig",
-              type: "uint256",
-            },
-          ],
-          name: "getSubsidyVkBySig",
-          outputs: [
-            {
-              components: [
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "x",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct Pairing.G1Point",
-                  name: "alpha1",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "beta2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "gamma2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "delta2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "x",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct Pairing.G1Point[]",
-                  name: "ic",
-                  type: "tuple[]",
-                },
-              ],
-              internalType: "struct SnarkCommon.VerifyingKey",
-              name: "vk",
-              type: "tuple",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_stateTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_intStateTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_voteOptionTreeDepth",
-              type: "uint256",
+              internalType: "enum IVkRegistry.Mode",
+              name: "_mode",
+              type: "uint8",
             },
           ],
           name: "getTallyVk",
@@ -3337,6 +3155,11 @@ const deployedContracts = {
               internalType: "uint256",
               name: "_sig",
               type: "uint256",
+            },
+            {
+              internalType: "enum IVkRegistry.Mode",
+              name: "_mode",
+              type: "uint8",
             },
           ],
           name: "getTallyVkBySig",
@@ -3459,6 +3282,11 @@ const deployedContracts = {
               name: "_messageBatchSize",
               type: "uint256",
             },
+            {
+              internalType: "enum IVkRegistry.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
           ],
           name: "hasProcessVk",
           outputs: [
@@ -3488,34 +3316,10 @@ const deployedContracts = {
               name: "_voteOptionTreeDepth",
               type: "uint256",
             },
-          ],
-          name: "hasSubsidyVk",
-          outputs: [
             {
-              internalType: "bool",
-              name: "isSet",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_stateTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_intStateTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_voteOptionTreeDepth",
-              type: "uint256",
+              internalType: "enum IVkRegistry.Mode",
+              name: "_mode",
+              type: "uint8",
             },
           ],
           name: "hasTallyVk",
@@ -3536,6 +3340,11 @@ const deployedContracts = {
               name: "_sig",
               type: "uint256",
             },
+            {
+              internalType: "enum IVkRegistry.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
           ],
           name: "isProcessVkSet",
           outputs: [
@@ -3555,24 +3364,10 @@ const deployedContracts = {
               name: "_sig",
               type: "uint256",
             },
-          ],
-          name: "isSubsidyVkSet",
-          outputs: [
             {
-              internalType: "bool",
-              name: "isSet",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_sig",
-              type: "uint256",
+              internalType: "enum IVkRegistry.Mode",
+              name: "_mode",
+              type: "uint8",
             },
           ],
           name: "isTallyVkSet",
@@ -3620,121 +3415,6 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "_voteOptionTreeDepth",
-              type: "uint256",
-            },
-            {
-              components: [
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "x",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct Pairing.G1Point",
-                  name: "alpha1",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "beta2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "gamma2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "delta2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "x",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct Pairing.G1Point[]",
-                  name: "ic",
-                  type: "tuple[]",
-                },
-              ],
-              internalType: "struct SnarkCommon.VerifyingKey",
-              name: "_subsidyVk",
-              type: "tuple",
-            },
-          ],
-          name: "setSubsidyKeys",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_stateTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_intStateTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
               name: "_messageTreeDepth",
               type: "uint256",
             },
@@ -3747,6 +3427,11 @@ const deployedContracts = {
               internalType: "uint256",
               name: "_messageBatchSize",
               type: "uint256",
+            },
+            {
+              internalType: "enum IVkRegistry.Mode",
+              name: "_mode",
+              type: "uint8",
             },
             {
               components: [
@@ -3957,10 +3642,9 @@ const deployedContracts = {
         renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
         transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
         getProcessVk: "contracts/maci-contracts/interfaces/IVkRegistry.sol",
-        getSubsidyVk: "contracts/maci-contracts/interfaces/IVkRegistry.sol",
         getTallyVk: "contracts/maci-contracts/interfaces/IVkRegistry.sol",
       },
-      deploymentBlockNumber: 28,
+      deploymentBlockNumber: 26,
     },
   },
 } as const;

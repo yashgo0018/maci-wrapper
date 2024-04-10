@@ -1,16 +1,74 @@
+import { useEffect, useState } from "react";
 import { useScaffoldContractRead } from "./scaffold-eth";
+import { Poll, PollStatus, RawPoll } from "~~/types/poll";
+
+export function getPollStatus(poll: RawPoll) {
+  const now = Math.round(new Date().getTime() / 1000);
+
+  if (poll.startTime > BigInt(now)) {
+    return PollStatus.NOT_STARTED;
+  }
+
+  if (poll.endTime > BigInt(now)) {
+    return PollStatus.OPEN;
+  }
+
+  if (!poll.tallyJsonCID) {
+    return PollStatus.CLOSED;
+  }
+
+  return PollStatus.RESULT_COMPUTED;
+}
 
 export const useFetchPolls = (currentPage = 1, limit = 10, reversed = true) => {
-  const { data: totalPolls } = useScaffoldContractRead({
+  const [polls, setPolls] = useState<Poll[]>();
+  const { data: totalPolls, refetch: refetchTotalPolls } = useScaffoldContractRead({
     contractName: "PollManager",
     functionName: "totalPolls",
   });
 
-  const { data: polls } = useScaffoldContractRead({
+  const { data: rawPolls, refetch: refetchPolls } = useScaffoldContractRead({
     contractName: "PollManager",
     functionName: "fetchPolls",
     args: [BigInt(currentPage), BigInt(limit), reversed],
   });
 
-  return { totalPolls: Number(totalPolls || 0n), polls };
+  const [lastTimer, setLastTimer] = useState<NodeJS.Timer>();
+
+  useEffect(() => {
+    if (lastTimer) {
+      clearInterval(lastTimer);
+    }
+
+    if (!rawPolls) {
+      setPolls([]);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      const _polls: Poll[] = [];
+
+      for (const rawPoll of rawPolls) {
+        _polls.push({
+          ...rawPoll,
+          status: getPollStatus(rawPoll),
+        });
+      }
+
+      setPolls(_polls);
+    }, 1000);
+
+    setLastTimer(interval);
+
+    () => {
+      clearInterval(interval);
+    };
+  }, [rawPolls]);
+
+  function refetch() {
+    refetchTotalPolls();
+    refetchPolls();
+  }
+
+  return { totalPolls: Number(totalPolls || 0n), polls, refetch };
 };

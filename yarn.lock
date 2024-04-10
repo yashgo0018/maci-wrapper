@@ -1963,7 +1963,7 @@ __metadata:
     "@types/snarkjs": ^0
     "@typescript-eslint/eslint-plugin": ~6.7.3
     "@typescript-eslint/parser": ~6.7.3
-    "@zk-kit/eddsa-poseidon": ^0.10.0
+    "@zk-kit/eddsa-poseidon": ^0.11.0
     "@zk-kit/poseidon-cipher": ^0.3.0
     benny: ^3.7.1
     chai: ~4.3.6
@@ -3990,14 +3990,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zk-kit/eddsa-poseidon@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "@zk-kit/eddsa-poseidon@npm:0.10.0"
+"@zk-kit/eddsa-poseidon@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "@zk-kit/eddsa-poseidon@npm:0.11.0"
   dependencies:
     "@zk-kit/baby-jubjub": 0.3.0
     "@zk-kit/utils": 0.8.1
     buffer: 6.0.3
-  checksum: a74a927608cba67d7421581ba6088bc5b6437a3a6bfcd27c607f2e33a02dd1f6c3777ff4639e656d3b5c23995f49a7c27b20efbf7a0771985f70f92fc0026704
+  checksum: 7d0b8ee4a8563387ffe02ab3265a1b237dc892bfcb05dfdc97afa6ce61d17c72153ac1f81f76cc520487c26fbb354e432836d4607dd6844856891d88db451cf6
   languageName: node
   linkType: hard
 

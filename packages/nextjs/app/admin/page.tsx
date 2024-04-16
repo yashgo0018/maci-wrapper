@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import CreatePollModal from "./_components/CreatePollModal";
+import PollStatusModal from "./_components/PollStatusModal";
 import { useAccount } from "wagmi";
 import Paginator from "~~/components/Paginator";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { useFetchPolls } from "~~/hooks/useFetchPolls";
 import { useTotalPages } from "~~/hooks/useTotalPages";
+import { Poll, PollStatus } from "~~/types/poll";
 
 export default function AdminPage() {
   const { address } = useAccount();
@@ -15,8 +17,9 @@ export default function AdminPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: admin } = useScaffoldContractRead({ contractName: "MACI", functionName: "owner" });
   const [limit] = useState(10);
-  const { totalPolls, polls } = useFetchPolls(currentPage, limit);
+  const { totalPolls, polls, refetch: refetchPolls } = useFetchPolls(currentPage, limit);
   const totalPages = useTotalPages(totalPolls, limit);
+  const [selectedPollForStatusModal, setSelectedPollForStatusModal] = useState<Poll>();
 
   useEffect(() => {
     if (!admin || !address) return;
@@ -54,7 +57,18 @@ export default function AdminPage() {
                   <td>{poll.name}</td>
                   <td>{new Date(Number(poll.startTime) * 1000).toLocaleString()}</td>
                   <td>{new Date(Number(poll.endTime) * 1000).toLocaleString()}</td>
-                  <td>Poll Open</td>
+                  <td>
+                    {poll.status == PollStatus.CLOSED ? (
+                      <>
+                        {poll.status}{" "}
+                        <button className=" text-accent underline" onClick={() => setSelectedPollForStatusModal(poll)}>
+                          (Required Actions)
+                        </button>
+                      </>
+                    ) : (
+                      poll.status
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -67,7 +81,13 @@ export default function AdminPage() {
         <div>No polls found</div>
       )}
 
-      <CreatePollModal setOpen={setOpenCreatePollModal} show={openCreatePollModal} />
+      <CreatePollModal refetchPolls={refetchPolls} show={openCreatePollModal} setOpen={setOpenCreatePollModal} />
+
+      <PollStatusModal
+        poll={selectedPollForStatusModal}
+        setOpen={() => setSelectedPollForStatusModal(undefined)}
+        show={Boolean(selectedPollForStatusModal)}
+      />
     </div>
   );
 }

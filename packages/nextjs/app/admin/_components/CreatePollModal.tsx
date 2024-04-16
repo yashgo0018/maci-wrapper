@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { LuCross } from "react-icons/lu";
 import { MdEdit } from "react-icons/md";
@@ -6,7 +6,15 @@ import { RxCross2 } from "react-icons/rx";
 import Modal from "~~/components/Modal";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-export default function Example({ show, setOpen }: { show: boolean; setOpen: (value: boolean) => void }) {
+export default function Example({
+  show,
+  setOpen,
+  refetchPolls,
+}: {
+  show: boolean;
+  setOpen: (value: boolean) => void;
+  refetchPolls: () => void;
+}) {
   const [pollData, setPollData] = useState({ title: "Dummy Title", options: [""] });
   const [isEditingTitle, setIsEditingTitle] = useState<boolean>(false);
 
@@ -41,19 +49,14 @@ export default function Example({ show, setOpen }: { show: boolean; setOpen: (va
   const { writeAsync, data, isLoading } = useScaffoldContractWrite({
     contractName: "PollManager",
     functionName: "createPoll",
-    args: [pollData?.title, pollData?.options || [], "", 300n],
+    args: [pollData?.title, pollData?.options || [], "", 60n],
   });
-
-  console.log(data);
-
-  useEffect(() => {
-    //      setIsLoading(isLoading);
-  }, [isLoading]);
 
   async function onSubmit() {
     console.log("A");
     try {
       await writeAsync();
+      refetchPolls();
     } catch (err) {
       console.log(err);
     }

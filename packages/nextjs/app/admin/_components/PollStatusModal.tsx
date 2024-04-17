@@ -5,7 +5,8 @@ import PollAbi from "~~/abi/Poll";
 import Modal from "~~/components/Modal";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { Poll } from "~~/types/poll";
-import { mergeSignups } from "~~/utils/mergeSignups";
+import { useMergeMessages } from "~~/utils/useMergeMessages";
+import { useMergeSignups } from "~~/utils/useMergeSignups";
 
 const stepNames = ["Merge SignUps", "Merge Main Roots", "Compute Main Root"];
 
@@ -38,7 +39,6 @@ export default function PollStatusModal({
     functionName: "treeDepths",
   });
   const [, , messageTreeDepth] = treeDepths || [undefined, undefined, undefined, undefined];
-  console.log(messageTreeDepth);
   const { data: extContracts, refetch: refetchExtContracts } = useContractRead({
     abi: PollAbi,
     address: poll?.pollContracts.poll,
@@ -58,8 +58,6 @@ export default function PollStatusModal({
   // check if the main root was not already computed
   // const mainRoot = (await accQueueContract.getMainRoot(messageTreeDepth.toString())).toString();
 
-  console.log(mainRoot1, mainRoot2);
-
   function refetch() {
     refetchStateTreeDepth();
     refetchTreeDepths();
@@ -76,11 +74,11 @@ export default function PollStatusModal({
     }
   }
 
-  async function mergeSignupStep() {
-    if (!poll?.pollContracts.poll) return;
-
-    await mergeSignups({ pollContractAddress: poll?.pollContracts.poll });
-  }
+  const { merge: mergeSignups } = useMergeSignups({ pollContractAddress: poll?.pollContracts.poll, refresh: refetch });
+  const { merge: mergeMessages } = useMergeMessages({
+    pollContractAddress: poll?.pollContracts.poll,
+    refresh: refetch,
+  });
 
   return (
     <Modal show={show} setOpen={setOpen}>
@@ -96,22 +94,35 @@ export default function PollStatusModal({
         {step === 1 && (
           <div className="text-center">
             <div className="text-sm">Merge the signup subtrees of the accumulator queue</div>
-            <div className="mockup-code bg-primary text-primary-content text-left mt-5">
-              <pre data-prefix="$">
-                <code>node build/ts/index.js mergeSignups -o {poll?.maciPollId.toString()}</code>
-              </pre>
-            </div>
+          </div>
+        )}
+
+        {step === 2 && (
+          <div className="text-center">
+            <div className="text-sm">Merge the signup subtrees of the accumulator queue</div>
           </div>
         )}
 
         <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-          <button
-            type="button"
-            className="inline-flex w-full justify-center rounded-md bg-primary text-primary-content px-3 py-2 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-            onClick={refetch}
-          >
-            Refresh
-          </button>
+          {step === 1 && (
+            <button
+              type="button"
+              className="inline-flex w-full justify-center rounded-md bg-primary text-primary-content px-3 py-2 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+              onClick={mergeSignups}
+            >
+              Merge Signups
+            </button>
+          )}
+
+          {step === 2 && (
+            <button
+              type="button"
+              className="inline-flex w-full justify-center rounded-md bg-primary text-primary-content px-3 py-2 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+              onClick={mergeMessages}
+            >
+              Merge Messages
+            </button>
+          )}
           <button
             type="button"
             className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"

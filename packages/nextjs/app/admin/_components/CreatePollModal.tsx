@@ -5,10 +5,13 @@ import { MdEdit } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import Modal from "~~/components/Modal";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { notification } from "~~/utils/scaffold-eth";
 
 enum PollType {
+  NOT_SELECTED,
   SINGLE_VOTE,
   MULTIPLE_VOTE,
+  WEIGHTED_MULTIPLE_VOTE,
 }
 
 export default function Example({
@@ -23,13 +26,17 @@ export default function Example({
   const [pollData, setPollData] = useState({
     title: "Dummy Title",
     expiry: new Date(),
-    pollType: PollType.SINGLE_VOTE,
+    pollType: PollType.NOT_SELECTED,
     options: [""],
   });
   const [isEditingTitle, setIsEditingTitle] = useState<boolean>(false);
 
   const handleAddOption = () => {
     setPollData({ ...pollData, options: [...pollData.options, ""] });
+  };
+
+  const handlePollTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPollData({ ...pollData, pollType: parseInt(e.target.value) });
   };
 
   const handleOptionChange = (index: number, value: string) => {
@@ -56,7 +63,7 @@ export default function Example({
     setPollData({ ...pollData, options: newOptions });
   }
 
-  const duration = Math.round((new Date().getTime() - pollData.expiry.getTime()) / 1000);
+  const duration = Math.round((pollData.expiry.getTime() - new Date().getTime()) / 1000);
 
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "PollManager",
@@ -69,12 +76,19 @@ export default function Example({
     for (const option of pollData.options) {
       if (!option) {
         // TODO: throw error that the option cannot be blank
+        notification.error("Option cannot be blank", { showCloseButton: false });
         return;
       }
     }
 
     if (duration < 60) {
       // TODO: throw error that the expiry cannot be before atleast 1 min of creation
+      notification.error("Expiry cannot be before atleast 1 min of creation", { showCloseButton: false });
+      return;
+    }
+
+    if (pollData.pollType === PollType.NOT_SELECTED) {
+      notification.error("Please select a poll type", { showCloseButton: false });
       return;
     }
 
@@ -134,7 +148,28 @@ export default function Example({
       </div>
 
       {/* Datetime selector here */}
+      <div className="mb-2 text-neutral-content">Select the expiry date</div>
+      <input
+        type="datetime-local"
+        className="border bg-secondary text-neutral rounded-xl px-4 py-2 w-full focus:outline-none"
+        value={pollData.expiry.toLocaleString("sv").replace(" ", "T").slice(0, -3)}
+        onChange={e => setPollData({ ...pollData, expiry: new Date(e.target.value) })}
+      />
+
       {/* Poll Type Selector Here */}
+      <div className="mt-3 mb-2 text-neutral-content">Select the poll type</div>
+      <select
+        className="select bg-secondary text-neutral w-full rounded-xl"
+        value={pollData.pollType}
+        onChange={handlePollTypeChange}
+      >
+        <option disabled selected value={PollType.NOT_SELECTED}>
+          Select Poll Type
+        </option>
+        <option value={PollType.SINGLE_VOTE}>Single Candidate Select</option>
+        <option value={PollType.MULTIPLE_VOTE}>Multiple Candidate Select</option>
+        <option value={PollType.WEIGHTED_MULTIPLE_VOTE}>Weighted-Multiple Candidate Select</option>
+      </select>
 
       <div className="w-full h-[0.5px] bg-[#3647A4] shadow-2xl my-5" />
 

@@ -14,12 +14,14 @@ type NotificationProps = {
   duration?: number;
   icon?: string;
   position?: ToastPosition;
+  showCloseButton?: boolean;
 };
 
 type NotificationOptions = {
   duration?: number;
   icon?: string;
   position?: ToastPosition;
+  showCloseButton?: boolean;
 };
 
 const ENUM_STATUSES = {
@@ -42,6 +44,7 @@ const Notification = ({
   duration = DEFAULT_DURATION,
   icon,
   position = DEFAULT_POSITION,
+  showCloseButton = true,
 }: NotificationProps) => {
   return toast.custom(
     t => (
@@ -56,9 +59,11 @@ const Notification = ({
         <div className="leading-[0] self-center">{icon ? icon : ENUM_STATUSES[status]}</div>
         <div className={`overflow-x-hidden break-words whitespace-pre-line ${icon ? "mt-1" : ""}`}>{content}</div>
 
-        <div className={`cursor-pointer text-lg ${icon ? "mt-1" : ""}`} onClick={() => toast.dismiss(t.id)}>
-          <XMarkIcon className="w-6 cursor-pointer" onClick={() => toast.remove(t.id)} />
-        </div>
+        {showCloseButton && (
+          <div className={`cursor-pointer text-lg ${icon ? "mt-1" : ""}`} onClick={() => toast.dismiss(t.id)}>
+            <XMarkIcon className="w-6 cursor-pointer" onClick={() => toast.remove(t.id)} />
+          </div>
+        )}
       </div>
     ),
     {

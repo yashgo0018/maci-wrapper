@@ -179,7 +179,7 @@ export default function Example({
         <div key={index} className="mb-2 flex flex-row">
           <input
             type="text"
-            className="border border-[#3647A4] bg-secondary rounded-md px-4 py-2 w-full focus:outline-none "
+            className="border border-[#3647A4] bg-secondary text-neutral rounded-md px-4 py-2 w-full focus:outline-none "
             placeholder={`Candidate ${index + 1}`}
             value={option}
             onChange={e => handleOptionChange(index, e.target.value)}

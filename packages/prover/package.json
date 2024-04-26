@@ -1,0 +1,25 @@
+{
+  "name": "prover",
+  "packageManager": "yarn@3.2.3",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@se-2/hardhat": "*",
+    "@se-2/nextjs": "*",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.10.0",
+    "express": "^4.19.2",
+    "snarkjs": "^0.7.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2",
+    "@types/express": "^4",
+    "@types/node": "^20.12.7",
+    "@types/snarkjs": "^0",
+    "ts-node": "^10.9.2",
+    "tsc": "^2.0.4",
+    "typescript": "^5.4.5"
+  }
+}

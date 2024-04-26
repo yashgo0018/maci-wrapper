@@ -20,6 +20,10 @@ export default function PollDetail() {
 
   const { keypair, stateIndex } = useAuthContext();
 
+  const [votes] = useState<{ index: number; votes: number; voteMessage: { message: Message; encKeyPair: Keypair } }[]>(
+    [],
+  );
+
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
   const handleCardClick = (index: number) => {
     setClickedIndex(clickedIndex === index ? null : index);
@@ -28,23 +32,30 @@ export default function PollDetail() {
   const castVote = async () => {
     console.log("Voting for candidate", clickedIndex);
     console.log("A", message?.message.asContractParam(), message?.encKeyPair.pubKey.asContractParam());
-    // navigate to the home page
-    try {
-      // setLoaderMessage("Casting the vote, please wait...");
+    // // navigate to the home page
+    // try {
+    //   // setLoaderMessage("Casting the vote, please wait...");
 
-      await writeAsync();
-      // router.push(`/voted-success?id=${clickedIndex}`);
-    } catch (err) {
-      console.log("err", err);
-      // toast.error("Casting vote failed, please try again ");
-    }
+    //   // router.push(`/voted-success?id=${clickedIndex}`);
+    // } catch (err) {
+    //   console.log("err", err);
+    //   // toast.error("Casting vote failed, please try again ");
+    // }
   };
 
-  const { data: maxValues } = useContractRead({
-    abi: PollAbi,
-    address: poll?.pollContracts.poll,
-    functionName: "maxValues",
-  });
+  useEffect(() => {
+    if (votes.length === 0) {
+      return;
+    }
+
+    (async () => {
+      try {
+        await writeAsync();
+      } catch (err) {
+        console.log({ err });
+      }
+    })();
+  }, [votes]);
 
   const { data: coordinatorPubKeyResult } = useContractRead({
     abi: PollAbi,
@@ -79,16 +90,26 @@ export default function PollDetail() {
   }, [coordinatorPubKeyResult]);
 
   useEffect(() => {
-    if (!clickedIndex || !coordinatorPubKey || !keypair || !stateIndex) {
+    if (clickedIndex === null || !coordinatorPubKey || !keypair || !stateIndex) {
       return;
     }
+
+    console.log(
+      stateIndex, // stateindex
+      keypair.pubKey, // userMaciPubKey
+      BigInt(clickedIndex),
+      1n,
+      1n, // nonce
+      BigInt(id),
+      genRandomSalt(),
+    );
 
     const command: PCommand = new PCommand(
       stateIndex, // stateindex
       keypair.pubKey, // userMaciPubKey
       BigInt(clickedIndex),
       1n,
-      1n,
+      1n, // nonce
       BigInt(id),
       genRandomSalt(),
     );
@@ -101,9 +122,6 @@ export default function PollDetail() {
 
     setMessage({ message, encKeyPair });
   }, [id, clickedIndex, coordinatorPubKey, keypair, stateIndex]);
-
-  console.log(maxValues && (maxValues as any)[1]);
-  console.log(coordinatorPubKeyResult);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -121,6 +139,8 @@ export default function PollDetail() {
             <VoteCard clicked={clickedIndex === index} onClick={() => handleCardClick(index)}>
               <div>{candidate}</div>
             </VoteCard>
+
+            {/* add a votes number input here */}
           </div>
         ))}
         <div className={`mt-2 ${clickedIndex !== null ? " shadow-2xl" : ""}`}>

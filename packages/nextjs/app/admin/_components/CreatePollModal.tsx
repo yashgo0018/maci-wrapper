@@ -6,6 +6,11 @@ import { RxCross2 } from "react-icons/rx";
 import Modal from "~~/components/Modal";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
+enum PollType {
+  SINGLE_VOTE,
+  MULTIPLE_VOTE,
+}
+
 export default function Example({
   show,
   setOpen,
@@ -15,7 +20,12 @@ export default function Example({
   setOpen: (value: boolean) => void;
   refetchPolls: () => void;
 }) {
-  const [pollData, setPollData] = useState({ title: "Dummy Title", options: [""] });
+  const [pollData, setPollData] = useState({
+    title: "Dummy Title",
+    expiry: new Date(),
+    pollType: PollType.SINGLE_VOTE,
+    options: [""],
+  });
   const [isEditingTitle, setIsEditingTitle] = useState<boolean>(false);
 
   const handleAddOption = () => {
@@ -46,14 +56,30 @@ export default function Example({
     setPollData({ ...pollData, options: newOptions });
   }
 
-  const { writeAsync, data, isLoading } = useScaffoldContractWrite({
+  const duration = Math.round((new Date().getTime() - pollData.expiry.getTime()) / 1000);
+
+  const { writeAsync } = useScaffoldContractWrite({
     contractName: "PollManager",
     functionName: "createPoll",
-    args: [pollData?.title, pollData?.options || [], "", 60n],
+    args: [pollData?.title, pollData?.options || [], "", duration > 0 ? BigInt(duration) : 0n],
   });
 
   async function onSubmit() {
-    console.log("A");
+    // validate the inputs
+    for (const option of pollData.options) {
+      if (!option) {
+        // TODO: throw error that the option cannot be blank
+        return;
+      }
+    }
+
+    if (duration < 60) {
+      // TODO: throw error that the expiry cannot be before atleast 1 min of creation
+      return;
+    }
+
+    // save the poll data to ipfs or find another way for saving the poll type on the smart contract.
+
     try {
       await writeAsync();
       refetchPolls();
@@ -106,6 +132,9 @@ export default function Example({
           </div>
         </label>
       </div>
+
+      {/* Datetime selector here */}
+      {/* Poll Type Selector Here */}
 
       <div className="w-full h-[0.5px] bg-[#3647A4] shadow-2xl my-5" />
 

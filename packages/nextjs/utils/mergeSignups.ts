@@ -1,9 +1,7 @@
-import { createPublicClient, createWalletClient, getContract, http } from "viem";
-import { privateKeyToAddress } from "viem/accounts";
+import { getContract } from "viem";
 import AccQueueAbi from "~~/abi/AccQueue";
 import PollAbi from "~~/abi/Poll";
-import deployedContracts from "~~/contracts/deployedContracts";
-import scaffoldConfig from "~~/scaffold.config";
+import { maciContract, publicClient, serverWalletClient } from "~~/constants";
 
 export const DEFAULT_SR_QUEUE_OPS = 4;
 
@@ -14,21 +12,14 @@ export const mergeSignups = async ({
   pollContractAddress: string;
   numQueueOps?: number;
 }): Promise<void> => {
-  const chain = scaffoldConfig.targetNetworks[0];
-  const publicClient = createPublicClient({ chain, transport: http() });
-  const ownerAddress = privateKeyToAddress(process.env.OWNER_PRIVATE_KEY as `0x${string}`);
-  const walletClient = createWalletClient({
-    chain,
-    transport: http(),
-    key: process.env.OWNER_PRIVATE_KEY,
-    account: ownerAddress,
-  });
-  const { address: MaciAddress, abi: MaciAbi, deploymentBlockNumber } = deployedContracts[chain.id].MACI;
-
-  const maciContract = getContract({ abi: MaciAbi, address: MaciAddress, publicClient, walletClient });
   const pollId = await maciContract.read.getPollId([pollContractAddress]);
 
-  const pollContract = getContract({ abi: PollAbi, address: pollContractAddress, publicClient, walletClient });
+  const pollContract = getContract({
+    abi: PollAbi,
+    address: pollContractAddress,
+    publicClient,
+    walletClient: serverWalletClient,
+  });
 
   // if (pollId < 0) {
   //   logError("Invalid poll id");
@@ -40,7 +31,7 @@ export const mergeSignups = async ({
     abi: AccQueueAbi,
     address: await maciContract.read.stateAq(),
     publicClient,
-    walletClient,
+    walletClient: serverWalletClient,
   });
 
   // const accQueueContract = AccQueueFactory.connect(await maciContract.stateAq(), signer);
@@ -78,6 +69,8 @@ export const mergeSignups = async ({
         BigInt(numQueueOps || DEFAULT_SR_QUEUE_OPS),
         pollId,
       ]);
+
+      console.log(`Transaction hash: ${tx}`);
       // eslint-disable-next-line no-await-in-loop
       // const receipt = await tx.wait();
 
@@ -92,14 +85,20 @@ export const mergeSignups = async ({
 
   // check if the state AQ has been fully merged
   const stateTreeDepth = await maciContract.read.stateTreeDepth();
-  const mainRoot = (await accQueueContract.read.getMainRoot([BigInt(stateTreeDepth)])).toString();
 
-  if (mainRoot === "0" || pollId > 0) {
+  const mainRoot = await accQueueContract.read.getMainRoot([BigInt(stateTreeDepth)]);
+
+  if (mainRoot === 0n || pollId > 0n) {
     // go and merge the state tree
     console.log("Merging subroots to a main state root...");
-    const tx = await pollContract.write.mergeMaciStateAq([pollId]);
+    try {
+      const tx = await pollContract.write.mergeMaciStateAq([pollId]);
 
-    console.log(`Transaction hash: ${tx}`);
+      console.log(`Transaction hash: ${tx}`);
+    } catch (err) {
+      console.log("error here");
+      // console.log(err);
+    }
   } else {
     console.log("The state tree has already been merged.");
   }

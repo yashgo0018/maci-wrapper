@@ -1,10 +1,8 @@
 import { DEFAULT_SR_QUEUE_OPS } from "./mergeSignups";
-import { createPublicClient, createWalletClient, getContract, http } from "viem";
-import { privateKeyToAddress } from "viem/accounts";
+import { getContract } from "viem";
 import AccQueueAbi from "~~/abi/AccQueue";
 import PollAbi from "~~/abi/Poll";
-import deployedContracts from "~~/contracts/deployedContracts";
-import scaffoldConfig from "~~/scaffold.config";
+import { publicClient, serverWalletClient } from "~~/constants";
 
 export const mergeMessages = async ({
   pollContractAddress,
@@ -13,21 +11,12 @@ export const mergeMessages = async ({
   pollContractAddress: string;
   numQueueOps?: number;
 }): Promise<void> => {
-  const chain = scaffoldConfig.targetNetworks[0];
-  const publicClient = createPublicClient({ chain, transport: http() });
-  const ownerAddress = privateKeyToAddress(process.env.OWNER_PRIVATE_KEY as `0x${string}`);
-  const walletClient = createWalletClient({
-    chain,
-    transport: http(),
-    key: process.env.OWNER_PRIVATE_KEY,
-    account: ownerAddress,
+  const pollContract = getContract({
+    abi: PollAbi,
+    address: pollContractAddress,
+    publicClient,
+    walletClient: serverWalletClient,
   });
-  const { address: MaciAddress, abi: MaciAbi, deploymentBlockNumber } = deployedContracts[chain.id].MACI;
-
-  const maciContract = getContract({ abi: MaciAbi, address: MaciAddress, publicClient, walletClient });
-  const pollId = await maciContract.read.getPollId([pollContractAddress]);
-
-  const pollContract = getContract({ abi: PollAbi, address: pollContractAddress, publicClient, walletClient });
 
   const extContracts = await pollContract.read.extContracts();
   const messageAqContractAddr = extContracts[1];
@@ -36,7 +25,7 @@ export const mergeMessages = async ({
     abi: AccQueueAbi,
     address: messageAqContractAddr,
     publicClient,
-    walletClient,
+    walletClient: serverWalletClient,
   });
 
   // check if it's time to merge the message AQ
@@ -46,6 +35,7 @@ export const mergeMessages = async ({
 
   if (now < deadline) {
     console.error("Voting period is not over");
+    return;
   }
 
   let subTreesMerged = false;
@@ -75,11 +65,11 @@ export const mergeMessages = async ({
   }
 
   // check if the message AQ has been fully merged
-  const messageTreeDepth = Number((await pollContract.read.treeDepths())[2]);
+  const messageTreeDepth = (await pollContract.read.treeDepths())[2];
 
   // check if the main root was not already computed
-  const mainRoot = (await accQueueContract.read.getMainRoot([BigInt(messageTreeDepth)])).toString();
-  if (mainRoot === "0") {
+  const mainRoot = await accQueueContract.read.getMainRoot([BigInt(messageTreeDepth)]);
+  if (mainRoot === 0n) {
     // go and merge the message tree
 
     console.log("Merging subroots to a main message root...");

@@ -29,13 +29,13 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   }, []);
 
   useEffect(() => {
-    if (!address) {
+    if (!address || !signMessage) {
       setKeyPair(null);
       return;
     }
 
     signMessage();
-  }, [address]);
+  }, [address, signMessage]);
 
   useEffect(() => {
     if (!signature) return;

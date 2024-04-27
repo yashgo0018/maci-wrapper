@@ -1,17 +1,17 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { Keypair } from "@se-2/hardhat/maci-ts/domainobjs";
-import { useAccount } from "wagmi";
+import { Keypair, PrivKey } from "@se-2/hardhat/maci-ts/domainobjs";
+import { useAccount, useSignMessage } from "wagmi";
 import deployedContracts from "~~/contracts/deployedContracts";
 import { useScaffoldContractRead, useScaffoldEventHistory, useScaffoldEventSubscriber } from "~~/hooks/scaffold-eth";
 import scaffoldConfig from "~~/scaffold.config";
-import { fetchOrCreateUserKeyPair } from "~~/utils/crypto";
 
 interface IAuthContext {
   isRegistered: boolean;
   keypair: Keypair | null;
   stateIndex: bigint | null;
+  signMessageAsync: () => Promise<`0x${string}`>;
 }
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -20,10 +20,29 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   const { address } = useAccount();
   const [keypair, setKeyPair] = useState<Keypair | null>(null);
   const [stateIndex, setStateIndex] = useState<bigint | null>(null);
+  const [signatureMessage, setSignatureMessage] = useState<string>("");
+
+  const { signMessage, signMessageAsync, data: signature } = useSignMessage({ message: signatureMessage });
 
   useEffect(() => {
-    setKeyPair(fetchOrCreateUserKeyPair(address));
+    setSignatureMessage(`Login to ${window.location.origin}`);
+  }, []);
+
+  useEffect(() => {
+    if (!address) {
+      setKeyPair(null);
+      return;
+    }
+
+    signMessage();
   }, [address]);
+
+  useEffect(() => {
+    if (!signature) return;
+
+    const userKeyPair = new Keypair(new PrivKey(signature));
+    setKeyPair(userKeyPair);
+  }, [signature]);
 
   const { data: isRegistered, refetch: refetchIsRegistered } = useScaffoldContractRead({
     contractName: "MACI",
@@ -74,7 +93,7 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   });
 
   return (
-    <AuthContext.Provider value={{ isRegistered: Boolean(isRegistered), keypair, stateIndex }}>
+    <AuthContext.Provider value={{ isRegistered: Boolean(isRegistered), keypair, stateIndex, signMessageAsync }}>
       {children}
     </AuthContext.Provider>
   );

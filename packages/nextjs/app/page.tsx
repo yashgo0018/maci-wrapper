@@ -13,10 +13,8 @@ const Home: NextPage = () => {
     <>
       <div className="flex items-center flex-col flex-grow pt-10">
         <div className="px-5">
-          {/* create a home page for private voting starter kit with maci */}
           <h1 className="text-4xl font-bold text-center">Private Voting Starter Kit with MACI</h1>
 
-          {/* create a split view with one side to show the registration button and the other side to show a image */}
           <div className="flex flex-col-reverse md:flex-row justify-center items-center mt-10 sm:w-2/3 mx-auto gap-x-10 gap-y-5 mb-10">
             <div className="flex-1">
               <p className="text-lg mt-5 text-justify">

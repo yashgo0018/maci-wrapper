@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import CreatePollModal from "./_components/CreatePollModal";
 import PollStatusModal from "./_components/PollStatusModal";
@@ -52,7 +53,7 @@ export default function AdminPage() {
               </tr>
             </thead>
             <tbody>
-              {polls.map((poll: any) => (
+              {polls.map(poll => (
                 <tr key={poll.id} className="pt-10 text-center">
                   <td>{poll.name}</td>
                   <td>{new Date(Number(poll.startTime) * 1000).toLocaleString()}</td>
@@ -64,6 +65,13 @@ export default function AdminPage() {
                         <button className=" text-accent underline" onClick={() => setSelectedPollForStatusModal(poll)}>
                           (Required Actions)
                         </button>
+                      </>
+                    ) : poll.status == PollStatus.RESULT_COMPUTED ? (
+                      <>
+                        {poll.status}{" "}
+                        <Link href={`/polls/${poll.id}`} className="text-accent underline">
+                          (View Results)
+                        </Link>
                       </>
                     ) : (
                       poll.status

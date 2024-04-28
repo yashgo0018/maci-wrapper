@@ -9,9 +9,10 @@ type VoteCardProps = {
   onChange: (checked: boolean, votes: number) => void;
   setIsInvalid: (value: boolean) => void;
   isInvalid: boolean;
+  pollOpen: boolean;
 };
 
-const VoteCard = ({ index, candidate, onChange, pollType, isInvalid, setIsInvalid }: VoteCardProps) => {
+const VoteCard = ({ index, candidate, onChange, pollType, isInvalid, setIsInvalid, pollOpen }: VoteCardProps) => {
   const [selected, setSelected] = useState(false);
   const [votes, setVotes] = useState(0);
   const votesFieldRef = useRef<HTMLInputElement>(null);
@@ -19,45 +20,47 @@ const VoteCard = ({ index, candidate, onChange, pollType, isInvalid, setIsInvali
   return (
     <>
       <div className="bg-primary flex w-full px-2 py-2 rounded-lg">
-        <input
-          type={pollType === PollType.SINGLE_VOTE ? "radio" : "checkbox"}
-          className="mr-2"
-          value={index}
-          onChange={e => {
-            console.log(e.target.checked);
-            setSelected(e.target.checked);
-            if (e.target.checked) {
-              switch (pollType) {
-                case PollType.SINGLE_VOTE:
-                  onChange(true, 1);
-                  break;
-                case PollType.MULTIPLE_VOTE:
-                  onChange(true, 1);
-                  break;
-                case PollType.WEIGHTED_MULTIPLE_VOTE:
-                  if (votes) {
-                    onChange(true, votes);
-                  } else {
-                    setIsInvalid(true);
-                  }
-                  break;
+        {pollOpen && (
+          <input
+            type={pollType === PollType.SINGLE_VOTE ? "radio" : "checkbox"}
+            className="mr-2"
+            value={index}
+            onChange={e => {
+              console.log(e.target.checked);
+              setSelected(e.target.checked);
+              if (e.target.checked) {
+                switch (pollType) {
+                  case PollType.SINGLE_VOTE:
+                    onChange(true, 1);
+                    break;
+                  case PollType.MULTIPLE_VOTE:
+                    onChange(true, 1);
+                    break;
+                  case PollType.WEIGHTED_MULTIPLE_VOTE:
+                    if (votes) {
+                      onChange(true, votes);
+                    } else {
+                      setIsInvalid(true);
+                    }
+                    break;
+                }
+              } else {
+                onChange(false, 0);
+                setIsInvalid(false);
+                setVotes(0);
+                if (votesFieldRef.current) {
+                  votesFieldRef.current.value = "";
+                }
               }
-            } else {
-              onChange(false, 0);
-              setIsInvalid(false);
-              setVotes(0);
-              if (votesFieldRef.current) {
-                votesFieldRef.current.value = "";
-              }
-            }
-          }}
-          name={pollType === PollType.SINGLE_VOTE ? "candidate-votes" : `candidate-votes-${index}`}
-        />
+            }}
+            name={pollType === PollType.SINGLE_VOTE ? "candidate-votes" : `candidate-votes-${index}`}
+          />
+        )}
 
-        <div>{candidate}</div>
+        <div className={!pollOpen ? "ml-2" : ""}>{candidate}</div>
       </div>
 
-      {pollType === PollType.WEIGHTED_MULTIPLE_VOTE && (
+      {pollOpen && pollType === PollType.WEIGHTED_MULTIPLE_VOTE && (
         <input
           ref={votesFieldRef}
           type="number"

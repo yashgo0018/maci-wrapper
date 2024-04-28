@@ -10,7 +10,9 @@ import VoteCard from "~~/components/card/VoteCard";
 import { useAuthContext } from "~~/contexts/AuthContext";
 import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
 import { useFetchPoll } from "~~/hooks/useFetchPoll";
-import { PollType } from "~~/types/poll";
+import { getPollStatus } from "~~/hooks/useFetchPolls";
+import { PollStatus, PollType } from "~~/types/poll";
+import { getDataFromPinata } from "~~/utils/pinata";
 import { notification } from "~~/utils/scaffold-eth";
 
 export default function PollDetail() {
@@ -28,6 +30,8 @@ export default function PollDetail() {
   const [isVotesInvalid, setIsVotesInvalid] = useState<Record<number, boolean>>({});
 
   const isAnyInvalid = Object.values(isVotesInvalid).some(v => v);
+  const [result, setResult] = useState<{ candidate: string; votes: number }[] | null>(null);
+  const [status, setStatus] = useState<PollStatus>();
 
   useEffect(() => {
     if (!poll || !poll.metadata) {
@@ -40,6 +44,39 @@ export default function PollDetail() {
     } catch (err) {
       console.log("err", err);
     }
+
+    if (poll.tallyJsonCID) {
+      (async () => {
+        try {
+          const {
+            results: { tally },
+          } = await getDataFromPinata(poll.tallyJsonCID);
+          if (poll.options.length > tally.length) {
+            throw new Error("Invalid tally data");
+          }
+          const tallyCounts: number[] = tally.map((v: string) => Number(v)).slice(0, poll.options.length);
+          const result = [];
+          for (let i = 0; i < poll.options.length; i++) {
+            const candidate = poll.options[i];
+            const votes = tallyCounts[i];
+            result.push({ candidate, votes });
+          }
+          result.sort((a, b) => b.votes - a.votes);
+          setResult(result);
+          console.log("data", result);
+        } catch (err) {
+          console.log("err", err);
+        }
+      })();
+    }
+
+    const statusUpdateInterval = setInterval(async () => {
+      setStatus(getPollStatus(poll));
+    }, 1000);
+
+    return () => {
+      clearInterval(statusUpdateInterval);
+    };
   }, [poll]);
 
   const { data: coordinatorPubKeyResult } = useContractRead({
@@ -91,12 +128,10 @@ export default function PollDetail() {
     }
 
     // check if the poll is closed
-    // if (Number(poll.endTime) * 1000 < new Date().getTime()) {
-    //   notification.error("Voting is closed for this poll");
-    //   return;
-    // }
-
-    // TODO: check if the poll is not started
+    if (status !== PollStatus.OPEN) {
+      notification.error("Voting is closed for this poll");
+      return;
+    }
 
     const votesToMessage = votes.map((v, i) =>
       getMessageAndEncKeyPair(
@@ -188,6 +223,7 @@ export default function PollDetail() {
         {poll?.options.map((candidate, index) => (
           <div className="pb-5 flex" key={index}>
             <VoteCard
+              pollOpen={status === PollStatus.OPEN}
               index={index}
               candidate={candidate}
               clicked={false}
@@ -198,15 +234,43 @@ export default function PollDetail() {
             />
           </div>
         ))}
-        <div className={`mt-2 shadow-2xl`}>
-          <button
-            onClick={castVote}
-            disabled={!true}
-            className="hover:border-black border-2 border-accent w-full text-lg text-center bg-accent py-3 rounded-xl font-bold"
-          >
-            {true ? "Vote Now" : "Voting Closed"}{" "}
-          </button>
-        </div>
+        {status === PollStatus.OPEN && (
+          <div className={`mt-2 shadow-2xl`}>
+            <button
+              onClick={castVote}
+              disabled={!true}
+              className="hover:border-black border-2 border-accent w-full text-lg text-center bg-accent py-3 rounded-xl font-bold"
+            >
+              {true ? "Vote Now" : "Voting Closed"}{" "}
+            </button>
+          </div>
+        )}
+
+        {result && (
+          <div className="mt-5">
+            <div className="text-2xl font-bold">Results</div>
+            <div className="mt-3">
+              <table className="border-separate w-full mt-7 mb-4">
+                <thead>
+                  <tr className="text-lg font-extralight">
+                    <th className="border border-slate-600 bg-primary">Rank</th>
+                    <th className="border border-slate-600 bg-primary">Candidate</th>
+                    <th className="border border-slate-600 bg-primary">Votes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {result.map((r, i) => (
+                    <tr key={i} className="text-center">
+                      <td>{i + 1}</td>
+                      <td>{r.candidate}</td>
+                      <td>{r.votes}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

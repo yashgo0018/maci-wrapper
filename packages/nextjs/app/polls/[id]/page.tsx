@@ -3,59 +3,44 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { genRandomSalt } from "@se-2/hardhat/maci-ts/crypto";
-import { Keypair, Message, PCommand, PubKey } from "@se-2/hardhat/maci-ts/domainobjs";
+import { Keypair, PCommand, PubKey } from "@se-2/hardhat/maci-ts/domainobjs";
 import { useContractRead, useContractWrite } from "wagmi";
 import PollAbi from "~~/abi/Poll";
 import VoteCard from "~~/components/card/VoteCard";
 import { useAuthContext } from "~~/contexts/AuthContext";
 import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
 import { useFetchPoll } from "~~/hooks/useFetchPoll";
+import { PollType } from "~~/types/poll";
+import { notification } from "~~/utils/scaffold-eth";
 
 export default function PollDetail() {
   const { id } = useParams<{ id: string }>();
 
   const { data: poll, error, isLoading } = useFetchPoll(id);
+  const [pollType, setPollType] = useState(PollType.NOT_SELECTED);
 
   useAuthUserOnly({});
 
   const { keypair, stateIndex } = useAuthContext();
 
-  const [votes] = useState<{ index: number; votes: number; voteMessage: { message: Message; encKeyPair: Keypair } }[]>(
-    [],
-  );
+  const [votes, setVotes] = useState<{ index: number; votes: number }[]>([]);
 
-  const [clickedIndex, setClickedIndex] = useState<number | null>(null);
-  const handleCardClick = (index: number) => {
-    setClickedIndex(clickedIndex === index ? null : index);
-  };
+  const [isVotesInvalid, setIsVotesInvalid] = useState<Record<number, boolean>>({});
 
-  const castVote = async () => {
-    console.log("Voting for candidate", clickedIndex);
-    console.log("A", message?.message.asContractParam(), message?.encKeyPair.pubKey.asContractParam());
-    // // navigate to the home page
-    // try {
-    //   // setLoaderMessage("Casting the vote, please wait...");
-
-    //   // router.push(`/voted-success?id=${clickedIndex}`);
-    // } catch (err) {
-    //   console.log("err", err);
-    //   // toast.error("Casting vote failed, please try again ");
-    // }
-  };
+  const isAnyInvalid = Object.values(isVotesInvalid).some(v => v);
 
   useEffect(() => {
-    if (votes.length === 0) {
+    if (!poll || !poll.metadata) {
       return;
     }
 
-    (async () => {
-      try {
-        await writeAsync();
-      } catch (err) {
-        console.log({ err });
-      }
-    })();
-  }, [votes]);
+    try {
+      const { pollType } = JSON.parse(poll.metadata);
+      setPollType(pollType);
+    } catch (err) {
+      console.log("err", err);
+    }
+  }, [poll]);
 
   const { data: coordinatorPubKeyResult } = useContractRead({
     abi: PollAbi,
@@ -63,15 +48,16 @@ export default function PollDetail() {
     functionName: "coordinatorPubKey",
   });
 
-  const [message, setMessage] = useState<{ message: Message; encKeyPair: Keypair }>();
-
-  console.log("message", message);
-
-  const { writeAsync } = useContractWrite({
+  const { writeAsync: publishMessage } = useContractWrite({
     abi: PollAbi,
     address: poll?.pollContracts.poll,
     functionName: "publishMessage",
-    args: message ? [message.message.asContractParam(), message.encKeyPair.pubKey.asContractParam()] : undefined,
+  });
+
+  const { writeAsync: publishMessageBatch } = useContractWrite({
+    abi: PollAbi,
+    address: poll?.pollContracts.poll,
+    functionName: "publishMessageBatch",
   });
 
   const [coordinatorPubKey, setCoordinatorPubKey] = useState<PubKey>();
@@ -89,28 +75,79 @@ export default function PollDetail() {
     setCoordinatorPubKey(coordinatorPubKey_);
   }, [coordinatorPubKeyResult]);
 
-  useEffect(() => {
-    if (clickedIndex === null || !coordinatorPubKey || !keypair || !stateIndex) {
+  const castVote = async () => {
+    if (!poll || stateIndex == null || !coordinatorPubKey || !keypair) return;
+
+    // check if the votes are valid
+    if (isAnyInvalid) {
+      notification.error("Please enter a valid number of votes");
       return;
     }
 
-    console.log(
-      stateIndex, // stateindex
-      keypair.pubKey, // userMaciPubKey
-      BigInt(clickedIndex),
-      1n,
-      1n, // nonce
-      BigInt(id),
-      genRandomSalt(),
+    // check if no votes are selected
+    if (votes.length === 0) {
+      notification.error("Please select at least one option to vote");
+      return;
+    }
+
+    // check if the poll is closed
+    // if (Number(poll.endTime) * 1000 < new Date().getTime()) {
+    //   notification.error("Voting is closed for this poll");
+    //   return;
+    // }
+
+    // TODO: check if the poll is not started
+
+    const votesToMessage = votes.map((v, i) =>
+      getMessageAndEncKeyPair(
+        stateIndex,
+        poll.id,
+        BigInt(v.index),
+        BigInt(v.votes),
+        BigInt(votes.length - i),
+        coordinatorPubKey,
+        keypair,
+      ),
     );
 
+    try {
+      if (votesToMessage.length === 1) {
+        await publishMessage({
+          args: [votesToMessage[0].message.asContractParam(), votesToMessage[0].encKeyPair.pubKey.asContractParam()],
+        });
+      } else {
+        await publishMessageBatch({
+          args: [
+            votesToMessage.map(v => v.message.asContractParam()),
+            votesToMessage.map(v => v.encKeyPair.pubKey.asContractParam()),
+          ],
+        });
+      }
+
+      //   // setLoaderMessage("Casting the vote, please wait...");
+      //   // router.push(`/voted-success?id=${clickedIndex}`);
+    } catch (err) {
+      console.log("err", err);
+      notification.error("Casting vote failed, please try again ");
+    }
+  };
+
+  function getMessageAndEncKeyPair(
+    stateIndex: bigint,
+    pollIndex: bigint,
+    candidateIndex: bigint,
+    weight: bigint,
+    nonce: bigint,
+    coordinatorPubKey: PubKey,
+    keypair: Keypair,
+  ) {
     const command: PCommand = new PCommand(
-      stateIndex, // stateindex
-      keypair.pubKey, // userMaciPubKey
-      BigInt(clickedIndex),
-      1n,
-      1n, // nonce
-      BigInt(id),
+      stateIndex,
+      keypair.pubKey,
+      candidateIndex,
+      weight,
+      nonce,
+      pollIndex,
       genRandomSalt(),
     );
 
@@ -120,13 +157,27 @@ export default function PollDetail() {
 
     const message = command.encrypt(signature, Keypair.genEcdhSharedKey(encKeyPair.privKey, coordinatorPubKey));
 
-    setMessage({ message, encKeyPair });
-  }, [id, clickedIndex, coordinatorPubKey, keypair, stateIndex]);
+    return { message, encKeyPair };
+  }
+
+  function voteUpdated(index: number, checked: boolean, voteCounts: number) {
+    if (pollType === PollType.SINGLE_VOTE) {
+      if (checked) {
+        setVotes([{ index, votes: voteCounts }]);
+      }
+      return;
+    }
+
+    if (checked) {
+      setVotes([...votes.filter(v => v.index !== index), { index, votes: voteCounts }]);
+    } else {
+      setVotes(votes.filter(v => v.index !== index));
+    }
+  }
 
   if (isLoading) return <div>Loading...</div>;
 
   if (error) return <div>Poll not found</div>;
-  console.log(poll);
 
   return (
     <div className="container mx-auto pt-10">
@@ -135,19 +186,21 @@ export default function PollDetail() {
           <div className="text-2xl font-bold ">Vote for {poll?.name}</div>
         </div>
         {poll?.options.map((candidate, index) => (
-          <div className="pb-5" key={index}>
-            <VoteCard clicked={clickedIndex === index} onClick={() => handleCardClick(index)}>
-              <div>{candidate}</div>
-            </VoteCard>
-
-            {/* add a votes number input here */}
+          <div className="pb-5 flex" key={index}>
+            <VoteCard
+              index={index}
+              candidate={candidate}
+              clicked={false}
+              pollType={pollType}
+              onChange={(checked, votes) => voteUpdated(index, checked, votes)}
+              isInvalid={Boolean(isVotesInvalid[index])}
+              setIsInvalid={status => setIsVotesInvalid({ ...isVotesInvalid, [index]: status })}
+            />
           </div>
         ))}
-        <div className={`mt-2 ${clickedIndex !== null ? " shadow-2xl" : ""}`}>
+        <div className={`mt-2 shadow-2xl`}>
           <button
-            onClick={() => {
-              castVote();
-            }}
+            onClick={castVote}
             disabled={!true}
             className="hover:border-black border-2 border-accent w-full text-lg text-center bg-accent py-3 rounded-xl font-bold"
           >

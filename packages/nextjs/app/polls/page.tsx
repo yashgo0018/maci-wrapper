@@ -26,12 +26,12 @@ export default function Polls() {
         polls.length !== 0 ? (
           <>
             <div className="mb-3 flex flex-col gap-y-2">
-              {polls.map((poll: any) => (
+              {polls.map(poll => (
                 <HoverBorderCard key={poll.id} showArrow={true} click={() => router.push(`/polls/${poll.id}`)}>
                   <div className="flex">
                     <div className="flex-1 flex flex-col">
                       <h1 className="text-lg font-bold">
-                        {poll.name} ({"Closed"})
+                        {poll.name} ({poll.status})
                       </h1>
                       <h1 className="text-md text-sm">{poll.options.length} Candidates</h1>
                     </div>

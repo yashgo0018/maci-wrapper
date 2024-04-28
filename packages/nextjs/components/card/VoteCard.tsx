@@ -1,36 +1,89 @@
-import { BiLike } from "react-icons/bi";
+import { useRef, useState } from "react";
+import { PollType } from "~~/types/poll";
 
 type VoteCardProps = {
-  children: React.ReactNode;
+  index: number;
+  candidate: string;
   clicked: boolean;
-  onClick: () => void;
+  pollType: PollType;
+  onChange: (checked: boolean, votes: number) => void;
+  setIsInvalid: (value: boolean) => void;
+  isInvalid: boolean;
 };
 
-const VoteCard = ({ children, clicked, onClick }: VoteCardProps) => {
-  const handleClick = () => {
-    onClick();
-  };
-
-  // Rest of the component code...
+const VoteCard = ({ index, candidate, onChange, pollType, isInvalid, setIsInvalid }: VoteCardProps) => {
+  const [selected, setSelected] = useState(false);
+  const [votes, setVotes] = useState(0);
+  const votesFieldRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div
-      className={`w-full py-1 flex justify-end items-center border-2  text-lg rounded-full  cursor-pointer 
-            transition-all  transform 
-           hover:border-[#090F21]  hover:shadow hover:scale-[0.98]
-            ${
-              clicked
-                ? " bg-[#283896] bg-opacity-100 scale-[0.98] shadow border-[#090F21]"
-                : " bg-[#3647A4] bg-opacity-30 border-transparent"
+    <>
+      <div className="bg-primary flex w-full px-2 py-2 rounded-lg">
+        <input
+          type={pollType === PollType.SINGLE_VOTE ? "radio" : "checkbox"}
+          className="mr-2"
+          value={index}
+          onChange={e => {
+            console.log(e.target.checked);
+            setSelected(e.target.checked);
+            if (e.target.checked) {
+              switch (pollType) {
+                case PollType.SINGLE_VOTE:
+                  onChange(true, 1);
+                  break;
+                case PollType.MULTIPLE_VOTE:
+                  onChange(true, 1);
+                  break;
+                case PollType.WEIGHTED_MULTIPLE_VOTE:
+                  if (votes) {
+                    onChange(true, votes);
+                  } else {
+                    setIsInvalid(true);
+                  }
+                  break;
+              }
+            } else {
+              onChange(false, 0);
+              setIsInvalid(false);
+              setVotes(0);
+              if (votesFieldRef.current) {
+                votesFieldRef.current.value = "";
+              }
             }
-            `}
-      onClick={handleClick}
-    >
-      <div className="ml-8 flex-grow text-center">{children}</div>
-      <div className={`transition-all mr-5 transform ${clicked ? "opacity-100" : " opacity-0"}`}>
-        <BiLike />
+          }}
+          name={pollType === PollType.SINGLE_VOTE ? "candidate-votes" : `candidate-votes-${index}`}
+        />
+
+        <div>{candidate}</div>
       </div>
-    </div>
+
+      {pollType === PollType.WEIGHTED_MULTIPLE_VOTE && (
+        <input
+          ref={votesFieldRef}
+          type="number"
+          className={
+            "border border-slate-600 bg-primary text-primary-content rounded-lg px-2 py-2 ml-2 w-20" +
+            (isInvalid ? " border-red-500" : "")
+          }
+          disabled={!selected}
+          placeholder="Votes"
+          min={0}
+          step={1}
+          onChange={function (e) {
+            if (
+              Number(e.currentTarget.value) < 0 ||
+              (selected && (e.currentTarget.value === "" || Number(e.currentTarget.value) == 0))
+            ) {
+              setIsInvalid(true);
+            } else {
+              setIsInvalid(false);
+              setVotes(Number(e.currentTarget.value));
+              onChange(selected, Number(e.currentTarget.value));
+            }
+          }}
+        />
+      )}
+    </>
   );
 };
 

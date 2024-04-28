@@ -18,7 +18,7 @@ contract PollManager is Params, DomainObjs {
 		uint256 maciPollId;
 		string name;
 		bytes encodedOptions;
-		string ipfsHash;
+		string metadata;
 		MACI.PollContracts pollContracts;
 		uint256 startTime;
 		uint256 endTime;
@@ -47,7 +47,7 @@ contract PollManager is Params, DomainObjs {
 		MACI.PollContracts pollContracts,
 		string name,
 		string[] options,
-		string ipfsHash,
+		string metadata,
 		uint256 startTime,
 		uint256 endTime
 	);
@@ -89,7 +89,7 @@ contract PollManager is Params, DomainObjs {
 	function createPoll(
 		string calldata _name,
 		string[] calldata _options,
-		string calldata _ipfsHash,
+		string calldata _metadata,
 		uint256 _duration
 	) public onlyOwner {
 		// TODO: check if the number of options are more than limit
@@ -120,7 +120,7 @@ contract PollManager is Params, DomainObjs {
 			name: _name,
 			encodedOptions: encodedOptions,
 			numOfOptions: _options.length,
-			ipfsHash: _ipfsHash,
+			metadata: _metadata,
 			startTime: block.timestamp,
 			endTime: endTime,
 			pollContracts: pollContracts,
@@ -135,7 +135,7 @@ contract PollManager is Params, DomainObjs {
 			pollContracts,
 			_name,
 			_options,
-			_ipfsHash,
+			_metadata,
 			block.timestamp,
 			endTime
 		);

@@ -5,14 +5,8 @@ import { MdEdit } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import Modal from "~~/components/Modal";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { PollType } from "~~/types/poll";
 import { notification } from "~~/utils/scaffold-eth";
-
-enum PollType {
-  NOT_SELECTED,
-  SINGLE_VOTE,
-  MULTIPLE_VOTE,
-  WEIGHTED_MULTIPLE_VOTE,
-}
 
 export default function Example({
   show,
@@ -68,7 +62,12 @@ export default function Example({
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "PollManager",
     functionName: "createPoll",
-    args: [pollData?.title, pollData?.options || [], "", duration > 0 ? BigInt(duration) : 0n],
+    args: [
+      pollData.title,
+      pollData.options || [],
+      JSON.stringify({ pollType: pollData.pollType }),
+      duration > 0 ? BigInt(duration) : 0n,
+    ],
   });
 
   async function onSubmit() {
@@ -163,7 +162,7 @@ export default function Example({
         value={pollData.pollType}
         onChange={handlePollTypeChange}
       >
-        <option disabled selected value={PollType.NOT_SELECTED}>
+        <option disabled value={PollType.NOT_SELECTED}>
           Select Poll Type
         </option>
         <option value={PollType.SINGLE_VOTE}>Single Candidate Select</option>

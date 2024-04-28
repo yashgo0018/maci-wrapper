@@ -1374,7 +1374,7 @@ const deployedContracts = {
             {
               indexed: false,
               internalType: "string",
-              name: "ipfsHash",
+              name: "metadata",
               type: "string",
             },
             {
@@ -1463,7 +1463,7 @@ const deployedContracts = {
             },
             {
               internalType: "string",
-              name: "_ipfsHash",
+              name: "_metadata",
               type: "string",
             },
             {
@@ -1511,7 +1511,7 @@ const deployedContracts = {
                 },
                 {
                   internalType: "string",
-                  name: "ipfsHash",
+                  name: "metadata",
                   type: "string",
                 },
                 {
@@ -1614,7 +1614,7 @@ const deployedContracts = {
                 },
                 {
                   internalType: "string",
-                  name: "ipfsHash",
+                  name: "metadata",
                   type: "string",
                 },
                 {

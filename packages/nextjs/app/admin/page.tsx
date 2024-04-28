@@ -46,8 +46,8 @@ export default function AdminPage() {
             <thead>
               <tr className="text-lg font-extralight">
                 <th className="border border-slate-600 bg-primary">Poll Name</th>
-                <th className="border border-slate-600 bg-primary">End Time</th>
                 <th className="border border-slate-600 bg-primary">Start Time</th>
+                <th className="border border-slate-600 bg-primary">End Time</th>
                 <th className="border border-slate-600 bg-primary">Status</th>
               </tr>
             </thead>

@@ -22,6 +22,7 @@
     "@uniswap/sdk-core": "^4.0.1",
     "@uniswap/v2-sdk": "^3.0.1",
     "@zk-kit/circuits": "^0.4.0",
+    "axios": "^1.6.8",
     "blo": "^1.0.1",
     "circomkit": "^0.0.24",
     "circomlib": "^2.0.5",

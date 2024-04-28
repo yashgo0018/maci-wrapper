@@ -1,14 +1,10 @@
+import React from "react";
 import { Dialog } from "@headlessui/react";
-import { useContractRead } from "wagmi";
-import AccQueueAbi from "~~/abi/AccQueue";
-import PollAbi from "~~/abi/Poll";
 import Modal from "~~/components/Modal";
-import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { Poll } from "~~/types/poll";
-import { useMergeMessages } from "~~/utils/useMergeMessages";
-import { useMergeSignups } from "~~/utils/useMergeSignups";
-
-const stepNames = ["Merge SignUps", "Merge Main Roots", "Compute Main Root"];
+import { uploadToPinata } from "~~/utils/pinata";
+import { notification } from "~~/utils/scaffold-eth";
 
 export default function PollStatusModal({
   poll,
@@ -19,66 +15,48 @@ export default function PollStatusModal({
   setOpen: (value: boolean) => void;
   poll: Poll | undefined;
 }) {
-  // console.log("stateAq", stateAq, subTreesMerged);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
-  const { data: stateAq } = useScaffoldContractRead({ contractName: "MACI", functionName: "stateAq" });
-  const { data: stateTreeDepth, refetch: refetchStateTreeDepth } = useScaffoldContractRead({
-    contractName: "MACI",
-    functionName: "stateTreeDepth",
-  });
-  const { data: mainRoot1, refetch: refetchMainRoot1 } = useContractRead({
-    abi: AccQueueAbi,
-    address: stateAq,
-    functionName: "getMainRoot",
-    args: stateTreeDepth ? [BigInt(stateTreeDepth)] : undefined,
+  const { writeAsync } = useScaffoldContractWrite({
+    contractName: "PollManager",
+    functionName: "updatePollTallyCID",
+    args: [undefined, undefined],
   });
 
-  const { data: treeDepths, refetch: refetchTreeDepths } = useContractRead({
-    abi: PollAbi,
-    address: poll?.pollContracts.poll,
-    functionName: "treeDepths",
-  });
-  const [, , messageTreeDepth] = treeDepths || [undefined, undefined, undefined, undefined];
-  const { data: extContracts, refetch: refetchExtContracts } = useContractRead({
-    abi: PollAbi,
-    address: poll?.pollContracts.poll,
-    functionName: "extContracts",
-  });
-  const [, messageAq] = extContracts || [undefined, undefined, undefined];
-  const { data: mainRoot2, refetch: refetchMainRoot2 } = useContractRead({
-    abi: AccQueueAbi,
-    address: messageAq,
-    functionName: "getMainRoot",
-    args: messageTreeDepth ? [BigInt(messageTreeDepth)] : undefined,
-  });
-
-  // check if the message AQ has been fully merged
-  // const messageTreeDepth = Number((await pollContract.treeDepths()).messageTreeDepth);
-
-  // check if the main root was not already computed
-  // const mainRoot = (await accQueueContract.getMainRoot(messageTreeDepth.toString())).toString();
-
-  function refetch() {
-    refetchStateTreeDepth();
-    refetchTreeDepths();
-    refetchExtContracts();
-    refetchMainRoot1();
-    refetchMainRoot2();
-  }
-
-  let step = 1;
-  if (mainRoot1) {
-    step = 2;
-    if (mainRoot2) {
-      step = 3;
+  function uploadTallyFile() {
+    if (!fileInputRef.current?.files?.length || !poll) {
+      return;
     }
-  }
 
-  const { merge: mergeSignups } = useMergeSignups({ pollContractAddress: poll?.pollContracts.poll, refresh: refetch });
-  const { merge: mergeMessages } = useMergeMessages({
-    pollContractAddress: poll?.pollContracts.poll,
-    refresh: refetch,
-  });
+    const file = fileInputRef.current.files[0];
+    console.log(file);
+    const reader = new FileReader();
+
+    reader.onload = async () => {
+      const content = reader.result as string;
+
+      let data: any;
+      try {
+        data = JSON.parse(content);
+      } catch (err) {
+        notification.error("Invalid file", { showCloseButton: false });
+        return;
+      }
+
+      if (!data || !data.results?.tally || !Array.isArray(data.results.tally)) {
+        notification.error("Invalid file", { showCloseButton: false });
+        return;
+      }
+
+      const ipfsHash = await uploadToPinata(data);
+
+      await writeAsync({ args: [poll.id, ipfsHash] });
+
+      setOpen(false);
+    };
+
+    reader.readAsText(file);
+  }
 
   return (
     <Modal show={show} setOpen={setOpen}>
@@ -88,41 +66,25 @@ export default function PollStatusModal({
         </Dialog.Title>
       </div>
       <div className=" ">
-        <div className="text-center text-lg">
-          Step {step} - {stepNames[step - 1]}
+        <div className="text-center">
+          <div className="text-sm">Upload the tally file</div>
+          <div className="mt-2">
+            <input
+              type="file"
+              ref={fileInputRef}
+              accept=".json"
+              className="file-input file-input-bordered w-full bg-primary text-neutral max-w-xs"
+            />
+          </div>
         </div>
-        {step === 1 && (
-          <div className="text-center">
-            <div className="text-sm">Merge the signup subtrees of the accumulator queue</div>
-          </div>
-        )}
-
-        {step === 2 && (
-          <div className="text-center">
-            <div className="text-sm">Merge the signup subtrees of the accumulator queue</div>
-          </div>
-        )}
-
         <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-          {step === 1 && (
-            <button
-              type="button"
-              className="inline-flex w-full justify-center rounded-md bg-primary text-primary-content px-3 py-2 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-              onClick={mergeSignups}
-            >
-              Merge Signups
-            </button>
-          )}
-
-          {step === 2 && (
-            <button
-              type="button"
-              className="inline-flex w-full justify-center rounded-md bg-primary text-primary-content px-3 py-2 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-              onClick={mergeMessages}
-            >
-              Merge Messages
-            </button>
-          )}
+          <button
+            type="button"
+            className="inline-flex w-full justify-center rounded-md bg-primary text-primary-content px-3 py-2 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+            onClick={uploadTallyFile}
+          >
+            Upload
+          </button>
           <button
             type="button"
             className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"

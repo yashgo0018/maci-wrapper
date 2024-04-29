@@ -13,10 +13,10 @@ echo 'Writing Merkle zeros contracts'
 bash ./maci-scripts/writeMerkleZeroesContracts.sh 
 
 echo 'Writing empty ballot tree root contract'
-pnpm exec ts-node maci-ts/ts/genEmptyBallotRootsContract.ts
+yarn exec ts-node maci-ts/ts/genEmptyBallotRootsContract.ts
 
 echo 'Building contracts with Hardhat'
-TS_NODE_TRANSPILE_ONLY=1 pnpm exec hardhat compile
+TS_NODE_TRANSPILE_ONLY=1 yarn exec hardhat compile
 
 echo 'Building Poseidon libraries from bytecode' 
-pnpm exec ts-node maci-ts/ts/buildPoseidon.ts
+yarn exec ts-node maci-ts/ts/buildPoseidon.ts

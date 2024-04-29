@@ -40,11 +40,11 @@ yarn download-zkeys
 
 3. **Update the environment variables**
 
-Copy the template files to env files
+Copy the env example files to env files
 
 ```bash
-cp packages/hardhat/.env.template packages/hardhat/.env
-cp packages/nextjs/.env.template packages/nextjs/.env.local
+cp packages/hardhat/.env.example packages/hardhat/.env
+cp packages/nextjs/.env.example packages/nextjs/.env.local
 ```
 
 Update the values of the env variables in these new .env files

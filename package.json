@@ -5,8 +5,7 @@
   "workspaces": {
     "packages": [
       "packages/hardhat",
-      "packages/nextjs",
-      "packages/prover"
+      "packages/nextjs"
     ]
   },
   "scripts": {

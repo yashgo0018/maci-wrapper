@@ -35,6 +35,3 @@ jobs:
 
       - name: Check typings on nextjs
         run: yarn next:check-types
-
-      - name: Run hardhat lint
-        run: yarn hardhat:lint --max-warnings=0

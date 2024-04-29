@@ -1,4 +1,4 @@
-# Scaffold ETH 2 + MACI Voting Template
+.# Scaffold ETH 2 + MACI Voting Template
 
 Welcome to the Scaffold ETH 2 + MACI Voting Template! This template is a powerful starting point for developers aiming to build decentralized voting applications that prioritize privacy and resist collusion. Combining the rapid development environment of Scaffold ETH with the innovative Minimal Anti-Collusion Infrastructure (MACI), this template offers a robust foundation for creating secure and transparent voting systems on the Ethereum blockchain.
 
@@ -30,7 +30,26 @@ cd scaffold-eth-2
 yarn install
 ```
 
-2. **Start a Local Ethereum Network**
+2. **Download the zkeys for the maci circuits**
+
+In your first terminal window, run:
+
+```bash
+yarn download-zkeys
+```
+
+3. **Update the environment variables**
+
+Copy the template files to env files
+
+```bash
+cp packages/hardhat/.env.template packages/hardhat/.env
+cp packages/nextjs/.env.template packages/nextjs/.env.local
+```
+
+Update the values of the env variables in these new .env files
+
+4. **Start a Local Ethereum Network**
 
 In your first terminal window, run:
 
@@ -40,7 +59,7 @@ yarn chain
 
 This initiates a local Ethereum network via Hardhat for development and testing purposes. Adjust the network settings in `hardhat.config.ts` as needed.
 
-3. **Deploy Contracts**
+5. **Deploy Contracts**
 
 In a second terminal, deploy your test contract with:
 
@@ -50,7 +69,7 @@ yarn deploy
 
 Find the contract in `packages/hardhat/contracts`. This script deploys your contract to the local network, with customization available in `packages/hardhat/deploy`.
 
-4. **Launch the NextJS Application**
+6. **Launch the NextJS Application**
 
 In a third terminal, start the NextJS frontend:
 
@@ -58,7 +77,11 @@ In a third terminal, start the NextJS frontend:
 yarn start
 ```
 
-Navigate to `http://localhost:3000` to interact with your dApp. Modify your app configuration in `packages/nextjs/scaffold.config.ts` as necessary.
+Navigate to `http://localhost:3000` to interact with your dApp. Modify your app configuration in `packages/nextjs/scaffold.config.ts` and `packages/hardhat/constants.ts` as necessary.
+
+The deployed contracts will be saved to the file `packages/hardhat/contractAddresses.json`, this file is compatible with maci cli.
+
+The coordinator keys will be stored in the file `packages/hardhat/coordinatorKeyPair.json`.
 
 ## Usage
 

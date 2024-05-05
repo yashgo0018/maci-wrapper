@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { Keypair, PrivKey } from "@se-2/hardhat/maci-ts/domainobjs";
+import { Keypair, PrivKey } from "maci-domainobjs";
 import { useAccount, useSignMessage } from "wagmi";
 import deployedContracts from "~~/contracts/deployedContracts";
 import { useScaffoldContractRead, useScaffoldEventHistory, useScaffoldEventSubscriber } from "~~/hooks/scaffold-eth";
@@ -45,23 +45,23 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   }, [signature]);
 
   const { data: isRegistered, refetch: refetchIsRegistered } = useScaffoldContractRead({
-    contractName: "MACI",
+    contractName: "MACIWrapper",
     functionName: "isPublicKeyRegistered",
-    args: keypair ? keypair.pubKey.rawPubKey : [undefined, undefined],
+    args: keypair ? keypair.pubKey.rawPubKey : [0n, 0n],
   });
 
   const chainId = scaffoldConfig.targetNetworks[0].id;
 
   const {
-    MACI: { deploymentBlockNumber },
+    MACIWrapper: { deploymentBlockNumber },
   } = deployedContracts[chainId];
 
   const { data: SignUpEvents } = useScaffoldEventHistory({
-    contractName: "MACI",
+    contractName: "MACIWrapper",
     eventName: "SignUp",
     filters: {
-      _userPubKeyX: keypair?.pubKey.asContractParam().x,
-      _userPubKeyY: keypair?.pubKey.asContractParam().y,
+      _userPubKeyX: BigInt(keypair?.pubKey.asContractParam().x || 0n),
+      _userPubKeyY: BigInt(keypair?.pubKey.asContractParam().y || 0n),
     },
     fromBlock: BigInt(deploymentBlockNumber),
   });
@@ -77,7 +77,7 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   }, [keypair, SignUpEvents]);
 
   useScaffoldEventSubscriber({
-    contractName: "MACI",
+    contractName: "MACIWrapper",
     eventName: "SignUp",
     listener: logs => {
       logs.forEach(log => {

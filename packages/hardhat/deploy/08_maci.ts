@@ -6,7 +6,7 @@ import {
   TopupCreditContractName,
   stateTreeDepth,
 } from "../constants";
-import { MACI, SignUpGatekeeper } from "../typechain-types";
+import { MACIWrapper, SignUpGatekeeper } from "../typechain-types";
 
 // const STATE_TREE_SUBDEPTH = 2;
 
@@ -24,7 +24,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   const messageProcessorFactory = await hre.ethers.getContract("MessageProcessorFactory", deployer);
   const tallyFactory = await hre.ethers.getContract("TallyFactory", deployer);
 
-  await hre.deployments.deploy("MACI", {
+  await hre.deployments.deploy("MACIWrapper", {
     from: deployer,
     args: [
       await pollFactory.getAddress(),
@@ -45,17 +45,11 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     autoMine: true,
   });
 
-  const maci = await hre.ethers.getContract<MACI>("MACI", deployer);
+  const maci = await hre.ethers.getContract<MACIWrapper>("MACIWrapper", deployer);
 
   console.log(`The MACI contract is deployed at ${await maci.getAddress()}`);
 
   await gatekeeper.setMaciInstance(await maci.getAddress());
-
-  // // Save the acc queue to the deployments
-  // await hre.deployments.save("AccQueue", {
-  //   abi: (await hre.artifacts.readArtifact("AccQueue")).abi,
-  //   address: await maci.stateAq(),
-  // });
 };
 
 export default deployContracts;

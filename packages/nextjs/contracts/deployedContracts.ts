@@ -45,9 +45,6 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {
-        getVoiceCredits: "contracts/maci-contracts/initialVoiceCreditProxy/InitialVoiceCreditProxy.sol",
-      },
       deploymentBlockNumber: 1,
     },
     FreeForAllGatekeeper: {
@@ -90,10 +87,9 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {},
       deploymentBlockNumber: 3,
     },
-    MACI: {
+    MACIWrapper: {
       address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
       abi: [
         {
@@ -134,7 +130,7 @@ const deployedContracts = {
               type: "uint8",
             },
           ],
-          stateMutability: "payable",
+          stateMutability: "nonpayable",
           type: "constructor",
         },
         {
@@ -150,19 +146,56 @@ const deployedContracts = {
         },
         {
           inputs: [],
+          name: "DefaultZeroBadIndex",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "DepthTooLarge",
+          type: "error",
+        },
+        {
+          inputs: [],
           name: "InvalidMessage",
           type: "error",
         },
         {
           inputs: [],
-          name: "MaciPubKeyLargerThanSnarkFieldSize",
+          name: "InvalidPubKey",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "NumberOfLeavesCannotBeZero",
           type: "error",
         },
         {
           inputs: [
             {
               internalType: "address",
-              name: "pollAddr",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_poll",
               type: "address",
             },
           ],
@@ -390,9 +423,9 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "bool",
-              name: "_isQv",
-              type: "bool",
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
             },
           ],
           name: "deployPoll",
@@ -463,7 +496,7 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "getStateAqRoot",
+          name: "getStateTreeRoot",
           outputs: [
             {
               internalType: "uint256",
@@ -709,52 +742,20 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "manager",
+          name: "lazyIMTData",
           outputs: [
             {
-              internalType: "address",
-              name: "",
-              type: "address",
+              internalType: "uint40",
+              name: "maxIndex",
+              type: "uint40",
+            },
+            {
+              internalType: "uint40",
+              name: "numberOfLeaves",
+              type: "uint40",
             },
           ],
           stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_pollId",
-              type: "uint256",
-            },
-          ],
-          name: "mergeStateAq",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "root",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_numSrQueueOps",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_pollId",
-              type: "uint256",
-            },
-          ],
-          name: "mergeStateAqSubRoots",
-          outputs: [],
-          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -789,7 +790,7 @@ const deployedContracts = {
           outputs: [
             {
               internalType: "uint256",
-              name: "",
+              name: "signUps",
               type: "uint256",
             },
           ],
@@ -994,38 +995,12 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "stateAq",
-          outputs: [
-            {
-              internalType: "contract AccQueue",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
           name: "stateTreeDepth",
           outputs: [
             {
               internalType: "uint8",
               name: "",
               type: "uint8",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "subtreesMerged",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
             },
           ],
           stateMutability: "view",
@@ -1070,40 +1045,36 @@ const deployedContracts = {
           stateMutability: "nonpayable",
           type: "function",
         },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_manager",
-              type: "address",
-            },
-          ],
-          name: "updateManager",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
       ],
       inheritedFunctions: {
-        getStateAqRoot: "contracts/maci-contracts/interfaces/IMACI.sol",
-        mergeStateAq: "contracts/maci-contracts/interfaces/IMACI.sol",
-        mergeStateAqSubRoots: "contracts/maci-contracts/interfaces/IMACI.sol",
-        numSignUps: "contracts/maci-contracts/interfaces/IMACI.sol",
-        stateAq: "contracts/maci-contracts/interfaces/IMACI.sol",
-        stateTreeDepth: "contracts/maci-contracts/interfaces/IMACI.sol",
-        MESSAGE_DATA_LENGTH: "contracts/maci-contracts/utilities/Utilities.sol",
-        hash2: "contracts/maci-contracts/utilities/Utilities.sol",
-        hash3: "contracts/maci-contracts/utilities/Utilities.sol",
-        hash4: "contracts/maci-contracts/utilities/Utilities.sol",
-        hash5: "contracts/maci-contracts/utilities/Utilities.sol",
-        hashLeftRight: "contracts/maci-contracts/utilities/Utilities.sol",
-        hashMessageAndEncPubKey: "contracts/maci-contracts/utilities/Utilities.sol",
-        hashStateLeaf: "contracts/maci-contracts/utilities/Utilities.sol",
-        padAndHashMessage: "contracts/maci-contracts/utilities/Utilities.sol",
-        sha256Hash: "contracts/maci-contracts/utilities/Utilities.sol",
-        owner: "@openzeppelin/contracts/access/Ownable.sol",
-        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
-        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        MESSAGE_DATA_LENGTH: "maci-contracts/contracts/MACI.sol",
+        deployPoll: "maci-contracts/contracts/MACI.sol",
+        getPoll: "maci-contracts/contracts/MACI.sol",
+        getStateTreeRoot: "maci-contracts/contracts/MACI.sol",
+        hash2: "maci-contracts/contracts/MACI.sol",
+        hash3: "maci-contracts/contracts/MACI.sol",
+        hash4: "maci-contracts/contracts/MACI.sol",
+        hash5: "maci-contracts/contracts/MACI.sol",
+        hashLeftRight: "maci-contracts/contracts/MACI.sol",
+        hashMessageAndEncPubKey: "maci-contracts/contracts/MACI.sol",
+        hashStateLeaf: "maci-contracts/contracts/MACI.sol",
+        initialVoiceCreditProxy: "maci-contracts/contracts/MACI.sol",
+        lazyIMTData: "maci-contracts/contracts/MACI.sol",
+        messageProcessorFactory: "maci-contracts/contracts/MACI.sol",
+        nextPollId: "maci-contracts/contracts/MACI.sol",
+        numSignUps: "maci-contracts/contracts/MACI.sol",
+        owner: "maci-contracts/contracts/MACI.sol",
+        padAndHashMessage: "maci-contracts/contracts/MACI.sol",
+        pollFactory: "maci-contracts/contracts/MACI.sol",
+        polls: "maci-contracts/contracts/MACI.sol",
+        renounceOwnership: "maci-contracts/contracts/MACI.sol",
+        sha256Hash: "maci-contracts/contracts/MACI.sol",
+        signUp: "maci-contracts/contracts/MACI.sol",
+        signUpGatekeeper: "maci-contracts/contracts/MACI.sol",
+        stateTreeDepth: "maci-contracts/contracts/MACI.sol",
+        tallyFactory: "maci-contracts/contracts/MACI.sol",
+        topupCredit: "maci-contracts/contracts/MACI.sol",
+        transferOwnership: "maci-contracts/contracts/MACI.sol",
       },
       deploymentBlockNumber: 23,
     },
@@ -1146,9 +1117,9 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "bool",
-              name: "_isQv",
-              type: "bool",
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
             },
           ],
           name: "deploy",
@@ -1163,9 +1134,6 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {
-        MESSAGE_DATA_LENGTH: "contracts/maci-contracts/utilities/DomainObjs.sol",
-      },
       deploymentBlockNumber: 19,
     },
     PollFactory: {
@@ -1290,26 +1258,17 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {
-        MESSAGE_DATA_LENGTH: "contracts/maci-contracts/utilities/DomainObjs.sol",
-        deploy: "contracts/maci-contracts/interfaces/IPollFactory.sol",
-      },
       deploymentBlockNumber: 17,
     },
     PollManager: {
-      address: "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
+      address: "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
       abi: [
         {
           inputs: [
             {
-              internalType: "contract MACI",
+              internalType: "contract MACIWrapper",
               name: "_maci",
               type: "address",
-            },
-            {
-              internalType: "bool",
-              name: "_isQv",
-              type: "bool",
             },
           ],
           stateMutability: "nonpayable",
@@ -1470,6 +1429,11 @@ const deployedContracts = {
               internalType: "uint256",
               name: "_duration",
               type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "isQv",
+              type: "uint8",
             },
           ],
           name: "createPoll",
@@ -1675,23 +1639,10 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "isQv",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
           name: "maci",
           outputs: [
             {
-              internalType: "contract MACI",
+              internalType: "contract MACIWrapper",
               name: "",
               type: "address",
             },
@@ -1786,11 +1737,6 @@ const deployedContracts = {
               internalType: "address",
               name: "_vkRegistry",
               type: "address",
-            },
-            {
-              internalType: "bool",
-              name: "_useSubsidy",
-              type: "bool",
             },
           ],
           name: "setConfig",
@@ -1898,9 +1844,9 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        MESSAGE_DATA_LENGTH: "contracts/maci-contracts/utilities/DomainObjs.sol",
+        MESSAGE_DATA_LENGTH: "maci-contracts/contracts/utilities/DomainObjs.sol",
       },
-      deploymentBlockNumber: 29,
+      deploymentBlockNumber: 35,
     },
     PoseidonT3: {
       address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
@@ -1925,7 +1871,6 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {},
       deploymentBlockNumber: 9,
     },
     PoseidonT4: {
@@ -1951,7 +1896,6 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {},
       deploymentBlockNumber: 11,
     },
     PoseidonT5: {
@@ -1977,7 +1921,6 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {},
       deploymentBlockNumber: 13,
     },
     PoseidonT6: {
@@ -2003,12 +1946,24 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {},
       deploymentBlockNumber: 15,
     },
     TallyFactory: {
       address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
       abi: [
+        {
+          inputs: [],
+          name: "MESSAGE_DATA_LENGTH",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
         {
           inputs: [
             {
@@ -2037,9 +1992,9 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "bool",
-              name: "_isQv",
-              type: "bool",
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
             },
           ],
           name: "deploy",
@@ -2054,9 +2009,6 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {
-        deploy: "contracts/maci-contracts/interfaces/ITallyFactory.sol",
-      },
       deploymentBlockNumber: 21,
     },
     TopupCredit: {
@@ -2068,8 +2020,116 @@ const deployedContracts = {
           type: "constructor",
         },
         {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "allowance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "needed",
+              type: "uint256",
+            },
+          ],
+          name: "ERC20InsufficientAllowance",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "balance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "needed",
+              type: "uint256",
+            },
+          ],
+          name: "ERC20InsufficientBalance",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "approver",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidApprover",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidReceiver",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidSender",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidSpender",
+          type: "error",
+        },
+        {
           inputs: [],
           name: "ExceedLimit",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
           type: "error",
         },
         {
@@ -2231,7 +2291,7 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "amount",
+              name: "value",
               type: "uint256",
             },
           ],
@@ -2276,54 +2336,6 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "subtractedValue",
-              type: "uint256",
-            },
-          ],
-          name: "decreaseAllowance",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "addedValue",
-              type: "uint256",
-            },
-          ],
-          name: "increaseAllowance",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -2394,7 +2406,7 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "amount",
+              name: "value",
               type: "uint256",
             },
           ],
@@ -2423,7 +2435,7 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "amount",
+              name: "value",
               type: "uint256",
             },
           ],
@@ -2452,22 +2464,6 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {
-        allowance: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        approve: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        balanceOf: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        decimals: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        decreaseAllowance: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        increaseAllowance: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        name: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        symbol: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        totalSupply: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        transfer: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        transferFrom: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        owner: "@openzeppelin/contracts/access/Ownable.sol",
-        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
-        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
-      },
       deploymentBlockNumber: 7,
     },
     Verifier: {
@@ -2628,9 +2624,6 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {
-        verify: "contracts/maci-contracts/interfaces/IVerifier.sol",
-      },
       deploymentBlockNumber: 5,
     },
     VkRegistry: {
@@ -2640,6 +2633,33 @@ const deployedContracts = {
           inputs: [],
           stateMutability: "payable",
           type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "InvalidKeysParams",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
         },
         {
           inputs: [],
@@ -2696,8 +2716,8 @@ const deployedContracts = {
             },
             {
               indexed: false,
-              internalType: "enum IVkRegistry.Mode",
-              name: "mode",
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
               type: "uint8",
             },
           ],
@@ -2715,13 +2735,26 @@ const deployedContracts = {
             },
             {
               indexed: false,
-              internalType: "enum IVkRegistry.Mode",
-              name: "mode",
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
               type: "uint8",
             },
           ],
           name: "TallyVkSet",
           type: "event",
+        },
+        {
+          inputs: [],
+          name: "MESSAGE_DATA_LENGTH",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
         },
         {
           inputs: [
@@ -2809,7 +2842,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum IVkRegistry.Mode",
+              internalType: "enum DomainObjs.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -2920,7 +2953,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum IVkRegistry.Mode",
+              internalType: "enum DomainObjs.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -3041,7 +3074,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum IVkRegistry.Mode",
+              internalType: "enum DomainObjs.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -3152,7 +3185,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum IVkRegistry.Mode",
+              internalType: "enum DomainObjs.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -3278,7 +3311,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum IVkRegistry.Mode",
+              internalType: "enum DomainObjs.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -3312,7 +3345,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum IVkRegistry.Mode",
+              internalType: "enum DomainObjs.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -3336,7 +3369,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum IVkRegistry.Mode",
+              internalType: "enum DomainObjs.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -3360,7 +3393,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum IVkRegistry.Mode",
+              internalType: "enum DomainObjs.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -3424,7 +3457,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum IVkRegistry.Mode",
+              internalType: "enum DomainObjs.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -3621,6 +3654,228 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "uint256",
+              name: "_stateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_intStateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_voteOptionTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageBatchSize",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode[]",
+              name: "_modes",
+              type: "uint8[]",
+            },
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey[]",
+              name: "_processVks",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey[]",
+              name: "_tallyVks",
+              type: "tuple[]",
+            },
+          ],
+          name: "setVerifyingKeysBatch",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "address",
               name: "newOwner",
               type: "address",
@@ -3632,13 +3887,6 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {
-        owner: "@openzeppelin/contracts/access/Ownable.sol",
-        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
-        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
-        getProcessVk: "contracts/maci-contracts/interfaces/IVkRegistry.sol",
-        getTallyVk: "contracts/maci-contracts/interfaces/IVkRegistry.sol",
-      },
       deploymentBlockNumber: 26,
     },
   },

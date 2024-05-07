@@ -65,7 +65,7 @@ const VoteCard = ({ index, candidate, onChange, pollType, isInvalid, setIsInvali
           ref={votesFieldRef}
           type="number"
           className={
-            "border border-slate-600 bg-primary text-primary-content rounded-lg px-2 py-2 ml-2 w-20" +
+            "border border-slate-600 bg-primary text-primary-content placeholder:text-accent-content placeholder:font-light rounded-lg px-2 py-2 ml-2 w-20" +
             (isInvalid ? " border-red-500" : "")
           }
           disabled={!selected}

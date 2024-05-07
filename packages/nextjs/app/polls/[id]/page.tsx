@@ -171,8 +171,7 @@ export default function PollDetail() {
         });
       }
 
-      //   // setLoaderMessage("Casting the vote, please wait...");
-      //   // router.push(`/voted-success?id=${clickedIndex}`);
+      notification.success("Vote casted successfully");
     } catch (err) {
       console.log("err", err);
       notification.error("Casting vote failed, please try again ");

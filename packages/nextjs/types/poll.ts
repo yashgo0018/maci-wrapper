@@ -7,7 +7,6 @@ export enum PollStatus {
 
 export interface RawPoll {
   id: bigint;
-  maciPollId: bigint;
   name: string;
   encodedOptions: `0x${string}`;
   metadata: string;

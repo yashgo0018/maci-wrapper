@@ -23,12 +23,12 @@ export function getPollStatus(poll: RawPoll) {
 export const useFetchPolls = (currentPage = 1, limit = 10, reversed = true) => {
   const [polls, setPolls] = useState<Poll[]>();
   const { data: totalPolls, refetch: refetchTotalPolls } = useScaffoldContractRead({
-    contractName: "PollManager",
-    functionName: "totalPolls",
+    contractName: "MACIWrapper",
+    functionName: "nextPollId",
   });
 
   const { data: rawPolls, refetch: refetchPolls } = useScaffoldContractRead({
-    contractName: "PollManager",
+    contractName: "MACIWrapper",
     functionName: "fetchPolls",
     args: [BigInt(currentPage), BigInt(limit), reversed],
   });

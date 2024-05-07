@@ -12,7 +12,40 @@ import { TopupCredit } from "maci-contracts/contracts/TopupCredit.sol";
 /// @title MACI - Minimum Anti-Collusion Infrastructure Version 1
 /// @notice A contract which allows users to sign up, and deploy new polls
 contract MACIWrapper is MACI {
+	struct PollData {
+		uint256 id;
+		string name;
+		bytes encodedOptions;
+		string metadata;
+		MACIWrapper.PollContracts pollContracts;
+		uint256 startTime;
+		uint256 endTime;
+		uint256 numOfOptions;
+		string[] options;
+		string tallyJsonCID;
+	}
+
+	mapping(uint256 => PollData) internal _polls;
+
+	TreeDepths public treeDepths;
+	PubKey public coordinatorPubKey;
+	address public verifier;
+	address public vkRegistry;
+
 	mapping(address => uint256) public pollIds;
+
+	event PollCreated(
+		uint256 indexed pollId,
+		address indexed creator,
+		MACIWrapper.PollContracts pollContracts,
+		string name,
+		string[] options,
+		string metadata,
+		uint256 startTime,
+		uint256 endTime
+	);
+
+	event PollTallyCIDUpdated(uint256 indexed pollId, string tallyJsonCID);
 
 	// pubkey.x => pubkey.y => bool
 	mapping(uint256 => mapping(uint256 => bool)) public isPublicKeyRegistered;
@@ -39,6 +72,18 @@ contract MACIWrapper is MACI {
 			_stateTreeDepth
 		)
 	{}
+
+	function setConfig(
+		TreeDepths memory _treeDepths,
+		PubKey memory _coordinatorPubKey,
+		address _verifier,
+		address _vkRegistry
+	) public onlyOwner {
+		treeDepths = _treeDepths;
+		coordinatorPubKey = _coordinatorPubKey;
+		verifier = _verifier;
+		vkRegistry = _vkRegistry;
+	}
 
 	/// @notice Allows any eligible user sign up. The sign-up gatekeeper should prevent
 	/// double sign-ups or ineligible users from doing so.  This function will
@@ -70,40 +115,106 @@ contract MACIWrapper is MACI {
 		isPublicKeyRegistered[_pubKey.x][_pubKey.y] = true;
 	}
 
-	/// @notice Deploy a new Poll contract.
-	/// @param _duration How long should the Poll last for
-	/// @param _treeDepths The depth of the Merkle trees
-	/// @param _coordinatorPubKey The coordinator's public key
-	/// @param _verifier The Verifier Contract
-	/// @param _vkRegistry The VkRegistry Contract
-	/// @param _mode Whether to support QV or not
-	/// @return pollAddr a new Poll contract address
-	function deployPoll(
+	function createPoll(
+		string calldata _name,
+		string[] calldata _options,
+		string calldata _metadata,
 		uint256 _duration,
-		TreeDepths memory _treeDepths,
-		PubKey memory _coordinatorPubKey,
-		address _verifier,
-		address _vkRegistry,
-		Mode _mode
-	) public override returns (PollContracts memory pollAddr) {
+		Mode isQv
+	) public onlyOwner {
+		// TODO: check if the number of options are more than limit
+
 		uint256 pollId = nextPollId;
 
-		PollContracts memory p = super.deployPoll(
+		PollContracts memory pollContracts = deployPoll(
 			_duration,
-			_treeDepths,
-			_coordinatorPubKey,
-			_verifier,
-			_vkRegistry,
-			_mode
+			treeDepths,
+			coordinatorPubKey,
+			verifier,
+			vkRegistry,
+			isQv
 		);
 
-		pollIds[p.poll] = pollId;
+		pollIds[pollContracts.poll] = pollId;
 
-		return p;
+		// encode options to bytes for retrieval
+		bytes memory encodedOptions = abi.encode(_options);
+
+		uint256 endTime = block.timestamp + _duration;
+
+		// create poll
+		_polls[pollId] = PollData({
+			id: pollId,
+			name: _name,
+			encodedOptions: encodedOptions,
+			numOfOptions: _options.length,
+			metadata: _metadata,
+			startTime: block.timestamp,
+			endTime: endTime,
+			pollContracts: pollContracts,
+			options: _options,
+			tallyJsonCID: ""
+		});
+
+		emit PollCreated(
+			pollId,
+			msg.sender,
+			pollContracts,
+			_name,
+			_options,
+			_metadata,
+			block.timestamp,
+			endTime
+		);
 	}
 
 	function getPollId(address _poll) public view returns (uint256 pollId) {
 		if (pollIds[_poll] >= nextPollId) revert PollAddressDoesNotExist(_poll);
 		pollId = pollIds[_poll];
+	}
+
+	function updatePollTallyCID(
+		uint256 _pollId,
+		string calldata _tallyJsonCID
+	) public onlyOwner {
+		if (_pollId >= nextPollId) revert PollDoesNotExist(_pollId);
+		PollData storage poll = _polls[_pollId];
+		poll.tallyJsonCID = _tallyJsonCID;
+
+		emit PollTallyCIDUpdated(_pollId, _tallyJsonCID);
+	}
+
+	function fetchPolls(
+		uint256 _page,
+		uint256 _perPage,
+		bool _ascending
+	) public view returns (PollData[] memory polls_) {
+		uint256 start = (_page - 1) * _perPage;
+		uint256 end = start + _perPage;
+		if (end >= nextPollId) {
+			end = nextPollId - 1;
+		}
+
+		if (start >= nextPollId) {
+			return new PollData[](0);
+		}
+
+		polls_ = new PollData[](end - start + 1);
+
+		uint256 index = 0;
+		for (uint256 i = start; i <= end; i++) {
+			uint256 pollIndex = i;
+			if (!_ascending) {
+				pollIndex = nextPollId - i - 1;
+			}
+			polls_[index++] = _polls[pollIndex];
+		}
+	}
+
+	function fetchPoll(
+		uint256 _pollId
+	) public view returns (PollData memory poll_) {
+		if (_pollId >= nextPollId) revert PollDoesNotExist(_pollId);
+		return _polls[_pollId];
 	}
 }

@@ -16,7 +16,7 @@ export default function AdminPage() {
   const { address } = useAccount();
   const [openCreatePollModal, setOpenCreatePollModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: admin } = useScaffoldContractRead({ contractName: "PollManager", functionName: "owner" });
+  const { data: admin } = useScaffoldContractRead({ contractName: "MACIWrapper", functionName: "owner" });
   const [limit] = useState(10);
   const { totalPolls, polls, refetch: refetchPolls } = useFetchPolls(currentPage, limit);
   const totalPages = useTotalPages(totalPolls, limit);

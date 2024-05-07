@@ -66,7 +66,7 @@ export default function Example({
   const duration = Math.round((pollData.expiry.getTime() - new Date().getTime()) / 1000);
 
   const { writeAsync } = useScaffoldContractWrite({
-    contractName: "PollManager",
+    contractName: "MACIWrapper",
     functionName: "createPoll",
     args: [
       pollData.title,

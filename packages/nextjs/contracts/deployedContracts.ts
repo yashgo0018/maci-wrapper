@@ -315,6 +315,97 @@ const deployedContracts = {
           anonymous: false,
           inputs: [
             {
+              indexed: true,
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "creator",
+              type: "address",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "poll",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "messageProcessor",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tally",
+                  type: "address",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MACI.PollContracts",
+              name: "pollContracts",
+              type: "tuple",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string[]",
+              name: "options",
+              type: "string[]",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "metadata",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "startTime",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "endTime",
+              type: "uint256",
+            },
+          ],
+          name: "PollCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "tallyJsonCID",
+              type: "string",
+            },
+          ],
+          name: "PollTallyCIDUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
               indexed: false,
               internalType: "uint256",
               name: "_stateIndex",
@@ -359,6 +450,57 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "coordinatorPubKey",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "x",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "y",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_name",
+              type: "string",
+            },
+            {
+              internalType: "string[]",
+              name: "_options",
+              type: "string[]",
+            },
+            {
+              internalType: "string",
+              name: "_metadata",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "_duration",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "isQv",
+              type: "uint8",
+            },
+          ],
+          name: "createPoll",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -454,6 +596,192 @@ const deployedContracts = {
             },
           ],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+          ],
+          name: "fetchPoll",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "bytes",
+                  name: "encodedOptions",
+                  type: "bytes",
+                },
+                {
+                  internalType: "string",
+                  name: "metadata",
+                  type: "string",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "address",
+                      name: "poll",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "messageProcessor",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "tally",
+                      type: "address",
+                    },
+                  ],
+                  internalType: "struct MACI.PollContracts",
+                  name: "pollContracts",
+                  type: "tuple",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "numOfOptions",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string[]",
+                  name: "options",
+                  type: "string[]",
+                },
+                {
+                  internalType: "string",
+                  name: "tallyJsonCID",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MACIWrapper.PollData",
+              name: "poll_",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_page",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_perPage",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "_ascending",
+              type: "bool",
+            },
+          ],
+          name: "fetchPolls",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "bytes",
+                  name: "encodedOptions",
+                  type: "bytes",
+                },
+                {
+                  internalType: "string",
+                  name: "metadata",
+                  type: "string",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "address",
+                      name: "poll",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "messageProcessor",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "tally",
+                      type: "address",
+                    },
+                  ],
+                  internalType: "struct MACI.PollContracts",
+                  name: "pollContracts",
+                  type: "tuple",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "numOfOptions",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string[]",
+                  name: "options",
+                  type: "string[]",
+                },
+                {
+                  internalType: "string",
+                  name: "tallyJsonCID",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MACIWrapper.PollData[]",
+              name: "polls_",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {
@@ -929,6 +1257,68 @@ const deployedContracts = {
         {
           inputs: [
             {
+              components: [
+                {
+                  internalType: "uint8",
+                  name: "intStateTreeDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "messageTreeSubDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "messageTreeDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "voteOptionTreeDepth",
+                  type: "uint8",
+                },
+              ],
+              internalType: "struct Params.TreeDepths",
+              name: "_treeDepths",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "x",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "y",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct DomainObjs.PubKey",
+              name: "_coordinatorPubKey",
+              type: "tuple",
+            },
+            {
+              internalType: "address",
+              name: "_verifier",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_vkRegistry",
+              type: "address",
+            },
+          ],
+          name: "setConfig",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "uint256[]",
               name: "array",
               type: "uint256[]",
@@ -1043,6 +1433,78 @@ const deployedContracts = {
           name: "transferOwnership",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "treeDepths",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "intStateTreeDepth",
+              type: "uint8",
+            },
+            {
+              internalType: "uint8",
+              name: "messageTreeSubDepth",
+              type: "uint8",
+            },
+            {
+              internalType: "uint8",
+              name: "messageTreeDepth",
+              type: "uint8",
+            },
+            {
+              internalType: "uint8",
+              name: "voteOptionTreeDepth",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "_tallyJsonCID",
+              type: "string",
+            },
+          ],
+          name: "updatePollTallyCID",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "verifier",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "vkRegistry",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
@@ -1259,594 +1721,6 @@ const deployedContracts = {
         },
       ],
       deploymentBlockNumber: 17,
-    },
-    PollManager: {
-      address: "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
-      abi: [
-        {
-          inputs: [
-            {
-              internalType: "contract MACIWrapper",
-              name: "_maci",
-              type: "address",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "constructor",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "pollId",
-              type: "uint256",
-            },
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "maciPollId",
-              type: "uint256",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "creator",
-              type: "address",
-            },
-            {
-              components: [
-                {
-                  internalType: "address",
-                  name: "poll",
-                  type: "address",
-                },
-                {
-                  internalType: "address",
-                  name: "messageProcessor",
-                  type: "address",
-                },
-                {
-                  internalType: "address",
-                  name: "tally",
-                  type: "address",
-                },
-              ],
-              indexed: false,
-              internalType: "struct MACI.PollContracts",
-              name: "pollContracts",
-              type: "tuple",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "name",
-              type: "string",
-            },
-            {
-              indexed: false,
-              internalType: "string[]",
-              name: "options",
-              type: "string[]",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "metadata",
-              type: "string",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "startTime",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "endTime",
-              type: "uint256",
-            },
-          ],
-          name: "PollCreated",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "pollId",
-              type: "uint256",
-            },
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "maciPollId",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "tallyJsonCID",
-              type: "string",
-            },
-          ],
-          name: "PollTallyCIDUpdated",
-          type: "event",
-        },
-        {
-          inputs: [],
-          name: "MESSAGE_DATA_LENGTH",
-          outputs: [
-            {
-              internalType: "uint8",
-              name: "",
-              type: "uint8",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "coordinatorPubKey",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "x",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "y",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "string",
-              name: "_name",
-              type: "string",
-            },
-            {
-              internalType: "string[]",
-              name: "_options",
-              type: "string[]",
-            },
-            {
-              internalType: "string",
-              name: "_metadata",
-              type: "string",
-            },
-            {
-              internalType: "uint256",
-              name: "_duration",
-              type: "uint256",
-            },
-            {
-              internalType: "enum DomainObjs.Mode",
-              name: "isQv",
-              type: "uint8",
-            },
-          ],
-          name: "createPoll",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_pollId",
-              type: "uint256",
-            },
-          ],
-          name: "fetchPoll",
-          outputs: [
-            {
-              components: [
-                {
-                  internalType: "uint256",
-                  name: "id",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "maciPollId",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string",
-                  name: "name",
-                  type: "string",
-                },
-                {
-                  internalType: "bytes",
-                  name: "encodedOptions",
-                  type: "bytes",
-                },
-                {
-                  internalType: "string",
-                  name: "metadata",
-                  type: "string",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "address",
-                      name: "poll",
-                      type: "address",
-                    },
-                    {
-                      internalType: "address",
-                      name: "messageProcessor",
-                      type: "address",
-                    },
-                    {
-                      internalType: "address",
-                      name: "tally",
-                      type: "address",
-                    },
-                  ],
-                  internalType: "struct MACI.PollContracts",
-                  name: "pollContracts",
-                  type: "tuple",
-                },
-                {
-                  internalType: "uint256",
-                  name: "startTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "endTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "numOfOptions",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string[]",
-                  name: "options",
-                  type: "string[]",
-                },
-                {
-                  internalType: "string",
-                  name: "tallyJsonCID",
-                  type: "string",
-                },
-              ],
-              internalType: "struct PollManager.PollData",
-              name: "poll_",
-              type: "tuple",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_page",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_perPage",
-              type: "uint256",
-            },
-            {
-              internalType: "bool",
-              name: "_ascending",
-              type: "bool",
-            },
-          ],
-          name: "fetchPolls",
-          outputs: [
-            {
-              components: [
-                {
-                  internalType: "uint256",
-                  name: "id",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "maciPollId",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string",
-                  name: "name",
-                  type: "string",
-                },
-                {
-                  internalType: "bytes",
-                  name: "encodedOptions",
-                  type: "bytes",
-                },
-                {
-                  internalType: "string",
-                  name: "metadata",
-                  type: "string",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "address",
-                      name: "poll",
-                      type: "address",
-                    },
-                    {
-                      internalType: "address",
-                      name: "messageProcessor",
-                      type: "address",
-                    },
-                    {
-                      internalType: "address",
-                      name: "tally",
-                      type: "address",
-                    },
-                  ],
-                  internalType: "struct MACI.PollContracts",
-                  name: "pollContracts",
-                  type: "tuple",
-                },
-                {
-                  internalType: "uint256",
-                  name: "startTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "endTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "numOfOptions",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string[]",
-                  name: "options",
-                  type: "string[]",
-                },
-                {
-                  internalType: "string",
-                  name: "tallyJsonCID",
-                  type: "string",
-                },
-              ],
-              internalType: "struct PollManager.PollData[]",
-              name: "polls_",
-              type: "tuple[]",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "maci",
-          outputs: [
-            {
-              internalType: "contract MACIWrapper",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "owner",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          name: "pollIdByAddress",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              components: [
-                {
-                  internalType: "uint8",
-                  name: "intStateTreeDepth",
-                  type: "uint8",
-                },
-                {
-                  internalType: "uint8",
-                  name: "messageTreeSubDepth",
-                  type: "uint8",
-                },
-                {
-                  internalType: "uint8",
-                  name: "messageTreeDepth",
-                  type: "uint8",
-                },
-                {
-                  internalType: "uint8",
-                  name: "voteOptionTreeDepth",
-                  type: "uint8",
-                },
-              ],
-              internalType: "struct Params.TreeDepths",
-              name: "_treeDepths",
-              type: "tuple",
-            },
-            {
-              components: [
-                {
-                  internalType: "uint256",
-                  name: "x",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "y",
-                  type: "uint256",
-                },
-              ],
-              internalType: "struct DomainObjs.PubKey",
-              name: "_coordinatorPubKey",
-              type: "tuple",
-            },
-            {
-              internalType: "address",
-              name: "_verifier",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_vkRegistry",
-              type: "address",
-            },
-          ],
-          name: "setConfig",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "totalPolls",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "treeDepths",
-          outputs: [
-            {
-              internalType: "uint8",
-              name: "intStateTreeDepth",
-              type: "uint8",
-            },
-            {
-              internalType: "uint8",
-              name: "messageTreeSubDepth",
-              type: "uint8",
-            },
-            {
-              internalType: "uint8",
-              name: "messageTreeDepth",
-              type: "uint8",
-            },
-            {
-              internalType: "uint8",
-              name: "voteOptionTreeDepth",
-              type: "uint8",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_pollId",
-              type: "uint256",
-            },
-            {
-              internalType: "string",
-              name: "_tallyJsonCID",
-              type: "string",
-            },
-          ],
-          name: "updatePollTallyCID",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "useSubsidy",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "verifier",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "vkRegistry",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-      ],
-      inheritedFunctions: {
-        MESSAGE_DATA_LENGTH: "maci-contracts/contracts/utilities/DomainObjs.sol",
-      },
-      deploymentBlockNumber: 29,
     },
     PoseidonT3: {
       address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",

@@ -190,7 +190,7 @@ contract MACIWrapper is MACI {
 		bool _ascending
 	) public view returns (PollData[] memory polls_) {
 		uint256 start = (_page - 1) * _perPage;
-		uint256 end = start + _perPage;
+		uint256 end = start + _perPage - 1;
 
 		if (start >= nextPollId) {
 			return new PollData[](0);

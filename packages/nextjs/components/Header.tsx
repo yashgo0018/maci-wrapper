@@ -37,7 +37,7 @@ export const HeaderMenuLinks = () => {
 
   const { address } = useAccount();
 
-  const { data: owner } = useScaffoldContractRead({ contractName: "MACIWrapper", functionName: "owner" });
+  const { data: owner } = useScaffoldContractRead({ contractName: "PollManager", functionName: "owner" });
 
   return (
     <>

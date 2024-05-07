@@ -15,7 +15,7 @@ contract MACIWrapper is MACI {
 	mapping(address => uint256) public pollIds;
 
 	// pubkey.x => pubkey.y => bool
-	mapping(uint256 => mapping(uint256 => bool)) public isPublicKeyRegistered; 
+	mapping(uint256 => mapping(uint256 => bool)) public isPublicKeyRegistered;
 
 	error PubKeyAlreadyRegistered();
 	error PollAddressDoesNotExist(address _poll);
@@ -28,16 +28,17 @@ contract MACIWrapper is MACI {
 		InitialVoiceCreditProxy _initialVoiceCreditProxy,
 		TopupCredit _topupCredit,
 		uint8 _stateTreeDepth
-	  ) MACI(
-		_pollFactory,
-		_messageProcessorFactory,
-		_tallyFactory,
-		_signUpGatekeeper,
-		_initialVoiceCreditProxy,
-		_topupCredit,
-		_stateTreeDepth
-	  ) {
-	}
+	)
+		MACI(
+			_pollFactory,
+			_messageProcessorFactory,
+			_tallyFactory,
+			_signUpGatekeeper,
+			_initialVoiceCreditProxy,
+			_topupCredit,
+			_stateTreeDepth
+		)
+	{}
 
 	/// @notice Allows any eligible user sign up. The sign-up gatekeeper should prevent
 	/// double sign-ups or ineligible users from doing so.  This function will
@@ -60,7 +61,11 @@ contract MACIWrapper is MACI {
 		if (isPublicKeyRegistered[_pubKey.x][_pubKey.y])
 			revert PubKeyAlreadyRegistered();
 
-		super.signUp(_pubKey, _signUpGatekeeperData, _initialVoiceCreditProxyData);
+		super.signUp(
+			_pubKey,
+			_signUpGatekeeperData,
+			_initialVoiceCreditProxyData
+		);
 
 		isPublicKeyRegistered[_pubKey.x][_pubKey.y] = true;
 	}
@@ -81,7 +86,7 @@ contract MACIWrapper is MACI {
 		address _vkRegistry,
 		Mode _mode
 	) public override returns (PollContracts memory pollAddr) {
-		uint256 pollId = nextPollId;	
+		uint256 pollId = nextPollId;
 
 		PollContracts memory p = super.deployPoll(
 			_duration,

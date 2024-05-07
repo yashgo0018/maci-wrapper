@@ -55,6 +55,9 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     await verifier.getAddress(),
     await vkRegistry.getAddress(),
   );
+
+  // transfer maci ownership to poll manager
+  await maci.transferOwnership(await pollManager.getAddress());
 };
 
 export default deployContracts;

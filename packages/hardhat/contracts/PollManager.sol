@@ -32,6 +32,7 @@ contract PollManager is Params, DomainObjs {
 	uint256 public totalPolls;
 
 	MACIWrapper public maci;
+	address public owner;
 
 	TreeDepths public treeDepths;
 	PubKey public coordinatorPubKey;
@@ -58,16 +59,13 @@ contract PollManager is Params, DomainObjs {
 	);
 
 	modifier onlyOwner() {
-		require(msg.sender == owner(), "only owner can call this function");
+		require(msg.sender == owner, "only owner can call this function");
 		_;
 	}
 
 	constructor(MACIWrapper _maci) {
 		maci = _maci;
-	}
-
-	function owner() public view returns (address) {
-		return maci.owner();
+	    owner = msg.sender;
 	}
 
 	function setConfig(
@@ -88,7 +86,7 @@ contract PollManager is Params, DomainObjs {
 		string calldata _metadata,
 		uint256 _duration,
 		Mode isQv
-	) public {
+	) public onlyOwner {
 		// TODO: check if the number of options are more than limit
 
 		// deploy the poll contracts

@@ -2196,7 +2196,6 @@ __metadata:
     eslint-config-next: ^14.0.4
     eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.2.1
-    maci-contracts: 0.0.0-ci.f6073a6
     maci-crypto: 0.0.0-ci.f6073a6
     maci-domainobjs: 0.0.0-ci.f6073a6
     next: ^14.0.4

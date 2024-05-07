@@ -191,12 +191,13 @@ contract MACIWrapper is MACI {
 	) public view returns (PollData[] memory polls_) {
 		uint256 start = (_page - 1) * _perPage;
 		uint256 end = start + _perPage;
-		if (end >= nextPollId) {
-			end = nextPollId - 1;
-		}
 
 		if (start >= nextPollId) {
 			return new PollData[](0);
+		}
+
+		if (end >= nextPollId) {
+			end = nextPollId - 1;
 		}
 
 		polls_ = new PollData[](end - start + 1);

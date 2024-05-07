@@ -3,7 +3,7 @@ import { DeployFunction } from "hardhat-deploy/types";
 import fs from "fs";
 import { Keypair } from "maci-domainobjs";
 
-import { MACIWrapper, PollManager, Verifier, VkRegistry } from "../typechain-types";
+import { MACIWrapper, Verifier, VkRegistry } from "../typechain-types";
 
 function fetchOrCreateKeyPair(filePath: string) {
   let keypair: Keypair | null = null;
@@ -25,17 +25,6 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
 
   const maci = await hre.ethers.getContract<MACIWrapper>("MACIWrapper", deployer);
 
-  await hre.deployments.deploy("PollManager", {
-    from: deployer,
-    args: [await maci.getAddress()],
-    log: true,
-    autoMine: true,
-  });
-
-  const pollManager = await hre.ethers.getContract<PollManager>("PollManager", deployer);
-
-  console.log(`The poll manager is deployed at ${await pollManager.getAddress()}`);
-
   // update the config on the poll manager
   const verifier = await hre.ethers.getContract<Verifier>("Verifier", deployer);
   const vkRegistry = await hre.ethers.getContract<VkRegistry>("VkRegistry", deployer);
@@ -44,7 +33,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   const filePath = "./coordinatorKeyPair.json";
   const coordinatorKeypair = fetchOrCreateKeyPair(filePath);
 
-  await pollManager.setConfig(
+  await maci.setConfig(
     {
       intStateTreeDepth: 1,
       messageTreeSubDepth: 1,
@@ -55,9 +44,6 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     await verifier.getAddress(),
     await vkRegistry.getAddress(),
   );
-
-  // transfer maci ownership to poll manager
-  await maci.transferOwnership(await pollManager.getAddress());
 };
 
 export default deployContracts;

@@ -18,7 +18,7 @@ export default function PollStatusModal({
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const { writeAsync } = useScaffoldContractWrite({
-    contractName: "PollManager",
+    contractName: "MACIWrapper",
     functionName: "updatePollTallyCID",
     args: [undefined, undefined],
   });

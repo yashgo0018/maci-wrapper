@@ -6,6 +6,7 @@ import { RxCross2 } from "react-icons/rx";
 import Modal from "~~/components/Modal";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { PollType } from "~~/types/poll";
+import { EMode } from "~~/types/poll";
 import { notification } from "~~/utils/scaffold-eth";
 
 export default function Example({
@@ -67,6 +68,7 @@ export default function Example({
       pollData.options || [],
       JSON.stringify({ pollType: pollData.pollType }),
       duration > 0 ? BigInt(duration) : 0n,
+      EMode.QV,
     ],
   });
 

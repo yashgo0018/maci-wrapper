@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { genRandomSalt } from "@se-2/hardhat/maci-ts/crypto";
-import { Keypair, PCommand, PubKey } from "@se-2/hardhat/maci-ts/domainobjs";
+import { genRandomSalt } from "maci-crypto";
+import { Keypair, PCommand, PubKey } from "maci-domainobjs";
 import { useContractRead, useContractWrite } from "wagmi";
 import PollAbi from "~~/abi/Poll";
 import VoteCard from "~~/components/card/VoteCard";
@@ -148,13 +148,25 @@ export default function PollDetail() {
     try {
       if (votesToMessage.length === 1) {
         await publishMessage({
-          args: [votesToMessage[0].message.asContractParam(), votesToMessage[0].encKeyPair.pubKey.asContractParam()],
+          args: [
+            votesToMessage[0].message.asContractParam() as unknown as {
+              msgType: bigint;
+              data: readonly [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint];
+            },
+            votesToMessage[0].encKeyPair.pubKey.asContractParam() as unknown as { x: bigint; y: bigint },
+          ],
         });
       } else {
         await publishMessageBatch({
           args: [
-            votesToMessage.map(v => v.message.asContractParam()),
-            votesToMessage.map(v => v.encKeyPair.pubKey.asContractParam()),
+            votesToMessage.map(
+              v =>
+                v.message.asContractParam() as unknown as {
+                  msgType: bigint;
+                  data: readonly [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint];
+                },
+            ),
+            votesToMessage.map(v => v.encKeyPair.pubKey.asContractParam() as { x: bigint; y: bigint }),
           ],
         });
       }

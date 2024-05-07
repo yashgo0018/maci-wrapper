@@ -1,13 +1,13 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { MACI } from "../typechain-types";
+import { MACIWrapper } from "../typechain-types";
 import { GatekeeperContractName, InitialVoiceCreditProxyContractName } from "../constants";
 import fs from "fs";
 
 const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
 
-  const maci = await hre.ethers.getContract<MACI>("MACI", deployer);
+  const maci = await hre.ethers.getContract<MACIWrapper>("MACIWrapper", deployer);
   const initialVoiceCreditProxy = await hre.ethers.getContract(InitialVoiceCreditProxyContractName, deployer);
   const gatekeeper = await hre.ethers.getContract(GatekeeperContractName, deployer);
   const verifier = await hre.ethers.getContract("Verifier", deployer);
@@ -23,7 +23,6 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     JSON.stringify({
       [hre.network.name]: {
         MACI: await maci.getAddress(),
-        StateAq: await maci.stateAq(),
         InitialVoiceCreditProxy: await initialVoiceCreditProxy.getAddress(),
         SignUpGatekeeper: await gatekeeper.getAddress(),
         Verifier: await verifier.getAddress(),

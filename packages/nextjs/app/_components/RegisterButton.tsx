@@ -1,4 +1,4 @@
-import { Keypair, PrivKey } from "@se-2/hardhat/maci-ts/domainobjs";
+import { Keypair, PrivKey } from "maci-domainobjs";
 import { useAuthContext } from "~~/contexts/AuthContext";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -6,9 +6,9 @@ export default function RegisterButton() {
   const { keypair, isRegistered, signMessageAsync } = useAuthContext();
 
   const { writeAsync } = useScaffoldContractWrite({
-    contractName: "MACI",
+    contractName: "MACIWrapper",
     functionName: "signUp",
-    args: [keypair?.pubKey.asContractParam(), "0x", "0x"],
+    args: [keypair?.pubKey.asContractParam() as { x: bigint; y: bigint }, "0x", "0x"],
   });
 
   async function register() {
@@ -19,7 +19,7 @@ export default function RegisterButton() {
         userKeypair = new Keypair(new PrivKey(signature));
       }
 
-      await writeAsync({ args: [userKeypair?.pubKey.asContractParam(), "0x", "0x"] });
+      await writeAsync({ args: [userKeypair?.pubKey.asContractParam() as { x: bigint; y: bigint }, "0x", "0x"] });
     } catch (err) {
       console.log(err);
     }

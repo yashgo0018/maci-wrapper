@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.10;
+pragma solidity ^0.8.20;
 
-import "./maci-contracts/MACI.sol";
-import { Params } from "./maci-contracts/utilities/Params.sol";
-import { DomainObjs } from "./maci-contracts/utilities/DomainObjs.sol";
+import { MACIWrapper } from "./maci-contracts/MACIWrapper.sol";
+import { Params } from "maci-contracts/contracts/utilities/Params.sol";
+import { DomainObjs } from "maci-contracts/contracts/utilities/DomainObjs.sol";
 
 contract PollManager is Params, DomainObjs {
 	struct PollContracts {
@@ -19,7 +19,7 @@ contract PollManager is Params, DomainObjs {
 		string name;
 		bytes encodedOptions;
 		string metadata;
-		MACI.PollContracts pollContracts;
+		MACIWrapper.PollContracts pollContracts;
 		uint256 startTime;
 		uint256 endTime;
 		uint256 numOfOptions;
@@ -31,20 +31,19 @@ contract PollManager is Params, DomainObjs {
 	mapping(address => uint256) public pollIdByAddress; // poll address => poll id
 	uint256 public totalPolls;
 
-	MACI public maci;
+	MACIWrapper public maci;
 
 	TreeDepths public treeDepths;
 	PubKey public coordinatorPubKey;
 	address public verifier;
 	address public vkRegistry;
 	bool public useSubsidy;
-	bool public isQv;
 
 	event PollCreated(
 		uint256 indexed pollId,
 		uint256 indexed maciPollId,
 		address indexed creator,
-		MACI.PollContracts pollContracts,
+		MACIWrapper.PollContracts pollContracts,
 		string name,
 		string[] options,
 		string metadata,
@@ -63,9 +62,8 @@ contract PollManager is Params, DomainObjs {
 		_;
 	}
 
-	constructor(MACI _maci, bool _isQv) {
+	constructor(MACIWrapper _maci) {
 		maci = _maci;
-		isQv = _isQv;
 	}
 
 	function owner() public view returns (address) {
@@ -76,26 +74,25 @@ contract PollManager is Params, DomainObjs {
 		TreeDepths memory _treeDepths,
 		PubKey memory _coordinatorPubKey,
 		address _verifier,
-		address _vkRegistry,
-		bool _useSubsidy
+		address _vkRegistry
 	) public onlyOwner {
 		treeDepths = _treeDepths;
 		coordinatorPubKey = _coordinatorPubKey;
 		verifier = _verifier;
 		vkRegistry = _vkRegistry;
-		useSubsidy = _useSubsidy;
 	}
 
 	function createPoll(
 		string calldata _name,
 		string[] calldata _options,
 		string calldata _metadata,
-		uint256 _duration
-	) public onlyOwner {
+		uint256 _duration,
+		Mode isQv
+	) public {
 		// TODO: check if the number of options are more than limit
 
 		// deploy the poll contracts
-		MACI.PollContracts memory pollContracts = maci.deployPoll(
+		MACIWrapper.PollContracts memory pollContracts = maci.deployPoll(
 			_duration,
 			treeDepths,
 			coordinatorPubKey,

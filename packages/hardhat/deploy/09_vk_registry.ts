@@ -1,7 +1,7 @@
-import { extractVk } from "../maci-ts/circuits";
-import { VerifyingKey } from "../maci-ts/domainobjs";
+import { extractVk } from "maci-circuits";
+import { VerifyingKey } from "maci-domainobjs";
 
-import type { IVerifyingKeyStruct } from "../maci-ts/ts/types";
+import type { IVerifyingKeyStruct } from "maci-contracts";
 import type { VkRegistry } from "../typechain-types";
 
 import { HardhatRuntimeEnvironment } from "hardhat/types";

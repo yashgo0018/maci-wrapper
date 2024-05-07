@@ -60,10 +60,17 @@ function getInheritedFunctions(sources: Record<string, any>, contractName: strin
   const inheritedFunctions = {} as Record<string, any>;
 
   for (const sourceContractName of actualSources) {
-    const sourcePath = Object.keys(sources).find(key => key.includes(`/${sourceContractName}`));
+    let sourcePath = Object.keys(sources).find(key => key.includes(`/${sourceContractName}`));
     if (sourcePath) {
       const sourceName = sourcePath?.split("/").pop()?.split(".sol")[0];
-      const { abi } = JSON.parse(fs.readFileSync(`${ARTIFACTS_DIR}/${sourcePath}/${sourceName}.json`).toString());
+      let abi;
+      try {
+        abi = JSON.parse(fs.readFileSync(`${ARTIFACTS_DIR}/${sourcePath}/${sourceName}.json`).toString()).abi;
+      } catch (e) {
+        sourcePath = sourcePath.replace(/contracts\//, "");
+        sourcePath = sourcePath.replace(/maci-contracts\//, "maci-contracts/contracts/");
+        abi = JSON.parse(fs.readFileSync(`${ARTIFACTS_DIR}/${sourcePath}/${sourceName}.json`).toString()).abi;
+      }
       for (const functionAbi of abi) {
         if (functionAbi.type === "function") {
           inheritedFunctions[functionAbi.name] = sourcePath;

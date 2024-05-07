@@ -33,3 +33,11 @@ export enum PollType {
   MULTIPLE_VOTE,
   WEIGHTED_MULTIPLE_VOTE,
 }
+
+/**
+ * Supported verification key modes
+ */
+export enum EMode {
+  QV,
+  NON_QV,
+}

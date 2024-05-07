@@ -1261,7 +1261,7 @@ const deployedContracts = {
       deploymentBlockNumber: 17,
     },
     PollManager: {
-      address: "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
+      address: "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
       abi: [
         {
           inputs: [
@@ -1846,7 +1846,7 @@ const deployedContracts = {
       inheritedFunctions: {
         MESSAGE_DATA_LENGTH: "maci-contracts/contracts/utilities/DomainObjs.sol",
       },
-      deploymentBlockNumber: 35,
+      deploymentBlockNumber: 29,
     },
     PoseidonT3: {
       address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",

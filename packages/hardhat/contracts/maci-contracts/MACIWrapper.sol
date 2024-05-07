@@ -81,7 +81,6 @@ contract MACIWrapper is MACI {
 		address _vkRegistry,
 		Mode _mode
 	) public override returns (PollContracts memory pollAddr) {
-		// cache the poll to a local variable so we can increment it
 		uint256 pollId = nextPollId;	
 
 		PollContracts memory p = super.deployPoll(

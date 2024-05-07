@@ -22,6 +22,7 @@ export default function Example({
     title: "Dummy Title",
     expiry: new Date(),
     pollType: PollType.NOT_SELECTED,
+    mode: EMode.QV,
     options: [""],
   });
   const [isEditingTitle, setIsEditingTitle] = useState<boolean>(false);
@@ -42,6 +43,10 @@ export default function Example({
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPollData({ ...pollData, title: e.target.value });
+  };
+
+  const handleModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPollData({ ...pollData, mode: e.target.value === "0" ? EMode.QV : EMode.NON_QV });
   };
 
   const handleEditTitleClick = () => {
@@ -68,7 +73,7 @@ export default function Example({
       pollData.options || [],
       JSON.stringify({ pollType: pollData.pollType }),
       duration > 0 ? BigInt(duration) : 0n,
-      EMode.QV,
+      pollData.mode,
     ],
   });
 
@@ -170,6 +175,17 @@ export default function Example({
         <option value={PollType.SINGLE_VOTE}>Single Candidate Select</option>
         <option value={PollType.MULTIPLE_VOTE}>Multiple Candidate Select</option>
         <option value={PollType.WEIGHTED_MULTIPLE_VOTE}>Weighted-Multiple Candidate Select</option>
+      </select>
+
+      {/* Quadratic Vote or Non Quadratic Vote Selector Here */}
+      <div className="mt-3 mb-2 text-neutral-content">Quadratic Vote or Non Quadratic Vote</div>
+      <select
+        className="select bg-secondary text-neutral w-full rounded-xl"
+        value={pollData.mode}
+        onChange={handleModeChange}
+      >
+        <option value={EMode.QV}>Quadratic Vote</option>
+        <option value={EMode.NON_QV}>Non Quadratic Vote</option>
       </select>
 
       <div className="w-full h-[0.5px] bg-[#3647A4] shadow-2xl my-5" />

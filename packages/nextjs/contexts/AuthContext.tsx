@@ -44,7 +44,7 @@ export default function AuthContextProvider({ children }: { children: React.Reac
     }
 
     generateKeypair();
-  }, [address]);
+  }, [address, generateKeypair]);
 
   const { data: isRegistered, refetch: refetchIsRegistered } = useScaffoldContractRead({
     contractName: "MACIWrapper",

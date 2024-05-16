@@ -1,9 +1,8 @@
-import { Keypair, PrivKey } from "maci-domainobjs";
 import { useAuthContext } from "~~/contexts/AuthContext";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export default function RegisterButton() {
-  const { keypair, isRegistered, signMessageAsync } = useAuthContext();
+  const { keypair, isRegistered, generateKeypair } = useAuthContext();
 
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "MACIWrapper",
@@ -12,24 +11,31 @@ export default function RegisterButton() {
   });
 
   async function register() {
-    try {
-      let userKeypair = keypair;
-      if (!userKeypair) {
-        const signature = await signMessageAsync();
-        userKeypair = new Keypair(new PrivKey(signature));
-      }
+    if (!keypair) return;
 
-      await writeAsync({ args: [userKeypair?.pubKey.asContractParam() as { x: bigint; y: bigint }, "0x", "0x"] });
+    try {
+      await writeAsync({ args: [keypair.pubKey.asContractParam() as { x: bigint; y: bigint }, "0x", "0x"] });
     } catch (err) {
       console.log(err);
     }
   }
 
+  if (!keypair) {
+    return (
+      <button className="border border-slate-600 bg-primary px-3 py-2 rounded-lg font-bold" onClick={generateKeypair}>
+        Login
+      </button>
+    );
+  }
+
   if (isRegistered) return <div>Thanks for Registration</div>;
 
   return (
-    <button className="border border-slate-600 bg-primary px-3 py-2 rounded-lg font-bold" onClick={register}>
-      Register
-    </button>
+    <>
+      (You are not registered yet)
+      <button className="border border-slate-600 bg-primary px-3 py-2 rounded-lg font-bold" onClick={register}>
+        Register
+      </button>
+    </>
   );
 }

@@ -11,7 +11,7 @@ interface IAuthContext {
   isRegistered: boolean;
   keypair: Keypair | null;
   stateIndex: bigint | null;
-  signMessageAsync: () => Promise<`0x${string}`>;
+  generateKeypair: () => Promise<void>;
 }
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -22,27 +22,29 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   const [stateIndex, setStateIndex] = useState<bigint | null>(null);
   const [signatureMessage, setSignatureMessage] = useState<string>("");
 
-  const { signMessage, signMessageAsync, data: signature } = useSignMessage({ message: signatureMessage });
+  const { signMessageAsync } = useSignMessage({ message: signatureMessage });
 
   useEffect(() => {
     setSignatureMessage(`Login to ${window.location.origin}`);
   }, []);
 
   useEffect(() => {
-    if (!address || !signMessage) {
-      setKeyPair(null);
+    setKeyPair(null);
+
+    if (!address) {
       return;
     }
 
-    signMessage();
-  }, [address, signMessage]);
+    generateKeypair();
+  }, [address]);
 
-  useEffect(() => {
-    if (!signature) return;
+  async function generateKeypair() {
+    if (!address) return;
 
+    const signature = await signMessageAsync();
     const userKeyPair = new Keypair(new PrivKey(signature));
     setKeyPair(userKeyPair);
-  }, [signature]);
+  }
 
   const { data: isRegistered, refetch: refetchIsRegistered } = useScaffoldContractRead({
     contractName: "MACIWrapper",
@@ -93,7 +95,7 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   });
 
   return (
-    <AuthContext.Provider value={{ isRegistered: Boolean(isRegistered), keypair, stateIndex, signMessageAsync }}>
+    <AuthContext.Provider value={{ isRegistered: Boolean(isRegistered), keypair, stateIndex, generateKeypair }}>
       {children}
     </AuthContext.Provider>
   );

@@ -23,7 +23,7 @@ const VoteCard = ({ index, candidate, onChange, pollType, isInvalid, setIsInvali
         {pollOpen && (
           <input
             type={pollType === PollType.SINGLE_VOTE ? "radio" : "checkbox"}
-            className="mr-2"
+            className="mr-2 cursor-pointer"
             value={index}
             onChange={e => {
               console.log(e.target.checked);

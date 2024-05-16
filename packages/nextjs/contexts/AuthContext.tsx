@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { Keypair, PrivKey } from "maci-domainobjs";
 import { useAccount, useSignMessage } from "wagmi";
 import deployedContracts from "~~/contracts/deployedContracts";
@@ -11,7 +11,7 @@ interface IAuthContext {
   isRegistered: boolean;
   keypair: Keypair | null;
   stateIndex: bigint | null;
-  generateKeypair: () => Promise<void>;
+  generateKeypair: () => void;
 }
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -28,13 +28,15 @@ export default function AuthContextProvider({ children }: { children: React.Reac
     setSignatureMessage(`Login to ${window.location.origin}`);
   }, []);
 
-  async function generateKeypair() {
+  const generateKeypair = useCallback(() => {
     if (!address) return;
 
-    const signature = await signMessageAsync();
-    const userKeyPair = new Keypair(new PrivKey(signature));
-    setKeyPair(userKeyPair);
-  }
+    (async () => {
+      const signature = await signMessageAsync();
+      const userKeyPair = new Keypair(new PrivKey(signature));
+      setKeyPair(userKeyPair);
+    })();
+  }, [address, signMessageAsync]);
 
   useEffect(() => {
     setKeyPair(null);

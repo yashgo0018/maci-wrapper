@@ -32,9 +32,13 @@ export default function AuthContextProvider({ children }: { children: React.Reac
     if (!address) return;
 
     (async () => {
-      const signature = await signMessageAsync();
-      const userKeyPair = new Keypair(new PrivKey(signature));
-      setKeyPair(userKeyPair);
+      try {
+        const signature = await signMessageAsync();
+        const userKeyPair = new Keypair(new PrivKey(signature));
+        setKeyPair(userKeyPair);
+      } catch (err) {
+        console.error(err);
+      }
     })();
   }, [address, signMessageAsync]);
 

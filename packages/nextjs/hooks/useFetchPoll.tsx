@@ -1,8 +1,8 @@
 import { useScaffoldContractRead } from "./scaffold-eth";
 
-export const useFetchPoll = (id: string) =>
+export const useFetchPoll = (id: bigint | undefined) =>
   useScaffoldContractRead({
     contractName: "MACIWrapper",
     functionName: "fetchPoll",
-    args: [BigInt(id)],
+    args: [id],
   });

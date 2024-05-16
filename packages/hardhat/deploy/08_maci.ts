@@ -49,7 +49,8 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
 
   console.log(`The MACI contract is deployed at ${await maci.getAddress()}`);
 
-  await gatekeeper.setMaciInstance(await maci.getAddress());
+  const tx = await gatekeeper.setMaciInstance(await maci.getAddress());
+  await tx.wait(1);
 };
 
 export default deployContracts;

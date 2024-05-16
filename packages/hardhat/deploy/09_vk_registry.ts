@@ -49,7 +49,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   const tallyVkNonQvParam = tallyVkNonQv!.asContractParam() as IVerifyingKeyStruct;
   const processVkNonQvParam = processVkNonQv!.asContractParam() as IVerifyingKeyStruct;
 
-  await vkRegistry.setVerifyingKeysBatch(
+  const tx = await vkRegistry.setVerifyingKeysBatch(
     stateTreeDepth,
     intStateTreeDepth,
     messageTreeDepth,
@@ -59,6 +59,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     [processVkParam, processVkNonQvParam],
     [tallyVkParam, tallyVkNonQvParam],
   );
+  await tx.wait(1);
 };
 
 export default deployContracts;

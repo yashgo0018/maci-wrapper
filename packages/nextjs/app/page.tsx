@@ -34,7 +34,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <main className="w-full h-screen bg-black relative">
+      <main className="w-full h-min-screen bg-black relative">
         <div className="flex flex-col gap-y-5 my-10 items-center">
           <div className="">
             <h1 className="text-4xl font-bold text-center">Let&apos;s settle the debate</h1>

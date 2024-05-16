@@ -40,7 +40,9 @@ const Home: NextPage = () => {
             <h1 className="text-4xl font-bold text-center">Let&apos;s settle the debate</h1>
             <h2 className="text-3xl font-bold text-center">once and for all</h2>
           </div>
-          <RainbowKitCustomConnectButton />
+          <div className="flex flex-row">
+            <RainbowKitCustomConnectButton />
+          </div>
           {usable &&
             (!isRegistered ? (
               <RegisterButton />

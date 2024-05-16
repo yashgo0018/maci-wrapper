@@ -223,7 +223,7 @@ export default function PollDetail({ id }: { id: bigint }) {
   if (error) return <div>Poll not found</div>;
 
   return (
-    <div className="container mx-auto pt-10">
+    <div className="container mx-auto pt-10 mobile:px-8">
       <div className="flex h-full flex-col md:w-2/3 lg:w-1/2 mx-auto">
         <div className="flex flex-row items-center my-5">
           <div className="text-2xl font-bold ">{poll?.name}</div>

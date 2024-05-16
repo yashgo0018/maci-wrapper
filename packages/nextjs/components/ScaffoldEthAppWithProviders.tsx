@@ -41,7 +41,7 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
   useEffect(() => {
     setMounted(true);
     setTheme("dark");
-  }, []);
+  }, [setTheme]);
 
   return (
     <WagmiConfig config={wagmiConfig}>

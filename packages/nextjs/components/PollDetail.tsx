@@ -226,7 +226,7 @@ export default function PollDetail({ id }: { id: bigint }) {
     <div className="container mx-auto pt-10">
       <div className="flex h-full flex-col md:w-2/3 lg:w-1/2 mx-auto">
         <div className="flex flex-row items-center my-5">
-          <div className="text-2xl font-bold ">Vote for {poll?.name}</div>
+          <div className="text-2xl font-bold ">{poll?.name}</div>
         </div>
         {poll?.options.map((candidate, index) => (
           <div className="pb-5 flex" key={index}>
@@ -247,9 +247,9 @@ export default function PollDetail({ id }: { id: bigint }) {
             <button
               onClick={castVote}
               disabled={!true}
-              className="hover:border-black border-2 border-accent w-full text-lg text-center bg-accent py-3 rounded-xl font-bold"
+              className="hover:border-black duration-300 bg-yellow-500 text-black border-2 border-yellow-400 w-full text-lg text-center py-3 rounded-xl font-bold active:scale-90"
             >
-              {true ? "Vote Now" : "Voting Closed"}{" "}
+              {true ? "Cast Vote" : "Voting Closed"}{" "}
             </button>
           </div>
         )}

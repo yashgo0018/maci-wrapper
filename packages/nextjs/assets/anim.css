@@ -1,0 +1,18 @@
+@keyframes bounce {
+  0% {
+    scale: 1;
+  }
+  40% {
+    scale: 1.15;
+  }
+  70% {
+    scale: 0.9;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+.bounce {
+    animation: bounce 500ms;
+}

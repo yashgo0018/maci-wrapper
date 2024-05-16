@@ -28,6 +28,14 @@ export default function AuthContextProvider({ children }: { children: React.Reac
     setSignatureMessage(`Login to ${window.location.origin}`);
   }, []);
 
+  async function generateKeypair() {
+    if (!address) return;
+
+    const signature = await signMessageAsync();
+    const userKeyPair = new Keypair(new PrivKey(signature));
+    setKeyPair(userKeyPair);
+  }
+
   useEffect(() => {
     setKeyPair(null);
 
@@ -37,14 +45,6 @@ export default function AuthContextProvider({ children }: { children: React.Reac
 
     generateKeypair();
   }, [address]);
-
-  async function generateKeypair() {
-    if (!address) return;
-
-    const signature = await signMessageAsync();
-    const userKeyPair = new Keypair(new PrivKey(signature));
-    setKeyPair(userKeyPair);
-  }
 
   const { data: isRegistered, refetch: refetchIsRegistered } = useScaffoldContractRead({
     contractName: "MACIWrapper",

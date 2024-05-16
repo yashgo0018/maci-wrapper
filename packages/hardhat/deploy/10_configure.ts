@@ -33,7 +33,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   const filePath = "./coordinatorKeyPair.json";
   const coordinatorKeypair = fetchOrCreateKeyPair(filePath);
 
-  await maci.setConfig(
+  const tx = await maci.setConfig(
     {
       intStateTreeDepth: 1,
       messageTreeSubDepth: 1,
@@ -44,6 +44,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     await verifier.getAddress(),
     await vkRegistry.getAddress(),
   );
+  await tx.wait(1);
 };
 
 export default deployContracts;

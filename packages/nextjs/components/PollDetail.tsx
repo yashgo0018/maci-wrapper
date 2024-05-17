@@ -30,6 +30,41 @@ export default function PollDetail({ id }: { id: bigint }) {
   const [result, setResult] = useState<{ candidate: string; votes: number }[] | null>(null);
   const [status, setStatus] = useState<PollStatus>();
   const [voted, setVoted] = useState(false);
+  const [remaining, setRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  function getRemainingTime(finalTimestamp: number): { days: number; hours: number; minutes: number; seconds: number } {
+    const now = Date.now();
+    let distance = finalTimestamp - now;
+
+    if (distance < 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }
+
+    const days = Math.floor(distance / (60 * 60 * 24));
+    distance %= 60 * 60 * 24;
+
+    const hours = Math.floor(distance / (60 * 60));
+    distance %= 60 * 60;
+
+    const minutes = Math.floor(distance / 60);
+    distance %= 60;
+
+    const seconds = Math.floor(distance);
+
+    return { days, hours, minutes, seconds };
+  }
+
+  useEffect(() => {
+    if (!poll) return;
+    const interval = setInterval(() => {
+      const _remaining = getRemainingTime(Number(poll.endTime));
+      setRemaining(_remaining);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [poll]);
 
   useEffect(() => {
     if (!poll || !poll.metadata) {
@@ -239,6 +274,37 @@ export default function PollDetail({ id }: { id: bigint }) {
           </div>
         ) : (
           <>
+            {poll &&
+              (status == PollStatus.OPEN ? (
+                <div className="bg-gray-800 p-5 rounded-xl flex flex-col items-center">
+                  <h1 className="text-2xl font-bold">Time Left</h1>
+
+                  <div className="flex gap-x-3 text-lg font-semibold -my-2">
+                    <p>
+                      <span className="text-2xl font-black text-yellow-300">{remaining.days}</span> Days
+                    </p>
+                    <p>
+                      <span className="text-2xl font-black text-yellow-300">{remaining.hours}</span> Hrs
+                    </p>
+                    <p>
+                      <span className="text-2xl font-black text-yellow-300">{remaining.minutes}</span> Mins
+                    </p>
+                    <p>
+                      <span className="text-2xl font-black text-yellow-300">{remaining.seconds}</span> Secs
+                    </p>
+                  </div>
+
+                  <p className="opacity-70">Get in before the voting period ends</p>
+                </div>
+              ) : (
+                <div className="bg-gray-800 p-5 rounded-xl flex flex-col items-center">
+                  {status == PollStatus.NOT_STARTED
+                    ? "Poll Not Started Yet"
+                    : status == PollStatus.CLOSED
+                    ? "Poll Over, results are being calculated"
+                    : "Poll Results are out"}
+                </div>
+              ))}
             <div className="flex flex-row items-center my-5">
               <div className="text-2xl font-bold ">{poll?.name}</div>
             </div>

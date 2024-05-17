@@ -29,6 +29,7 @@ export default function PollDetail({ id }: { id: bigint }) {
   const isAnyInvalid = Object.values(isVotesInvalid).some(v => v);
   const [result, setResult] = useState<{ candidate: string; votes: number }[] | null>(null);
   const [status, setStatus] = useState<PollStatus>();
+  const [voted, setVoted] = useState(false);
 
   useEffect(() => {
     if (!poll || !poll.metadata) {
@@ -169,6 +170,7 @@ export default function PollDetail({ id }: { id: bigint }) {
       }
 
       notification.success("Vote casted successfully");
+      setVoted(true);
     } catch (err) {
       console.log("err", err);
       notification.error("Casting vote failed, please try again ");
@@ -225,35 +227,48 @@ export default function PollDetail({ id }: { id: bigint }) {
   return (
     <div className="container mx-auto pt-10 mobile:px-8">
       <div className="flex h-full flex-col md:w-2/3 lg:w-1/2 mx-auto">
-        <div className="flex flex-row items-center my-5">
-          <div className="text-2xl font-bold ">{poll?.name}</div>
-        </div>
-        {poll?.options.map((candidate, index) => (
-          <div className="pb-5 flex" key={index}>
-            <VoteCard
-              pollOpen={status === PollStatus.OPEN}
-              index={index}
-              candidate={candidate}
-              clicked={false}
-              pollType={pollType}
-              onChange={(checked, votes) => voteUpdated(index, checked, votes)}
-              isInvalid={Boolean(isVotesInvalid[index])}
-              setIsInvalid={status => setIsVotesInvalid({ ...isVotesInvalid, [index]: status })}
+        {voted ? (
+          <div className="flex flex-col items-center text-black bg-green-300 rounded-xl">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/9746/9746205.png"
+              className="w-1/2 translate-x-[8%] mb-4 drop-shadow"
+              alt="success"
             />
+            <h1 className="text-3xl font-semibold">Vote Successful</h1>
+            <p className="font-medium opacity-60">Thanks for making your voice heard!</p>
           </div>
-        ))}
-        {status === PollStatus.OPEN && (
-          <div className={`mt-2 shadow-2xl`}>
-            <button
-              onClick={castVote}
-              disabled={!true}
-              className="hover:border-black duration-300 bg-yellow-500 text-black border-2 border-yellow-400 w-full text-lg text-center py-3 rounded-xl font-bold active:scale-90"
-            >
-              {true ? "Cast Vote" : "Voting Closed"}{" "}
-            </button>
-          </div>
+        ) : (
+          <>
+            <div className="flex flex-row items-center my-5">
+              <div className="text-2xl font-bold ">{poll?.name}</div>
+            </div>
+            {poll?.options.map((candidate, index) => (
+              <div className="pb-5 flex" key={index}>
+                <VoteCard
+                  pollOpen={status === PollStatus.OPEN}
+                  index={index}
+                  candidate={candidate}
+                  clicked={false}
+                  pollType={pollType}
+                  onChange={(checked, votes) => voteUpdated(index, checked, votes)}
+                  isInvalid={Boolean(isVotesInvalid[index])}
+                  setIsInvalid={status => setIsVotesInvalid({ ...isVotesInvalid, [index]: status })}
+                />
+              </div>
+            ))}
+            {status === PollStatus.OPEN && (
+              <div className={`mt-2 shadow-2xl`}>
+                <button
+                  onClick={castVote}
+                  disabled={!true}
+                  className="hover:border-black duration-300 bg-yellow-500 text-black border-2 border-yellow-400 w-full text-lg text-center py-3 rounded-xl font-bold active:scale-90"
+                >
+                  {true ? "Cast Vote" : "Voting Closed"}{" "}
+                </button>
+              </div>
+            )}
+          </>
         )}
-
         {result && (
           <div className="mt-5">
             <div className="text-2xl font-bold">Results</div>

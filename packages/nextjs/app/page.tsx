@@ -59,7 +59,7 @@ const Home: NextPage = () => {
                 </div>
               ))}
 
-            <div className="mt-14 bg-slate-800 rounded-3xl flex overflow-hidden w-[90%] mobile:w-[93%] mobile:flex-col">
+            <div className="scale-75 bg-slate-800 rounded-3xl flex overflow-hidden w-[90%] mobile:w-[93%] mobile:flex-col">
               <img
                 className="mobile:w-full w-1/4 lg:w-1/5 mobile:aspect-video aspect-square object-cover object-top"
                 src="/fai.jpg"

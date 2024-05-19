@@ -33,7 +33,7 @@ export default function PollDetail({ id }: { id: bigint }) {
   const [remaining, setRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   function getRemainingTime(finalTimestamp: number): { days: number; hours: number; minutes: number; seconds: number } {
-    const now = Date.now();
+    const now = Math.round(Date.now() / 1000);
     let distance = finalTimestamp - now;
 
     if (distance < 0) {

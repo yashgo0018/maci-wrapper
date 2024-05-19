@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "../utils/scaffold-eth/contract";
 const deployedContracts = {
   17000: {
     ConstantInitialVoiceCreditProxy: {
-      address: "0x167F9e3b77912398CE06E801cF684bBD28a9b147",
+      address: "0x6154E3ED00E57AF0F8dCB2e2991A32b719790FAD",
       abi: [
         {
           inputs: [
@@ -45,10 +45,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556917,
+      deploymentBlockNumber: 1572409,
     },
     FreeForAllGatekeeper: {
-      address: "0x788d14a9823fd47F677DB1529508Ef5928aD25eD",
+      address: "0x0e2baf749fa847e61A96cf0fC53cD770295a371c",
       abi: [
         {
           inputs: [],
@@ -87,10 +87,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556918,
+      deploymentBlockNumber: 1572410,
     },
     MACIWrapper: {
-      address: "0xc38C1eB3FEEcD2cDbfC631f9B1eb32700fa33095",
+      address: "0xbB020689b97275EBD63b7b3Ad95B80aB0307A01c",
       abi: [
         {
           inputs: [
@@ -1538,10 +1538,10 @@ const deployedContracts = {
         topupCredit: "maci-contracts/contracts/MACI.sol",
         transferOwnership: "maci-contracts/contracts/MACI.sol",
       },
-      deploymentBlockNumber: 1556934,
+      deploymentBlockNumber: 1572424,
     },
     MessageProcessorFactory: {
-      address: "0x12973B95A605fA6C6BD3e1962D8C5D9E69aFd76B",
+      address: "0x59AEFffD6443b04a16b7Fa3dEEaE517e8Ab3BD33",
       abi: [
         {
           inputs: [],
@@ -1596,10 +1596,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556931,
+      deploymentBlockNumber: 1572422,
     },
     PollFactory: {
-      address: "0xAC8D31808490D2D92D1abFe76CBB9BAed1650FbA",
+      address: "0xE6eaa758cFf7C6F179a88D6A2cC0C40610ce46C3",
       abi: [
         {
           inputs: [],
@@ -1720,10 +1720,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556929,
+      deploymentBlockNumber: 1572420,
     },
     PoseidonT3: {
-      address: "0x66556eD8C5423ee7540Dcf79383a67D75Aa987AC",
+      address: "0x74a7Cfe7fd956c53E754C300a1DDddC9713A7dA1",
       abi: [
         {
           inputs: [
@@ -1745,10 +1745,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556923,
+      deploymentBlockNumber: 1572414,
     },
     PoseidonT4: {
-      address: "0x2FbEDbe38f011a6a9D9146d2A94a0873F5D21986",
+      address: "0xb78AC47CC2c51f07E19Eb1A465660d18AE41BD24",
       abi: [
         {
           inputs: [
@@ -1770,10 +1770,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556924,
+      deploymentBlockNumber: 1572415,
     },
     PoseidonT5: {
-      address: "0xeac082F3ac67427585C208f0bdfCCB3b1c8621aa",
+      address: "0x88442E8223A9e71ca7ef529EC42636EE42CFF281",
       abi: [
         {
           inputs: [
@@ -1795,10 +1795,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556926,
+      deploymentBlockNumber: 1572416,
     },
     PoseidonT6: {
-      address: "0x702F4AF4523b410D474DBfCD5B436c14A4B10D71",
+      address: "0x039AE9F5c35deecCCBD9f1B7464D5f7529627F4C",
       abi: [
         {
           inputs: [
@@ -1820,10 +1820,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556927,
+      deploymentBlockNumber: 1572418,
     },
     TallyFactory: {
-      address: "0x12015de45D61073E1A355386aAaF5FF270063A52",
+      address: "0x2fa3a8e40B2a099A3358B6ae74587aE388E83Bd4",
       abi: [
         {
           inputs: [],
@@ -1883,10 +1883,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556932,
+      deploymentBlockNumber: 1572423,
     },
     TopupCredit: {
-      address: "0xBB45D19b4C54C1B14bCe1D415719ce473972Dfcb",
+      address: "0x5A29a4f7E780f667A56eF217Ed20c22B307a4D30",
       abi: [
         {
           inputs: [],
@@ -2338,10 +2338,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556921,
+      deploymentBlockNumber: 1572413,
     },
     Verifier: {
-      address: "0xeC7d64263c331CF2c31E2148b686A60E62185BeF",
+      address: "0x2df86Af6F4014E762A752BD6387d1A54bc1C4A05",
       abi: [
         {
           inputs: [],
@@ -2498,10 +2498,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1556920,
+      deploymentBlockNumber: 1572412,
     },
     VkRegistry: {
-      address: "0x4D42fa3dE24583A6792A24820ac60931FaF8389a",
+      address: "0x7b412AC77AA5212a99D81880564C54903d303eA0",
       abi: [
         {
           inputs: [],
@@ -3761,7 +3761,7 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1557019,
+      deploymentBlockNumber: 1572427,
     },
   },
   31337: {
@@ -3804,6 +3804,9 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {
+        getVoiceCredits: "maci-contracts/contracts/initialVoiceCreditProxy/InitialVoiceCreditProxy.sol",
+      },
       deploymentBlockNumber: 1,
     },
     FreeForAllGatekeeper: {
@@ -3846,9 +3849,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {},
       deploymentBlockNumber: 3,
     },
-    MACIWrapper: {
+    MACI: {
       address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
       abi: [
         {
@@ -3889,7 +3893,7 @@ const deployedContracts = {
               type: "uint8",
             },
           ],
-          stateMutability: "nonpayable",
+          stateMutability: "payable",
           type: "constructor",
         },
         {
@@ -3905,56 +3909,19 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "DefaultZeroBadIndex",
-          type: "error",
-        },
-        {
-          inputs: [],
-          name: "DepthTooLarge",
-          type: "error",
-        },
-        {
-          inputs: [],
           name: "InvalidMessage",
           type: "error",
         },
         {
           inputs: [],
-          name: "InvalidPubKey",
-          type: "error",
-        },
-        {
-          inputs: [],
-          name: "NumberOfLeavesCannotBeZero",
+          name: "MaciPubKeyLargerThanSnarkFieldSize",
           type: "error",
         },
         {
           inputs: [
             {
               internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-          ],
-          name: "OwnableInvalidOwner",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-          ],
-          name: "OwnableUnauthorizedAccount",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_poll",
+              name: "pollAddr",
               type: "address",
             },
           ],
@@ -4074,97 +4041,6 @@ const deployedContracts = {
           anonymous: false,
           inputs: [
             {
-              indexed: true,
-              internalType: "uint256",
-              name: "pollId",
-              type: "uint256",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "creator",
-              type: "address",
-            },
-            {
-              components: [
-                {
-                  internalType: "address",
-                  name: "poll",
-                  type: "address",
-                },
-                {
-                  internalType: "address",
-                  name: "messageProcessor",
-                  type: "address",
-                },
-                {
-                  internalType: "address",
-                  name: "tally",
-                  type: "address",
-                },
-              ],
-              indexed: false,
-              internalType: "struct MACI.PollContracts",
-              name: "pollContracts",
-              type: "tuple",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "name",
-              type: "string",
-            },
-            {
-              indexed: false,
-              internalType: "string[]",
-              name: "options",
-              type: "string[]",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "metadata",
-              type: "string",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "startTime",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "endTime",
-              type: "uint256",
-            },
-          ],
-          name: "PollCreated",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "pollId",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "tallyJsonCID",
-              type: "string",
-            },
-          ],
-          name: "PollTallyCIDUpdated",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
               indexed: false,
               internalType: "uint256",
               name: "_stateIndex",
@@ -4209,57 +4085,6 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "coordinatorPubKey",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "x",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "y",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "string",
-              name: "_name",
-              type: "string",
-            },
-            {
-              internalType: "string[]",
-              name: "_options",
-              type: "string[]",
-            },
-            {
-              internalType: "string",
-              name: "_metadata",
-              type: "string",
-            },
-            {
-              internalType: "uint256",
-              name: "_duration",
-              type: "uint256",
-            },
-            {
-              internalType: "enum DomainObjs.Mode",
-              name: "isQv",
-              type: "uint8",
-            },
-          ],
-          name: "createPoll",
-          outputs: [],
-          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -4324,9 +4149,9 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "enum DomainObjs.Mode",
-              name: "_mode",
-              type: "uint8",
+              internalType: "bool",
+              name: "_isQv",
+              type: "bool",
             },
           ],
           name: "deployPoll",
@@ -4355,192 +4180,6 @@ const deployedContracts = {
             },
           ],
           stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_pollId",
-              type: "uint256",
-            },
-          ],
-          name: "fetchPoll",
-          outputs: [
-            {
-              components: [
-                {
-                  internalType: "uint256",
-                  name: "id",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string",
-                  name: "name",
-                  type: "string",
-                },
-                {
-                  internalType: "bytes",
-                  name: "encodedOptions",
-                  type: "bytes",
-                },
-                {
-                  internalType: "string",
-                  name: "metadata",
-                  type: "string",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "address",
-                      name: "poll",
-                      type: "address",
-                    },
-                    {
-                      internalType: "address",
-                      name: "messageProcessor",
-                      type: "address",
-                    },
-                    {
-                      internalType: "address",
-                      name: "tally",
-                      type: "address",
-                    },
-                  ],
-                  internalType: "struct MACI.PollContracts",
-                  name: "pollContracts",
-                  type: "tuple",
-                },
-                {
-                  internalType: "uint256",
-                  name: "startTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "endTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "numOfOptions",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string[]",
-                  name: "options",
-                  type: "string[]",
-                },
-                {
-                  internalType: "string",
-                  name: "tallyJsonCID",
-                  type: "string",
-                },
-              ],
-              internalType: "struct MACIWrapper.PollData",
-              name: "poll_",
-              type: "tuple",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_page",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_perPage",
-              type: "uint256",
-            },
-            {
-              internalType: "bool",
-              name: "_ascending",
-              type: "bool",
-            },
-          ],
-          name: "fetchPolls",
-          outputs: [
-            {
-              components: [
-                {
-                  internalType: "uint256",
-                  name: "id",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string",
-                  name: "name",
-                  type: "string",
-                },
-                {
-                  internalType: "bytes",
-                  name: "encodedOptions",
-                  type: "bytes",
-                },
-                {
-                  internalType: "string",
-                  name: "metadata",
-                  type: "string",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "address",
-                      name: "poll",
-                      type: "address",
-                    },
-                    {
-                      internalType: "address",
-                      name: "messageProcessor",
-                      type: "address",
-                    },
-                    {
-                      internalType: "address",
-                      name: "tally",
-                      type: "address",
-                    },
-                  ],
-                  internalType: "struct MACI.PollContracts",
-                  name: "pollContracts",
-                  type: "tuple",
-                },
-                {
-                  internalType: "uint256",
-                  name: "startTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "endTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "numOfOptions",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string[]",
-                  name: "options",
-                  type: "string[]",
-                },
-                {
-                  internalType: "string",
-                  name: "tallyJsonCID",
-                  type: "string",
-                },
-              ],
-              internalType: "struct MACIWrapper.PollData[]",
-              name: "polls_",
-              type: "tuple[]",
-            },
-          ],
-          stateMutability: "view",
           type: "function",
         },
         {
@@ -4583,7 +4222,7 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "getStateTreeRoot",
+          name: "getStateAqRoot",
           outputs: [
             {
               internalType: "uint256",
@@ -4829,20 +4468,52 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "lazyIMTData",
+          name: "manager",
           outputs: [
             {
-              internalType: "uint40",
-              name: "maxIndex",
-              type: "uint40",
-            },
-            {
-              internalType: "uint40",
-              name: "numberOfLeaves",
-              type: "uint40",
+              internalType: "address",
+              name: "",
+              type: "address",
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+          ],
+          name: "mergeStateAq",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "root",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_numSrQueueOps",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+          ],
+          name: "mergeStateAqSubRoots",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -4877,7 +4548,7 @@ const deployedContracts = {
           outputs: [
             {
               internalType: "uint256",
-              name: "signUps",
+              name: "",
               type: "uint256",
             },
           ],
@@ -5016,68 +4687,6 @@ const deployedContracts = {
         {
           inputs: [
             {
-              components: [
-                {
-                  internalType: "uint8",
-                  name: "intStateTreeDepth",
-                  type: "uint8",
-                },
-                {
-                  internalType: "uint8",
-                  name: "messageTreeSubDepth",
-                  type: "uint8",
-                },
-                {
-                  internalType: "uint8",
-                  name: "messageTreeDepth",
-                  type: "uint8",
-                },
-                {
-                  internalType: "uint8",
-                  name: "voteOptionTreeDepth",
-                  type: "uint8",
-                },
-              ],
-              internalType: "struct Params.TreeDepths",
-              name: "_treeDepths",
-              type: "tuple",
-            },
-            {
-              components: [
-                {
-                  internalType: "uint256",
-                  name: "x",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "y",
-                  type: "uint256",
-                },
-              ],
-              internalType: "struct DomainObjs.PubKey",
-              name: "_coordinatorPubKey",
-              type: "tuple",
-            },
-            {
-              internalType: "address",
-              name: "_verifier",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_vkRegistry",
-              type: "address",
-            },
-          ],
-          name: "setConfig",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
               internalType: "uint256[]",
               name: "array",
               type: "uint256[]",
@@ -5144,12 +4753,38 @@ const deployedContracts = {
         },
         {
           inputs: [],
+          name: "stateAq",
+          outputs: [
+            {
+              internalType: "contract AccQueue",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
           name: "stateTreeDepth",
           outputs: [
             {
               internalType: "uint8",
               name: "",
               type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "subtreesMerged",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
             },
           ],
           stateMutability: "view",
@@ -5195,107 +4830,36 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [],
-          name: "treeDepths",
-          outputs: [
-            {
-              internalType: "uint8",
-              name: "intStateTreeDepth",
-              type: "uint8",
-            },
-            {
-              internalType: "uint8",
-              name: "messageTreeSubDepth",
-              type: "uint8",
-            },
-            {
-              internalType: "uint8",
-              name: "messageTreeDepth",
-              type: "uint8",
-            },
-            {
-              internalType: "uint8",
-              name: "voteOptionTreeDepth",
-              type: "uint8",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
           inputs: [
             {
-              internalType: "uint256",
-              name: "_pollId",
-              type: "uint256",
-            },
-            {
-              internalType: "string",
-              name: "_tallyJsonCID",
-              type: "string",
+              internalType: "address",
+              name: "_manager",
+              type: "address",
             },
           ],
-          name: "updatePollTallyCID",
+          name: "updateManager",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
         },
-        {
-          inputs: [],
-          name: "verifier",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "vkRegistry",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
       ],
       inheritedFunctions: {
-        MESSAGE_DATA_LENGTH: "maci-contracts/contracts/MACI.sol",
-        deployPoll: "maci-contracts/contracts/MACI.sol",
-        getPoll: "maci-contracts/contracts/MACI.sol",
-        getStateTreeRoot: "maci-contracts/contracts/MACI.sol",
-        hash2: "maci-contracts/contracts/MACI.sol",
-        hash3: "maci-contracts/contracts/MACI.sol",
-        hash4: "maci-contracts/contracts/MACI.sol",
-        hash5: "maci-contracts/contracts/MACI.sol",
-        hashLeftRight: "maci-contracts/contracts/MACI.sol",
-        hashMessageAndEncPubKey: "maci-contracts/contracts/MACI.sol",
-        hashStateLeaf: "maci-contracts/contracts/MACI.sol",
-        initialVoiceCreditProxy: "maci-contracts/contracts/MACI.sol",
-        lazyIMTData: "maci-contracts/contracts/MACI.sol",
-        messageProcessorFactory: "maci-contracts/contracts/MACI.sol",
-        nextPollId: "maci-contracts/contracts/MACI.sol",
-        numSignUps: "maci-contracts/contracts/MACI.sol",
-        owner: "maci-contracts/contracts/MACI.sol",
-        padAndHashMessage: "maci-contracts/contracts/MACI.sol",
-        pollFactory: "maci-contracts/contracts/MACI.sol",
-        polls: "maci-contracts/contracts/MACI.sol",
-        renounceOwnership: "maci-contracts/contracts/MACI.sol",
-        sha256Hash: "maci-contracts/contracts/MACI.sol",
-        signUp: "maci-contracts/contracts/MACI.sol",
-        signUpGatekeeper: "maci-contracts/contracts/MACI.sol",
-        stateTreeDepth: "maci-contracts/contracts/MACI.sol",
-        tallyFactory: "maci-contracts/contracts/MACI.sol",
-        topupCredit: "maci-contracts/contracts/MACI.sol",
-        transferOwnership: "maci-contracts/contracts/MACI.sol",
+        getStateTreeRoot: "maci-contracts/contracts/interfaces/IMACI.sol",
+        numSignUps: "maci-contracts/contracts/interfaces/IMACI.sol",
+        stateTreeDepth: "maci-contracts/contracts/interfaces/IMACI.sol",
+        MESSAGE_DATA_LENGTH: "maci-contracts/contracts/utilities/Utilities.sol",
+        hash2: "maci-contracts/contracts/utilities/Utilities.sol",
+        hash3: "maci-contracts/contracts/utilities/Utilities.sol",
+        hash4: "maci-contracts/contracts/utilities/Utilities.sol",
+        hash5: "maci-contracts/contracts/utilities/Utilities.sol",
+        hashLeftRight: "maci-contracts/contracts/utilities/Utilities.sol",
+        hashMessageAndEncPubKey: "maci-contracts/contracts/utilities/Utilities.sol",
+        hashStateLeaf: "maci-contracts/contracts/utilities/Utilities.sol",
+        padAndHashMessage: "maci-contracts/contracts/utilities/Utilities.sol",
+        sha256Hash: "maci-contracts/contracts/utilities/Utilities.sol",
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
       },
       deploymentBlockNumber: 23,
     },
@@ -5338,9 +4902,9 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "enum DomainObjs.Mode",
-              name: "_mode",
-              type: "uint8",
+              internalType: "bool",
+              name: "_isQv",
+              type: "bool",
             },
           ],
           name: "deploy",
@@ -5355,6 +4919,9 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {
+        MESSAGE_DATA_LENGTH: "maci-contracts/contracts/utilities/DomainObjs.sol",
+      },
       deploymentBlockNumber: 19,
     },
     PollFactory: {
@@ -5479,7 +5046,617 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {
+        MESSAGE_DATA_LENGTH: "maci-contracts/contracts/utilities/DomainObjs.sol",
+        deploy: "maci-contracts/contracts/interfaces/IPollFactory.sol",
+      },
       deploymentBlockNumber: 17,
+    },
+    PollManager: {
+      address: "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "contract MACI",
+              name: "_maci",
+              type: "address",
+            },
+            {
+              internalType: "bool",
+              name: "_isQv",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "maciPollId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "creator",
+              type: "address",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "poll",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "messageProcessor",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tally",
+                  type: "address",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MACI.PollContracts",
+              name: "pollContracts",
+              type: "tuple",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string[]",
+              name: "options",
+              type: "string[]",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "ipfsHash",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "startTime",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "endTime",
+              type: "uint256",
+            },
+          ],
+          name: "PollCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "maciPollId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "tallyJsonCID",
+              type: "string",
+            },
+          ],
+          name: "PollTallyCIDUpdated",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "MESSAGE_DATA_LENGTH",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "coordinatorPubKey",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "x",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "y",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_name",
+              type: "string",
+            },
+            {
+              internalType: "string[]",
+              name: "_options",
+              type: "string[]",
+            },
+            {
+              internalType: "string",
+              name: "_ipfsHash",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "_duration",
+              type: "uint256",
+            },
+          ],
+          name: "createPoll",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+          ],
+          name: "fetchPoll",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maciPollId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "bytes",
+                  name: "encodedOptions",
+                  type: "bytes",
+                },
+                {
+                  internalType: "string",
+                  name: "ipfsHash",
+                  type: "string",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "address",
+                      name: "poll",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "messageProcessor",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "tally",
+                      type: "address",
+                    },
+                  ],
+                  internalType: "struct MACI.PollContracts",
+                  name: "pollContracts",
+                  type: "tuple",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "numOfOptions",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string[]",
+                  name: "options",
+                  type: "string[]",
+                },
+                {
+                  internalType: "string",
+                  name: "tallyJsonCID",
+                  type: "string",
+                },
+              ],
+              internalType: "struct PollManager.PollData",
+              name: "poll_",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_page",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_perPage",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "_ascending",
+              type: "bool",
+            },
+          ],
+          name: "fetchPolls",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maciPollId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "bytes",
+                  name: "encodedOptions",
+                  type: "bytes",
+                },
+                {
+                  internalType: "string",
+                  name: "ipfsHash",
+                  type: "string",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "address",
+                      name: "poll",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "messageProcessor",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "tally",
+                      type: "address",
+                    },
+                  ],
+                  internalType: "struct MACI.PollContracts",
+                  name: "pollContracts",
+                  type: "tuple",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "numOfOptions",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string[]",
+                  name: "options",
+                  type: "string[]",
+                },
+                {
+                  internalType: "string",
+                  name: "tallyJsonCID",
+                  type: "string",
+                },
+              ],
+              internalType: "struct PollManager.PollData[]",
+              name: "polls_",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "isQv",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "maci",
+          outputs: [
+            {
+              internalType: "contract MACI",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "pollIdByAddress",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint8",
+                  name: "intStateTreeDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "messageTreeSubDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "messageTreeDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "voteOptionTreeDepth",
+                  type: "uint8",
+                },
+              ],
+              internalType: "struct Params.TreeDepths",
+              name: "_treeDepths",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "x",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "y",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct DomainObjs.PubKey",
+              name: "_coordinatorPubKey",
+              type: "tuple",
+            },
+            {
+              internalType: "address",
+              name: "_verifier",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_vkRegistry",
+              type: "address",
+            },
+            {
+              internalType: "bool",
+              name: "_useSubsidy",
+              type: "bool",
+            },
+          ],
+          name: "setConfig",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalPolls",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "treeDepths",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "intStateTreeDepth",
+              type: "uint8",
+            },
+            {
+              internalType: "uint8",
+              name: "messageTreeSubDepth",
+              type: "uint8",
+            },
+            {
+              internalType: "uint8",
+              name: "messageTreeDepth",
+              type: "uint8",
+            },
+            {
+              internalType: "uint8",
+              name: "voteOptionTreeDepth",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "_tallyJsonCID",
+              type: "string",
+            },
+          ],
+          name: "updatePollTallyCID",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "useSubsidy",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "verifier",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "vkRegistry",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        MESSAGE_DATA_LENGTH: "maci-contracts/contracts/utilities/DomainObjs.sol",
+      },
+      deploymentBlockNumber: 29,
     },
     PoseidonT3: {
       address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
@@ -5504,6 +5681,7 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {},
       deploymentBlockNumber: 9,
     },
     PoseidonT4: {
@@ -5529,6 +5707,7 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {},
       deploymentBlockNumber: 11,
     },
     PoseidonT5: {
@@ -5554,6 +5733,7 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {},
       deploymentBlockNumber: 13,
     },
     PoseidonT6: {
@@ -5579,24 +5759,12 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {},
       deploymentBlockNumber: 15,
     },
     TallyFactory: {
       address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
       abi: [
-        {
-          inputs: [],
-          name: "MESSAGE_DATA_LENGTH",
-          outputs: [
-            {
-              internalType: "uint8",
-              name: "",
-              type: "uint8",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
         {
           inputs: [
             {
@@ -5625,9 +5793,9 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "enum DomainObjs.Mode",
-              name: "_mode",
-              type: "uint8",
+              internalType: "bool",
+              name: "_isQv",
+              type: "bool",
             },
           ],
           name: "deploy",
@@ -5642,6 +5810,9 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {
+        deploy: "maci-contracts/contracts/interfaces/ITallyFactory.sol",
+      },
       deploymentBlockNumber: 21,
     },
     TopupCredit: {
@@ -5653,116 +5824,8 @@ const deployedContracts = {
           type: "constructor",
         },
         {
-          inputs: [
-            {
-              internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "allowance",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "needed",
-              type: "uint256",
-            },
-          ],
-          name: "ERC20InsufficientAllowance",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "sender",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "balance",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "needed",
-              type: "uint256",
-            },
-          ],
-          name: "ERC20InsufficientBalance",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "approver",
-              type: "address",
-            },
-          ],
-          name: "ERC20InvalidApprover",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "receiver",
-              type: "address",
-            },
-          ],
-          name: "ERC20InvalidReceiver",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "sender",
-              type: "address",
-            },
-          ],
-          name: "ERC20InvalidSender",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-          ],
-          name: "ERC20InvalidSpender",
-          type: "error",
-        },
-        {
           inputs: [],
           name: "ExceedLimit",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-          ],
-          name: "OwnableInvalidOwner",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-          ],
-          name: "OwnableUnauthorizedAccount",
           type: "error",
         },
         {
@@ -5924,7 +5987,7 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "value",
+              name: "amount",
               type: "uint256",
             },
           ],
@@ -5969,6 +6032,54 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "subtractedValue",
+              type: "uint256",
+            },
+          ],
+          name: "decreaseAllowance",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "addedValue",
+              type: "uint256",
+            },
+          ],
+          name: "increaseAllowance",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -6039,7 +6150,7 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "value",
+              name: "amount",
               type: "uint256",
             },
           ],
@@ -6068,7 +6179,7 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "value",
+              name: "amount",
               type: "uint256",
             },
           ],
@@ -6097,6 +6208,20 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {
+        allowance: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        approve: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        balanceOf: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        decimals: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        name: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        symbol: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        totalSupply: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        transfer: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        transferFrom: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+      },
       deploymentBlockNumber: 7,
     },
     Verifier: {
@@ -6257,6 +6382,9 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {
+        verify: "maci-contracts/contracts/interfaces/IVerifier.sol",
+      },
       deploymentBlockNumber: 5,
     },
     VkRegistry: {
@@ -6266,33 +6394,6 @@ const deployedContracts = {
           inputs: [],
           stateMutability: "payable",
           type: "constructor",
-        },
-        {
-          inputs: [],
-          name: "InvalidKeysParams",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-          ],
-          name: "OwnableInvalidOwner",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-          ],
-          name: "OwnableUnauthorizedAccount",
-          type: "error",
         },
         {
           inputs: [],
@@ -6349,8 +6450,8 @@ const deployedContracts = {
             },
             {
               indexed: false,
-              internalType: "enum DomainObjs.Mode",
-              name: "_mode",
+              internalType: "enum IVkRegistry.Mode",
+              name: "mode",
               type: "uint8",
             },
           ],
@@ -6368,26 +6469,13 @@ const deployedContracts = {
             },
             {
               indexed: false,
-              internalType: "enum DomainObjs.Mode",
-              name: "_mode",
+              internalType: "enum IVkRegistry.Mode",
+              name: "mode",
               type: "uint8",
             },
           ],
           name: "TallyVkSet",
           type: "event",
-        },
-        {
-          inputs: [],
-          name: "MESSAGE_DATA_LENGTH",
-          outputs: [
-            {
-              internalType: "uint8",
-              name: "",
-              type: "uint8",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
         },
         {
           inputs: [
@@ -6475,7 +6563,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum DomainObjs.Mode",
+              internalType: "enum IVkRegistry.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -6586,7 +6674,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum DomainObjs.Mode",
+              internalType: "enum IVkRegistry.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -6707,7 +6795,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum DomainObjs.Mode",
+              internalType: "enum IVkRegistry.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -6818,7 +6906,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum DomainObjs.Mode",
+              internalType: "enum IVkRegistry.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -6944,7 +7032,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum DomainObjs.Mode",
+              internalType: "enum IVkRegistry.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -6978,7 +7066,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum DomainObjs.Mode",
+              internalType: "enum IVkRegistry.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -7002,7 +7090,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum DomainObjs.Mode",
+              internalType: "enum IVkRegistry.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -7026,7 +7114,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum DomainObjs.Mode",
+              internalType: "enum IVkRegistry.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -7090,7 +7178,7 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "enum DomainObjs.Mode",
+              internalType: "enum IVkRegistry.Mode",
               name: "_mode",
               type: "uint8",
             },
@@ -7287,228 +7375,6 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint256",
-              name: "_stateTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_intStateTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_messageTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_voteOptionTreeDepth",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_messageBatchSize",
-              type: "uint256",
-            },
-            {
-              internalType: "enum DomainObjs.Mode[]",
-              name: "_modes",
-              type: "uint8[]",
-            },
-            {
-              components: [
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "x",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct Pairing.G1Point",
-                  name: "alpha1",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "beta2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "gamma2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "delta2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "x",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct Pairing.G1Point[]",
-                  name: "ic",
-                  type: "tuple[]",
-                },
-              ],
-              internalType: "struct SnarkCommon.VerifyingKey[]",
-              name: "_processVks",
-              type: "tuple[]",
-            },
-            {
-              components: [
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "x",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct Pairing.G1Point",
-                  name: "alpha1",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "beta2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "gamma2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "x",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct Pairing.G2Point",
-                  name: "delta2",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "x",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct Pairing.G1Point[]",
-                  name: "ic",
-                  type: "tuple[]",
-                },
-              ],
-              internalType: "struct SnarkCommon.VerifyingKey[]",
-              name: "_tallyVks",
-              type: "tuple[]",
-            },
-          ],
-          name: "setVerifyingKeysBatch",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
               internalType: "address",
               name: "newOwner",
               type: "address",
@@ -7520,6 +7386,13 @@ const deployedContracts = {
           type: "function",
         },
       ],
+      inheritedFunctions: {
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        getProcessVk: "maci-contracts/contracts/interfaces/IVkRegistry.sol",
+        getTallyVk: "maci-contracts/contracts/interfaces/IVkRegistry.sol",
+      },
       deploymentBlockNumber: 26,
     },
   },

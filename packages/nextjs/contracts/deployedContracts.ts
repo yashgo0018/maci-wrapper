@@ -5,6 +5,3765 @@
 import { GenericContractsDeclaration } from "../utils/scaffold-eth/contract";
 
 const deployedContracts = {
+  8453: {
+    ConstantInitialVoiceCreditProxy: {
+      address: "0x6154E3ED00E57AF0F8dCB2e2991A32b719790FAD",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_balance",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "payable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          name: "getVoiceCredits",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664141,
+    },
+    FreeForAllGatekeeper: {
+      address: "0x0e2baf749fa847e61A96cf0fC53cD770295a371c",
+      abi: [
+        {
+          inputs: [],
+          stateMutability: "payable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_address",
+              type: "address",
+            },
+            {
+              internalType: "bytes",
+              name: "_data",
+              type: "bytes",
+            },
+          ],
+          name: "register",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_maci",
+              type: "address",
+            },
+          ],
+          name: "setMaciInstance",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664144,
+    },
+    MACIWrapper: {
+      address: "0xbB020689b97275EBD63b7b3Ad95B80aB0307A01c",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "contract IPollFactory",
+              name: "_pollFactory",
+              type: "address",
+            },
+            {
+              internalType: "contract IMessageProcessorFactory",
+              name: "_messageProcessorFactory",
+              type: "address",
+            },
+            {
+              internalType: "contract ITallyFactory",
+              name: "_tallyFactory",
+              type: "address",
+            },
+            {
+              internalType: "contract SignUpGatekeeper",
+              name: "_signUpGatekeeper",
+              type: "address",
+            },
+            {
+              internalType: "contract InitialVoiceCreditProxy",
+              name: "_initialVoiceCreditProxy",
+              type: "address",
+            },
+            {
+              internalType: "contract TopupCredit",
+              name: "_topupCredit",
+              type: "address",
+            },
+            {
+              internalType: "uint8",
+              name: "_stateTreeDepth",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_caller",
+              type: "address",
+            },
+          ],
+          name: "CallerMustBePoll",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "DefaultZeroBadIndex",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "DepthTooLarge",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "InvalidMessage",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "InvalidPubKey",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "NumberOfLeavesCannotBeZero",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_poll",
+              type: "address",
+            },
+          ],
+          name: "PollAddressDoesNotExist",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
+            },
+          ],
+          name: "PollDoesNotExist",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "PoseidonHashLibrariesNotLinked",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
+            },
+          ],
+          name: "PreviousPollNotCompleted",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "PubKeyAlreadyRegistered",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "SignupTemporaryBlocked",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "TooManySignups",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "_coordinatorPubKeyX",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "_coordinatorPubKeyY",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "poll",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "messageProcessor",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tally",
+                  type: "address",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MACI.PollContracts",
+              name: "pollAddr",
+              type: "tuple",
+            },
+          ],
+          name: "DeployPoll",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "creator",
+              type: "address",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "poll",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "messageProcessor",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tally",
+                  type: "address",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MACI.PollContracts",
+              name: "pollContracts",
+              type: "tuple",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string[]",
+              name: "options",
+              type: "string[]",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "metadata",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "startTime",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "endTime",
+              type: "uint256",
+            },
+          ],
+          name: "PollCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "tallyJsonCID",
+              type: "string",
+            },
+          ],
+          name: "PollTallyCIDUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_stateIndex",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "_userPubKeyX",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "_userPubKeyY",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_voiceCreditBalance",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "SignUp",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "MESSAGE_DATA_LENGTH",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "coordinatorPubKey",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "x",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "y",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_name",
+              type: "string",
+            },
+            {
+              internalType: "string[]",
+              name: "_options",
+              type: "string[]",
+            },
+            {
+              internalType: "string",
+              name: "_metadata",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "_duration",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "isQv",
+              type: "uint8",
+            },
+          ],
+          name: "createPoll",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_duration",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint8",
+                  name: "intStateTreeDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "messageTreeSubDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "messageTreeDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "voteOptionTreeDepth",
+                  type: "uint8",
+                },
+              ],
+              internalType: "struct Params.TreeDepths",
+              name: "_treeDepths",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "x",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "y",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct DomainObjs.PubKey",
+              name: "_coordinatorPubKey",
+              type: "tuple",
+            },
+            {
+              internalType: "address",
+              name: "_verifier",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_vkRegistry",
+              type: "address",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "deployPoll",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "poll",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "messageProcessor",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tally",
+                  type: "address",
+                },
+              ],
+              internalType: "struct MACI.PollContracts",
+              name: "pollAddr",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+          ],
+          name: "fetchPoll",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "bytes",
+                  name: "encodedOptions",
+                  type: "bytes",
+                },
+                {
+                  internalType: "string",
+                  name: "metadata",
+                  type: "string",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "address",
+                      name: "poll",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "messageProcessor",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "tally",
+                      type: "address",
+                    },
+                  ],
+                  internalType: "struct MACI.PollContracts",
+                  name: "pollContracts",
+                  type: "tuple",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "numOfOptions",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string[]",
+                  name: "options",
+                  type: "string[]",
+                },
+                {
+                  internalType: "string",
+                  name: "tallyJsonCID",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MACIWrapper.PollData",
+              name: "poll_",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_page",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_perPage",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "_ascending",
+              type: "bool",
+            },
+          ],
+          name: "fetchPolls",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "bytes",
+                  name: "encodedOptions",
+                  type: "bytes",
+                },
+                {
+                  internalType: "string",
+                  name: "metadata",
+                  type: "string",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "address",
+                      name: "poll",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "messageProcessor",
+                      type: "address",
+                    },
+                    {
+                      internalType: "address",
+                      name: "tally",
+                      type: "address",
+                    },
+                  ],
+                  internalType: "struct MACI.PollContracts",
+                  name: "pollContracts",
+                  type: "tuple",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "numOfOptions",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string[]",
+                  name: "options",
+                  type: "string[]",
+                },
+                {
+                  internalType: "string",
+                  name: "tallyJsonCID",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MACIWrapper.PollData[]",
+              name: "polls_",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+          ],
+          name: "getPoll",
+          outputs: [
+            {
+              internalType: "address",
+              name: "poll",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_poll",
+              type: "address",
+            },
+          ],
+          name: "getPollId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "pollId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getStateTreeRoot",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "root",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256[2]",
+              name: "array",
+              type: "uint256[2]",
+            },
+          ],
+          name: "hash2",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256[3]",
+              name: "array",
+              type: "uint256[3]",
+            },
+          ],
+          name: "hash3",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256[4]",
+              name: "array",
+              type: "uint256[4]",
+            },
+          ],
+          name: "hash4",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256[5]",
+              name: "array",
+              type: "uint256[5]",
+            },
+          ],
+          name: "hash5",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "left",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "right",
+              type: "uint256",
+            },
+          ],
+          name: "hashLeftRight",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "msgType",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256[10]",
+                  name: "data",
+                  type: "uint256[10]",
+                },
+              ],
+              internalType: "struct DomainObjs.Message",
+              name: "_message",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "x",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "y",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct DomainObjs.PubKey",
+              name: "_encPubKey",
+              type: "tuple",
+            },
+          ],
+          name: "hashMessageAndEncPubKey",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "msgHash",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct DomainObjs.PubKey",
+                  name: "pubKey",
+                  type: "tuple",
+                },
+                {
+                  internalType: "uint256",
+                  name: "voiceCreditBalance",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "timestamp",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct DomainObjs.StateLeaf",
+              name: "_stateLeaf",
+              type: "tuple",
+            },
+          ],
+          name: "hashStateLeaf",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "ciphertext",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "initialVoiceCreditProxy",
+          outputs: [
+            {
+              internalType: "contract InitialVoiceCreditProxy",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "isPublicKeyRegistered",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lazyIMTData",
+          outputs: [
+            {
+              internalType: "uint40",
+              name: "maxIndex",
+              type: "uint40",
+            },
+            {
+              internalType: "uint40",
+              name: "numberOfLeaves",
+              type: "uint40",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "messageProcessorFactory",
+          outputs: [
+            {
+              internalType: "contract IMessageProcessorFactory",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nextPollId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "numSignUps",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "signUps",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256[2]",
+              name: "dataToPad",
+              type: "uint256[2]",
+            },
+            {
+              internalType: "uint256",
+              name: "msgType",
+              type: "uint256",
+            },
+          ],
+          name: "padAndHashMessage",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "msgType",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256[10]",
+                  name: "data",
+                  type: "uint256[10]",
+                },
+              ],
+              internalType: "struct DomainObjs.Message",
+              name: "message",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "x",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "y",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct DomainObjs.PubKey",
+              name: "padKey",
+              type: "tuple",
+            },
+            {
+              internalType: "uint256",
+              name: "msgHash",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "pollFactory",
+          outputs: [
+            {
+              internalType: "contract IPollFactory",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "pollIds",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "polls",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint8",
+                  name: "intStateTreeDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "messageTreeSubDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "messageTreeDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "voteOptionTreeDepth",
+                  type: "uint8",
+                },
+              ],
+              internalType: "struct Params.TreeDepths",
+              name: "_treeDepths",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "x",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "y",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct DomainObjs.PubKey",
+              name: "_coordinatorPubKey",
+              type: "tuple",
+            },
+            {
+              internalType: "address",
+              name: "_verifier",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_vkRegistry",
+              type: "address",
+            },
+          ],
+          name: "setConfig",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256[]",
+              name: "array",
+              type: "uint256[]",
+            },
+          ],
+          name: "sha256Hash",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "x",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "y",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct DomainObjs.PubKey",
+              name: "_pubKey",
+              type: "tuple",
+            },
+            {
+              internalType: "bytes",
+              name: "_signUpGatekeeperData",
+              type: "bytes",
+            },
+            {
+              internalType: "bytes",
+              name: "_initialVoiceCreditProxyData",
+              type: "bytes",
+            },
+          ],
+          name: "signUp",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "signUpGatekeeper",
+          outputs: [
+            {
+              internalType: "contract SignUpGatekeeper",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "stateTreeDepth",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "tallyFactory",
+          outputs: [
+            {
+              internalType: "contract ITallyFactory",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "topupCredit",
+          outputs: [
+            {
+              internalType: "contract TopupCredit",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "treeDepths",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "intStateTreeDepth",
+              type: "uint8",
+            },
+            {
+              internalType: "uint8",
+              name: "messageTreeSubDepth",
+              type: "uint8",
+            },
+            {
+              internalType: "uint8",
+              name: "messageTreeDepth",
+              type: "uint8",
+            },
+            {
+              internalType: "uint8",
+              name: "voteOptionTreeDepth",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_pollId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "_tallyJsonCID",
+              type: "string",
+            },
+          ],
+          name: "updatePollTallyCID",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "verifier",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "vkRegistry",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        MESSAGE_DATA_LENGTH: "maci-contracts/contracts/MACI.sol",
+        deployPoll: "maci-contracts/contracts/MACI.sol",
+        getPoll: "maci-contracts/contracts/MACI.sol",
+        getStateTreeRoot: "maci-contracts/contracts/MACI.sol",
+        hash2: "maci-contracts/contracts/MACI.sol",
+        hash3: "maci-contracts/contracts/MACI.sol",
+        hash4: "maci-contracts/contracts/MACI.sol",
+        hash5: "maci-contracts/contracts/MACI.sol",
+        hashLeftRight: "maci-contracts/contracts/MACI.sol",
+        hashMessageAndEncPubKey: "maci-contracts/contracts/MACI.sol",
+        hashStateLeaf: "maci-contracts/contracts/MACI.sol",
+        initialVoiceCreditProxy: "maci-contracts/contracts/MACI.sol",
+        lazyIMTData: "maci-contracts/contracts/MACI.sol",
+        messageProcessorFactory: "maci-contracts/contracts/MACI.sol",
+        nextPollId: "maci-contracts/contracts/MACI.sol",
+        numSignUps: "maci-contracts/contracts/MACI.sol",
+        owner: "maci-contracts/contracts/MACI.sol",
+        padAndHashMessage: "maci-contracts/contracts/MACI.sol",
+        pollFactory: "maci-contracts/contracts/MACI.sol",
+        polls: "maci-contracts/contracts/MACI.sol",
+        renounceOwnership: "maci-contracts/contracts/MACI.sol",
+        sha256Hash: "maci-contracts/contracts/MACI.sol",
+        signUp: "maci-contracts/contracts/MACI.sol",
+        signUpGatekeeper: "maci-contracts/contracts/MACI.sol",
+        stateTreeDepth: "maci-contracts/contracts/MACI.sol",
+        tallyFactory: "maci-contracts/contracts/MACI.sol",
+        topupCredit: "maci-contracts/contracts/MACI.sol",
+        transferOwnership: "maci-contracts/contracts/MACI.sol",
+      },
+      deploymentBlockNumber: 14664177,
+    },
+    MessageProcessorFactory: {
+      address: "0x59AEFffD6443b04a16b7Fa3dEEaE517e8Ab3BD33",
+      abi: [
+        {
+          inputs: [],
+          name: "MESSAGE_DATA_LENGTH",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_verifier",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_vkRegistry",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_poll",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "deploy",
+          outputs: [
+            {
+              internalType: "address",
+              name: "messageProcessorAddr",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664170,
+    },
+    PollFactory: {
+      address: "0xE6eaa758cFf7C6F179a88D6A2cC0C40610ce46C3",
+      abi: [
+        {
+          inputs: [],
+          stateMutability: "payable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "InvalidMaxValues",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "MESSAGE_DATA_LENGTH",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_duration",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "maxMessages",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maxVoteOptions",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Params.MaxValues",
+              name: "_maxValues",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint8",
+                  name: "intStateTreeDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "messageTreeSubDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "messageTreeDepth",
+                  type: "uint8",
+                },
+                {
+                  internalType: "uint8",
+                  name: "voteOptionTreeDepth",
+                  type: "uint8",
+                },
+              ],
+              internalType: "struct Params.TreeDepths",
+              name: "_treeDepths",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "x",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "y",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct DomainObjs.PubKey",
+              name: "_coordinatorPubKey",
+              type: "tuple",
+            },
+            {
+              internalType: "address",
+              name: "_maci",
+              type: "address",
+            },
+            {
+              internalType: "contract TopupCredit",
+              name: "_topupCredit",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_pollOwner",
+              type: "address",
+            },
+          ],
+          name: "deploy",
+          outputs: [
+            {
+              internalType: "address",
+              name: "pollAddr",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664167,
+    },
+    PoseidonT3: {
+      address: "0x74a7Cfe7fd956c53E754C300a1DDddC9713A7dA1",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256[2]",
+              name: "input",
+              type: "uint256[2]",
+            },
+          ],
+          name: "poseidon",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664154,
+    },
+    PoseidonT4: {
+      address: "0xb78AC47CC2c51f07E19Eb1A465660d18AE41BD24",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256[3]",
+              name: "input",
+              type: "uint256[3]",
+            },
+          ],
+          name: "poseidon",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664157,
+    },
+    PoseidonT5: {
+      address: "0x88442E8223A9e71ca7ef529EC42636EE42CFF281",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256[4]",
+              name: "input",
+              type: "uint256[4]",
+            },
+          ],
+          name: "poseidon",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664161,
+    },
+    PoseidonT6: {
+      address: "0x039AE9F5c35deecCCBD9f1B7464D5f7529627F4C",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256[5]",
+              name: "input",
+              type: "uint256[5]",
+            },
+          ],
+          name: "poseidon",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664164,
+    },
+    TallyFactory: {
+      address: "0x2fa3a8e40B2a099A3358B6ae74587aE388E83Bd4",
+      abi: [
+        {
+          inputs: [],
+          name: "MESSAGE_DATA_LENGTH",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_verifier",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_vkRegistry",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_poll",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_messageProcessor",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "deploy",
+          outputs: [
+            {
+              internalType: "address",
+              name: "tallyAddr",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664174,
+    },
+    TopupCredit: {
+      address: "0x5A29a4f7E780f667A56eF217Ed20c22B307a4D30",
+      abi: [
+        {
+          inputs: [],
+          stateMutability: "payable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "allowance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "needed",
+              type: "uint256",
+            },
+          ],
+          name: "ERC20InsufficientAllowance",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "balance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "needed",
+              type: "uint256",
+            },
+          ],
+          name: "ERC20InsufficientBalance",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "approver",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidApprover",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidReceiver",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidSender",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidSpender",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ExceedLimit",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Approval",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Transfer",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "DECIMALS",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "MAXIMUM_AIRDROP_AMOUNT",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "airdrop",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "airdropTo",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+          ],
+          name: "allowance",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "approve",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "balanceOf",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "decimals",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "name",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "symbol",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalSupply",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "transferFrom",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664151,
+    },
+    Verifier: {
+      address: "0x2df86Af6F4014E762A752BD6387d1A54bc1C4A05",
+      abi: [
+        {
+          inputs: [],
+          name: "InvalidInputVal",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "InvalidProofQ",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "PairingAddFailed",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "PairingMulFailed",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "PairingOpcodeFailed",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "PRIME_Q",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256[8]",
+              name: "_proof",
+              type: "uint256[8]",
+            },
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey",
+              name: "vk",
+              type: "tuple",
+            },
+            {
+              internalType: "uint256",
+              name: "input",
+              type: "uint256",
+            },
+          ],
+          name: "verify",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "isValid",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664147,
+    },
+    VkRegistry: {
+      address: "0x7b412AC77AA5212a99D81880564C54903d303eA0",
+      abi: [
+        {
+          inputs: [],
+          stateMutability: "payable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "InvalidKeysParams",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ProcessVkAlreadySet",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ProcessVkNotSet",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "SubsidyVkNotSet",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "TallyVkAlreadySet",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "TallyVkNotSet",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_sig",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "ProcessVkSet",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_sig",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "TallyVkSet",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "MESSAGE_DATA_LENGTH",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_stateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_voteOptionTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageBatchSize",
+              type: "uint256",
+            },
+          ],
+          name: "genProcessVkSig",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "sig",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_stateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_intStateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_voteOptionTreeDepth",
+              type: "uint256",
+            },
+          ],
+          name: "genTallyVkSig",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "sig",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_stateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_voteOptionTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageBatchSize",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "getProcessVk",
+          outputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey",
+              name: "vk",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_sig",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "getProcessVkBySig",
+          outputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey",
+              name: "vk",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_stateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_intStateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_voteOptionTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "getTallyVk",
+          outputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey",
+              name: "vk",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_sig",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "getTallyVkBySig",
+          outputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey",
+              name: "vk",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_stateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_voteOptionTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageBatchSize",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "hasProcessVk",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "isSet",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_stateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_intStateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_voteOptionTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "hasTallyVk",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "isSet",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_sig",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "isProcessVkSet",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "isSet",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_sig",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+          ],
+          name: "isTallyVkSet",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "isSet",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_stateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_intStateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_voteOptionTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageBatchSize",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
+            },
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey",
+              name: "_processVk",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey",
+              name: "_tallyVk",
+              type: "tuple",
+            },
+          ],
+          name: "setVerifyingKeys",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_stateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_intStateTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_voteOptionTreeDepth",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_messageBatchSize",
+              type: "uint256",
+            },
+            {
+              internalType: "enum DomainObjs.Mode[]",
+              name: "_modes",
+              type: "uint8[]",
+            },
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey[]",
+              name: "_processVks",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "alpha1",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "beta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "gamma2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "x",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "delta2",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "x",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point[]",
+                  name: "ic",
+                  type: "tuple[]",
+                },
+              ],
+              internalType: "struct SnarkCommon.VerifyingKey[]",
+              name: "_tallyVks",
+              type: "tuple[]",
+            },
+          ],
+          name: "setVerifyingKeysBatch",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 14664183,
+    },
+  },
   31337: {
     ConstantInitialVoiceCreditProxy: {
       address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",

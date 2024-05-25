@@ -7,7 +7,6 @@ import { useContractRead, useContractWrite } from "wagmi";
 import PollAbi from "~~/abi/Poll";
 import VoteCard from "~~/components/card/VoteCard";
 import { useAuthContext } from "~~/contexts/AuthContext";
-import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
 import { useFetchPoll } from "~~/hooks/useFetchPoll";
 import { getPollStatus } from "~~/hooks/useFetchPolls";
 import { PollStatus, PollType } from "~~/types/poll";
@@ -17,8 +16,6 @@ import { notification } from "~~/utils/scaffold-eth";
 export default function PollDetail({ id }: { id: bigint }) {
   const { data: poll, error, isLoading } = useFetchPoll(id);
   const [pollType, setPollType] = useState(PollType.NOT_SELECTED);
-
-  useAuthUserOnly({});
 
   const { keypair, stateIndex } = useAuthContext();
 

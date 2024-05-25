@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Paginator from "~~/components/Paginator";
 import HoverBorderCard from "~~/components/card/HoverBorderCard";
+import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
 import { useFetchPolls } from "~~/hooks/useFetchPolls";
 import { useTotalPages } from "~~/hooks/useTotalPages";
 
@@ -12,6 +13,7 @@ export default function Polls() {
   const [limit] = useState(10);
   const { totalPolls, polls } = useFetchPolls(currentPage, limit);
   const totalPages = useTotalPages(totalPolls, limit);
+  useAuthUserOnly({});
 
   console.log(polls);
 

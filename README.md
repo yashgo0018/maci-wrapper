@@ -25,8 +25,8 @@ Jumpstart your development with these simple steps:
 1. **Clone and Set Up the Project**
 
 ```bash
-git clone https://github.com/scaffold-eth/scaffold-eth-2.git
-cd scaffold-eth-2
+git clone https://github.com/yashgo0018/maci-wrapper.git
+cd maci-wrapper
 yarn install
 ```
 

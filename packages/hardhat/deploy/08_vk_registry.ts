@@ -29,7 +29,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   await hre.deployments.deploy("VkRegistry", {
     from: deployer,
     args: [],
-    log: true,
+    log: false,
     autoMine: true,
   });
 
@@ -59,7 +59,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     [processVkParam, processVkNonQvParam],
     [tallyVkParam, tallyVkNonQvParam],
   );
-  await tx.wait(1);
+  await tx.wait();
 };
 
 export default deployContracts;

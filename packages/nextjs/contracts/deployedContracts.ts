@@ -56,6 +56,19 @@ const deployedContracts = {
           type: "constructor",
         },
         {
+          inputs: [],
+          name: "getTrait",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
           inputs: [
             {
               internalType: "address",
@@ -90,7 +103,7 @@ const deployedContracts = {
       deploymentBlockNumber: 3,
     },
     MACIWrapper: {
-      address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+      address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
       abi: [
         {
           inputs: [
@@ -120,11 +133,6 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "contract TopupCredit",
-              name: "_topupCredit",
-              type: "address",
-            },
-            {
               internalType: "uint8",
               name: "_stateTreeDepth",
               type: "uint8",
@@ -132,17 +140,6 @@ const deployedContracts = {
           ],
           stateMutability: "nonpayable",
           type: "constructor",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_caller",
-              type: "address",
-            },
-          ],
-          name: "CallerMustBePoll",
-          type: "error",
         },
         {
           inputs: [],
@@ -219,24 +216,8 @@ const deployedContracts = {
           type: "error",
         },
         {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "pollId",
-              type: "uint256",
-            },
-          ],
-          name: "PreviousPollNotCompleted",
-          type: "error",
-        },
-        {
           inputs: [],
           name: "PubKeyAlreadyRegistered",
-          type: "error",
-        },
-        {
-          inputs: [],
-          name: "SignupTemporaryBlocked",
           type: "error",
         },
         {
@@ -287,6 +268,12 @@ const deployedContracts = {
               internalType: "struct MACI.PollContracts",
               name: "pollAddr",
               type: "tuple",
+            },
+            {
+              indexed: false,
+              internalType: "enum DomainObjs.Mode",
+              name: "_mode",
+              type: "uint8",
             },
           ],
           name: "DeployPoll",
@@ -940,11 +927,6 @@ const deployedContracts = {
             {
               components: [
                 {
-                  internalType: "uint256",
-                  name: "msgType",
-                  type: "uint256",
-                },
-                {
                   internalType: "uint256[10]",
                   name: "data",
                   type: "uint256[10]",
@@ -1088,6 +1070,19 @@ const deployedContracts = {
         },
         {
           inputs: [],
+          name: "maxSignups",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
           name: "messageProcessorFactory",
           outputs: [
             {
@@ -1145,21 +1140,11 @@ const deployedContracts = {
               name: "dataToPad",
               type: "uint256[2]",
             },
-            {
-              internalType: "uint256",
-              name: "msgType",
-              type: "uint256",
-            },
           ],
           name: "padAndHashMessage",
           outputs: [
             {
               components: [
-                {
-                  internalType: "uint256",
-                  name: "msgType",
-                  type: "uint256",
-                },
                 {
                   internalType: "uint256[10]",
                   name: "data",
@@ -1410,19 +1395,6 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [],
-          name: "topupCredit",
-          outputs: [
-            {
-              internalType: "contract TopupCredit",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
           inputs: [
             {
               internalType: "address",
@@ -1522,26 +1494,23 @@ const deployedContracts = {
         hashStateLeaf: "maci-contracts/contracts/MACI.sol",
         initialVoiceCreditProxy: "maci-contracts/contracts/MACI.sol",
         lazyIMTData: "maci-contracts/contracts/MACI.sol",
+        maxSignups: "maci-contracts/contracts/MACI.sol",
         messageProcessorFactory: "maci-contracts/contracts/MACI.sol",
         nextPollId: "maci-contracts/contracts/MACI.sol",
         numSignUps: "maci-contracts/contracts/MACI.sol",
-        owner: "maci-contracts/contracts/MACI.sol",
         padAndHashMessage: "maci-contracts/contracts/MACI.sol",
         pollFactory: "maci-contracts/contracts/MACI.sol",
         polls: "maci-contracts/contracts/MACI.sol",
-        renounceOwnership: "maci-contracts/contracts/MACI.sol",
         sha256Hash: "maci-contracts/contracts/MACI.sol",
         signUp: "maci-contracts/contracts/MACI.sol",
         signUpGatekeeper: "maci-contracts/contracts/MACI.sol",
         stateTreeDepth: "maci-contracts/contracts/MACI.sol",
         tallyFactory: "maci-contracts/contracts/MACI.sol",
-        topupCredit: "maci-contracts/contracts/MACI.sol",
-        transferOwnership: "maci-contracts/contracts/MACI.sol",
       },
-      deploymentBlockNumber: 23,
+      deploymentBlockNumber: 21,
     },
     MessageProcessorFactory: {
-      address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
       abi: [
         {
           inputs: [],
@@ -1596,10 +1565,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 19,
+      deploymentBlockNumber: 17,
     },
     PollFactory: {
-      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
       abi: [
         {
           inputs: [],
@@ -1697,16 +1666,6 @@ const deployedContracts = {
               name: "_maci",
               type: "address",
             },
-            {
-              internalType: "contract TopupCredit",
-              name: "_topupCredit",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_pollOwner",
-              type: "address",
-            },
           ],
           name: "deploy",
           outputs: [
@@ -1720,10 +1679,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 17,
+      deploymentBlockNumber: 15,
     },
     PoseidonT3: {
-      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       abi: [
         {
           inputs: [
@@ -1745,10 +1704,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 9,
+      deploymentBlockNumber: 7,
     },
     PoseidonT4: {
-      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
       abi: [
         {
           inputs: [
@@ -1770,10 +1729,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 11,
+      deploymentBlockNumber: 9,
     },
     PoseidonT5: {
-      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
       abi: [
         {
           inputs: [
@@ -1795,10 +1754,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 13,
+      deploymentBlockNumber: 11,
     },
     PoseidonT6: {
-      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
       abi: [
         {
           inputs: [
@@ -1820,10 +1779,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 15,
+      deploymentBlockNumber: 13,
     },
     TallyFactory: {
-      address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+      address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
       abi: [
         {
           inputs: [],
@@ -1883,462 +1842,7 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 21,
-    },
-    TopupCredit: {
-      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-      abi: [
-        {
-          inputs: [],
-          stateMutability: "payable",
-          type: "constructor",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "allowance",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "needed",
-              type: "uint256",
-            },
-          ],
-          name: "ERC20InsufficientAllowance",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "sender",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "balance",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "needed",
-              type: "uint256",
-            },
-          ],
-          name: "ERC20InsufficientBalance",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "approver",
-              type: "address",
-            },
-          ],
-          name: "ERC20InvalidApprover",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "receiver",
-              type: "address",
-            },
-          ],
-          name: "ERC20InvalidReceiver",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "sender",
-              type: "address",
-            },
-          ],
-          name: "ERC20InvalidSender",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-          ],
-          name: "ERC20InvalidSpender",
-          type: "error",
-        },
-        {
-          inputs: [],
-          name: "ExceedLimit",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-          ],
-          name: "OwnableInvalidOwner",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-          ],
-          name: "OwnableUnauthorizedAccount",
-          type: "error",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "value",
-              type: "uint256",
-            },
-          ],
-          name: "Approval",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "previousOwner",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "newOwner",
-              type: "address",
-            },
-          ],
-          name: "OwnershipTransferred",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "from",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "value",
-              type: "uint256",
-            },
-          ],
-          name: "Transfer",
-          type: "event",
-        },
-        {
-          inputs: [],
-          name: "DECIMALS",
-          outputs: [
-            {
-              internalType: "uint8",
-              name: "",
-              type: "uint8",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "MAXIMUM_AIRDROP_AMOUNT",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "airdrop",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "airdropTo",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-          ],
-          name: "allowance",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "value",
-              type: "uint256",
-            },
-          ],
-          name: "approve",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-          ],
-          name: "balanceOf",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "decimals",
-          outputs: [
-            {
-              internalType: "uint8",
-              name: "",
-              type: "uint8",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "name",
-          outputs: [
-            {
-              internalType: "string",
-              name: "",
-              type: "string",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "owner",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "renounceOwnership",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "symbol",
-          outputs: [
-            {
-              internalType: "string",
-              name: "",
-              type: "string",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "totalSupply",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "value",
-              type: "uint256",
-            },
-          ],
-          name: "transfer",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "from",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "value",
-              type: "uint256",
-            },
-          ],
-          name: "transferFrom",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "newOwner",
-              type: "address",
-            },
-          ],
-          name: "transferOwnership",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-      ],
-      deploymentBlockNumber: 7,
+      deploymentBlockNumber: 19,
     },
     Verifier: {
       address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
@@ -2501,7 +2005,7 @@ const deployedContracts = {
       deploymentBlockNumber: 5,
     },
     VkRegistry: {
-      address: "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+      address: "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
       abi: [
         {
           inputs: [],
@@ -3761,7 +3265,7 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 26,
+      deploymentBlockNumber: 24,
     },
   },
 } as const;

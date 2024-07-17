@@ -1,14 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import {
-  GatekeeperContractName,
-  InitialVoiceCreditProxyContractName,
-  TopupCreditContractName,
-  stateTreeDepth,
-} from "../constants";
+import { GatekeeperContractName, InitialVoiceCreditProxyContractName, stateTreeDepth } from "../constants";
 import { MACIWrapper, SignUpGatekeeper } from "../typechain-types";
-
-// const STATE_TREE_SUBDEPTH = 2;
 
 const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
@@ -19,7 +12,6 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   const poseidonT6 = await hre.ethers.getContract("PoseidonT6", deployer);
   const initialVoiceCreditProxy = await hre.ethers.getContract(InitialVoiceCreditProxyContractName, deployer);
   const gatekeeper = await hre.ethers.getContract<SignUpGatekeeper>(GatekeeperContractName, deployer);
-  const topupCredit = await hre.ethers.getContract(TopupCreditContractName, deployer);
   const pollFactory = await hre.ethers.getContract("PollFactory", deployer);
   const messageProcessorFactory = await hre.ethers.getContract("MessageProcessorFactory", deployer);
   const tallyFactory = await hre.ethers.getContract("TallyFactory", deployer);
@@ -32,7 +24,6 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
       await tallyFactory.getAddress(),
       await gatekeeper.getAddress(),
       await initialVoiceCreditProxy.getAddress(),
-      await topupCredit.getAddress(),
       stateTreeDepth,
     ],
     log: true,

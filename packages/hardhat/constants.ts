@@ -1,7 +1,6 @@
 export const InitialVoiceCreditProxyContractName = "ConstantInitialVoiceCreditProxy";
 export const GatekeeperContractName = "FreeForAllGatekeeper";
 export const VerifierContractName = "Verifier";
-export const TopupCreditContractName = "TopupCredit";
 
 // zk registry config
 export const stateTreeDepth = 10;

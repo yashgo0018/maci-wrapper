@@ -79,11 +79,6 @@ export default [
             name: "messageAq",
             type: "address",
           },
-          {
-            internalType: "contract TopupCredit",
-            name: "topupCredit",
-            type: "address",
-          },
         ],
         internalType: "struct Params.ExtContracts",
         name: "_extContracts",
@@ -105,7 +100,7 @@ export default [
   },
   {
     inputs: [],
-    name: "MaciPubKeyLargerThanSnarkFieldSize",
+    name: "InvalidPubKey",
     type: "error",
   },
   {
@@ -115,12 +110,7 @@ export default [
   },
   {
     inputs: [],
-    name: "StateAqAlreadyMerged",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "StateAqSubtreesNeedMerge",
+    name: "StateAlreadyMerged",
     type: "error",
   },
   {
@@ -142,39 +132,26 @@ export default [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: "uint256",
         name: "_stateRoot",
         type: "uint256",
       },
       {
-        indexed: false,
+        indexed: true,
         internalType: "uint256",
         name: "_numSignups",
         type: "uint256",
       },
     ],
-    name: "MergeMaciStateAq",
+    name: "MergeMaciState",
     type: "event",
   },
   {
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: "uint256",
-        name: "_numSrQueueOps",
-        type: "uint256",
-      },
-    ],
-    name: "MergeMaciStateAqSubRoots",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
+        indexed: true,
         internalType: "uint256",
         name: "_messageRoot",
         type: "uint256",
@@ -187,7 +164,7 @@ export default [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: "uint256",
         name: "_numSrQueueOps",
         type: "uint256",
@@ -200,31 +177,7 @@ export default [
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: "address",
-        name: "previousOwner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
-    name: "OwnershipTransferred",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         components: [
-          {
-            internalType: "uint256",
-            name: "msgType",
-            type: "uint256",
-          },
           {
             internalType: "uint256[10]",
             name: "data",
@@ -259,33 +212,21 @@ export default [
     type: "event",
   },
   {
-    anonymous: false,
-    inputs: [
+    inputs: [],
+    name: "MESSAGE_DATA_LENGTH",
+    outputs: [
       {
-        components: [
-          {
-            internalType: "uint256",
-            name: "msgType",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256[10]",
-            name: "data",
-            type: "uint256[10]",
-          },
-        ],
-        indexed: false,
-        internalType: "struct DomainObjs.Message",
-        name: "_message",
-        type: "tuple",
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
       },
     ],
-    name: "TopupMessage",
-    type: "event",
+    stateMutability: "view",
+    type: "function",
   },
   {
     inputs: [],
-    name: "MESSAGE_DATA_LENGTH",
+    name: "actualStateTreeDepth",
     outputs: [
       {
         internalType: "uint8",
@@ -352,11 +293,6 @@ export default [
       {
         internalType: "contract AccQueue",
         name: "messageAq",
-        type: "address",
-      },
-      {
-        internalType: "contract TopupCredit",
-        name: "topupCredit",
         type: "address",
       },
     ],
@@ -486,11 +422,6 @@ export default [
       {
         components: [
           {
-            internalType: "uint256",
-            name: "msgType",
-            type: "uint256",
-          },
-          {
             internalType: "uint256[10]",
             name: "data",
             type: "uint256[10]",
@@ -603,32 +534,8 @@ export default [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_pollId",
-        type: "uint256",
-      },
-    ],
-    name: "mergeMaciStateAq",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_numSrQueueOps",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_pollId",
-        type: "uint256",
-      },
-    ],
-    name: "mergeMaciStateAqSubRoots",
+    inputs: [],
+    name: "mergeMaciState",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -711,40 +618,17 @@ export default [
     type: "function",
   },
   {
-    inputs: [],
-    name: "owner",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "uint256[2]",
         name: "dataToPad",
         type: "uint256[2]",
       },
-      {
-        internalType: "uint256",
-        name: "msgType",
-        type: "uint256",
-      },
     ],
     name: "padAndHashMessage",
     outputs: [
       {
         components: [
-          {
-            internalType: "uint256",
-            name: "msgType",
-            type: "uint256",
-          },
           {
             internalType: "uint256[10]",
             name: "data",
@@ -786,11 +670,6 @@ export default [
       {
         components: [
           {
-            internalType: "uint256",
-            name: "msgType",
-            type: "uint256",
-          },
-          {
             internalType: "uint256[10]",
             name: "data",
             type: "uint256[10]",
@@ -828,11 +707,6 @@ export default [
       {
         components: [
           {
-            internalType: "uint256",
-            name: "msgType",
-            type: "uint256",
-          },
-          {
             internalType: "uint256[10]",
             name: "data",
             type: "uint256[10]",
@@ -866,13 +740,6 @@ export default [
     type: "function",
   },
   {
-    inputs: [],
-    name: "renounceOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "uint256[]",
@@ -893,7 +760,7 @@ export default [
   },
   {
     inputs: [],
-    name: "stateAqMerged",
+    name: "stateMerged",
     outputs: [
       {
         internalType: "bool",
@@ -902,37 +769,6 @@ export default [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "stateIndex",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "topup",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
-    name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {

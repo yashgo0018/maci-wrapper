@@ -144,7 +144,6 @@ export default function PollDetail({ id }: { id: bigint }) {
         await publishMessage({
           args: [
             votesToMessage[0].message.asContractParam() as unknown as {
-              msgType: bigint;
               data: readonly [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint];
             },
             votesToMessage[0].encKeyPair.pubKey.asContractParam() as unknown as { x: bigint; y: bigint },
@@ -156,7 +155,6 @@ export default function PollDetail({ id }: { id: bigint }) {
             votesToMessage.map(
               v =>
                 v.message.asContractParam() as unknown as {
-                  msgType: bigint;
                   data: readonly [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint];
                 },
             ),

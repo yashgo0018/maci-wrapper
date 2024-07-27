@@ -137,6 +137,11 @@ const deployedContracts = {
               name: "_stateTreeDepth",
               type: "uint8",
             },
+            {
+              internalType: "uint256[5]",
+              name: "_emptyBallotRoots",
+              type: "uint256[5]",
+            },
           ],
           stateMutability: "nonpayable",
           type: "constructor",
@@ -583,6 +588,25 @@ const deployedContracts = {
             },
           ],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "emptyBallotRoots",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {
@@ -1483,6 +1507,7 @@ const deployedContracts = {
       inheritedFunctions: {
         MESSAGE_DATA_LENGTH: "maci-contracts/contracts/MACI.sol",
         deployPoll: "maci-contracts/contracts/MACI.sol",
+        emptyBallotRoots: "maci-contracts/contracts/MACI.sol",
         getPoll: "maci-contracts/contracts/MACI.sol",
         getStateTreeRoot: "maci-contracts/contracts/MACI.sol",
         hash2: "maci-contracts/contracts/MACI.sol",
@@ -1665,6 +1690,11 @@ const deployedContracts = {
               internalType: "address",
               name: "_maci",
               type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_emptyBallotRoot",
+              type: "uint256",
             },
           ],
           name: "deploy",

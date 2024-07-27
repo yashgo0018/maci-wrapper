@@ -2,6 +2,7 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { GatekeeperContractName, InitialVoiceCreditProxyContractName, stateTreeDepth } from "../constants";
 import { MACIWrapper, SignUpGatekeeper } from "../typechain-types";
+import { genEmptyBallotRoots } from "maci-contracts";
 
 const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
@@ -15,6 +16,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   const pollFactory = await hre.ethers.getContract("PollFactory", deployer);
   const messageProcessorFactory = await hre.ethers.getContract("MessageProcessorFactory", deployer);
   const tallyFactory = await hre.ethers.getContract("TallyFactory", deployer);
+  const emptyBallotRoots = genEmptyBallotRoots(stateTreeDepth);
 
   await hre.deployments.deploy("MACIWrapper", {
     from: deployer,
@@ -25,6 +27,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
       await gatekeeper.getAddress(),
       await initialVoiceCreditProxy.getAddress(),
       stateTreeDepth,
+      emptyBallotRoots,
     ],
     log: true,
     libraries: {

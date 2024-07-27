@@ -2158,11 +2158,11 @@ __metadata:
     hardhat-deploy: ^0.12.2
     hardhat-deploy-ethers: ~0.4.1
     hardhat-gas-reporter: ~1.0.9
-    maci-circuits: 0.0.0-ci.4d2d340
-    maci-cli: 0.0.0-ci.4d2d340
-    maci-contracts: 0.0.0-ci.4d2d340
-    maci-crypto: 0.0.0-ci.4d2d340
-    maci-domainobjs: 0.0.0-ci.4d2d340
+    maci-circuits: 0.0.0-ci.e7aa4dd
+    maci-cli: 0.0.0-ci.e7aa4dd
+    maci-contracts: 0.0.0-ci.e7aa4dd
+    maci-crypto: 0.0.0-ci.e7aa4dd
+    maci-domainobjs: 0.0.0-ci.e7aa4dd
     prettier: ~2.8.4
     prompt: ^1.3.0
     qrcode: ~1.5.1
@@ -2203,8 +2203,8 @@ __metadata:
     eslint-config-next: ^14.0.4
     eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.2.1
-    maci-crypto: 0.0.0-ci.4d2d340
-    maci-domainobjs: 0.0.0-ci.4d2d340
+    maci-crypto: 0.0.0-ci.e7aa4dd
+    maci-domainobjs: 0.0.0-ci.e7aa4dd
     next: ^14.0.4
     next-themes: ^0.2.1
     nprogress: ^0.2.0
@@ -4218,15 +4218,6 @@ __metadata:
     "@zk-kit/utils": 1.0.0
     buffer: 6.0.3
   checksum: ecbb244341abefc9fb04db5c340d9b293efdeb6652575777e41569ed18b234547f41bf95c8ea045666fed8cca288bd42713e49dd61e575edfa0f51e87244f073
-  languageName: node
-  linkType: hard
-
-"@zk-kit/imt.sol@npm:2.0.0-beta.12":
-  version: 2.0.0-beta.12
-  resolution: "@zk-kit/imt.sol@npm:2.0.0-beta.12"
-  dependencies:
-    poseidon-solidity: 0.0.5
-  checksum: dc116c95ba05db90e77563c203e071afb883d24844fef8d7854bfd365421ec6f5663afddbc929b4b81afa1241ca68139be88356367198bd0a43fed5886a2f4d8
   languageName: node
   linkType: hard
 
@@ -9441,7 +9432,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hardhat@npm:^2.22.4":
+"hardhat@npm:^2.22.6":
   version: 2.22.6
   resolution: "hardhat@npm:2.22.6"
   dependencies:
@@ -11362,95 +11353,94 @@ __metadata:
   languageName: node
   linkType: hard
 
-"maci-circuits@npm:0.0.0-ci.4d2d340":
-  version: 0.0.0-ci.4d2d340
-  resolution: "maci-circuits@npm:0.0.0-ci.4d2d340"
+"maci-circuits@npm:0.0.0-ci.e7aa4dd":
+  version: 0.0.0-ci.e7aa4dd
+  resolution: "maci-circuits@npm:0.0.0-ci.e7aa4dd"
   dependencies:
     "@zk-kit/circuits": ^0.4.0
     circomkit: ^0.2.1
     circomlib: ^2.0.5
-    maci-core: 0.0.0-ci.4d2d340
-    maci-crypto: 0.0.0-ci.4d2d340
-    maci-domainobjs: 0.0.0-ci.4d2d340
+    maci-core: 0.0.0-ci.e7aa4dd
+    maci-crypto: 0.0.0-ci.e7aa4dd
+    maci-domainobjs: 0.0.0-ci.e7aa4dd
     snarkjs: ^0.7.4
-  checksum: 43642cce8e999a04f469861213c23c36261599b4c415692c14260806a0cd9ffa5fa55036f1201c5d33a91b97d49761318da3a2f5cc1c7fa8db62ae52ba4e6455
+  checksum: 12a82786efb8c1bbf408e69ebd78ffabc543e4ba119cd7fe550b5b8bdc60343d6e4ddca244261b7529b356b1009c5149df02b062471bc0ad55058d455c702e8f
   languageName: node
   linkType: hard
 
-"maci-cli@npm:0.0.0-ci.4d2d340":
-  version: 0.0.0-ci.4d2d340
-  resolution: "maci-cli@npm:0.0.0-ci.4d2d340"
+"maci-cli@npm:0.0.0-ci.e7aa4dd":
+  version: 0.0.0-ci.e7aa4dd
+  resolution: "maci-cli@npm:0.0.0-ci.e7aa4dd"
   dependencies:
     "@commander-js/extra-typings": ^12.1.0
     "@nomicfoundation/hardhat-toolbox": ^5.0.0
     commander: ^12.1.0
     dotenv: ^16.4.5
     ethers: ^6.13.1
-    hardhat: ^2.22.4
-    maci-circuits: 0.0.0-ci.4d2d340
-    maci-contracts: 0.0.0-ci.4d2d340
-    maci-core: 0.0.0-ci.4d2d340
-    maci-crypto: 0.0.0-ci.4d2d340
-    maci-domainobjs: 0.0.0-ci.4d2d340
+    hardhat: ^2.22.6
+    maci-circuits: 0.0.0-ci.e7aa4dd
+    maci-contracts: 0.0.0-ci.e7aa4dd
+    maci-core: 0.0.0-ci.e7aa4dd
+    maci-crypto: 0.0.0-ci.e7aa4dd
+    maci-domainobjs: 0.0.0-ci.e7aa4dd
     prompt: ^1.3.0
   bin:
     maci-cli: ./build/ts/index.js
-  checksum: 996d7ec9a0262e06470e8b967699fa6fe574e926c8a4214989432b818dbcceb3462d3352ade4fd34b414356193723b95fca950862547b9f97ad6079463b05268
+  checksum: 3182f63e5b6c1d9a8c0d9bef87550d6283d7ec66730fd660581eb2c69b84956d05f6f1672f640abd2b1c5faeac6fb7a63212876220990180a579bf5bf3802361
   languageName: node
   linkType: hard
 
-"maci-contracts@npm:0.0.0-ci.4d2d340":
-  version: 0.0.0-ci.4d2d340
-  resolution: "maci-contracts@npm:0.0.0-ci.4d2d340"
+"maci-contracts@npm:0.0.0-ci.e7aa4dd":
+  version: 0.0.0-ci.e7aa4dd
+  resolution: "maci-contracts@npm:0.0.0-ci.e7aa4dd"
   dependencies:
     "@nomicfoundation/hardhat-ethers": ^3.0.6
     "@nomicfoundation/hardhat-toolbox": ^5.0.0
     "@openzeppelin/contracts": ^5.0.2
-    "@zk-kit/imt.sol": 2.0.0-beta.12
     circomlibjs: ^0.1.7
     ethers: ^6.13.1
-    hardhat: ^2.22.4
+    hardhat: ^2.22.6
     lowdb: ^1.0.0
-    maci-circuits: 0.0.0-ci.4d2d340
-    maci-core: 0.0.0-ci.4d2d340
-    maci-crypto: 0.0.0-ci.4d2d340
-    maci-domainobjs: 0.0.0-ci.4d2d340
+    maci-circuits: 0.0.0-ci.e7aa4dd
+    maci-core: 0.0.0-ci.e7aa4dd
+    maci-crypto: 0.0.0-ci.e7aa4dd
+    maci-domainobjs: 0.0.0-ci.e7aa4dd
     solidity-docgen: ^0.6.0-beta.36
     uuid: ^10.0.0
   bin:
     maci-contracts: ./build/ts/index.js
-  checksum: 8db708db941ff0ca260bd6562147d5d3ce1c2cc35753b0e7a8443bdf9d13a5b9c1cc02e0d3140f8e66b511f3d7a8a75177c40313f7f4ef4043584ce8a382f5c9
+  checksum: 7eec3f9db0f2082dfd12373065f6647d27c7ebc0a86b1061553db07fe94cda5fae0f508ae575458e169331e00145630410cf5208669a2472cff81a9442ac1a5f
   languageName: node
   linkType: hard
 
-"maci-core@npm:0.0.0-ci.4d2d340":
-  version: 0.0.0-ci.4d2d340
-  resolution: "maci-core@npm:0.0.0-ci.4d2d340"
+"maci-core@npm:0.0.0-ci.e7aa4dd":
+  version: 0.0.0-ci.e7aa4dd
+  resolution: "maci-core@npm:0.0.0-ci.e7aa4dd"
   dependencies:
-    maci-crypto: 0.0.0-ci.4d2d340
-    maci-domainobjs: 0.0.0-ci.4d2d340
-  checksum: 74ac9c5b4f184f7f147305ae9b831842b50e0daa1c6268401d32389e79cfa96cf14db8320add14c7921432ec3e493d441fd659a3c19bc95c3f1e3be8c5c879b9
+    maci-crypto: 0.0.0-ci.e7aa4dd
+    maci-domainobjs: 0.0.0-ci.e7aa4dd
+  checksum: d1cc7510d31536d0fcd0fce713bf5f416c7b5579c6427bb9b0aa6c6a2f6a5d05bdc975083f3217407ef6166389f33d28405c2a89e8fb7c075f561fa956948480
   languageName: node
   linkType: hard
 
-"maci-crypto@npm:0.0.0-ci.4d2d340":
-  version: 0.0.0-ci.4d2d340
-  resolution: "maci-crypto@npm:0.0.0-ci.4d2d340"
+"maci-crypto@npm:0.0.0-ci.e7aa4dd":
+  version: 0.0.0-ci.e7aa4dd
+  resolution: "maci-crypto@npm:0.0.0-ci.e7aa4dd"
   dependencies:
     "@zk-kit/baby-jubjub": ^1.0.1
     "@zk-kit/eddsa-poseidon": ^1.0.2
     "@zk-kit/poseidon-cipher": ^0.3.1
     ethers: ^6.13.1
-  checksum: 49e6441e92c3c2cdeb35c75b9865a9aaf5361219ca745939e426ee998d225f4518ae1b38be51507b4ce1af9b4d8524fdcc9aafaaa0486bfb69bb14b2cc03c71c
+  checksum: dd696a243f95fd91ab4aa15fb60a0bb56cbb2f9b78a205804fd73cecb3ec48323ead837b8f5a46fdf3f199dc939bbd02e510a029a9ab401f5088c8800f3c5b76
   languageName: node
   linkType: hard
 
-"maci-domainobjs@npm:0.0.0-ci.4d2d340":
-  version: 0.0.0-ci.4d2d340
-  resolution: "maci-domainobjs@npm:0.0.0-ci.4d2d340"
+"maci-domainobjs@npm:0.0.0-ci.e7aa4dd":
+  version: 0.0.0-ci.e7aa4dd
+  resolution: "maci-domainobjs@npm:0.0.0-ci.e7aa4dd"
   dependencies:
-    maci-crypto: 0.0.0-ci.4d2d340
-  checksum: ecdc151424f86c6a9bcda4381b4c32fbd8c5524b50404ce6ceae9f630025896e2fd4b90da43fd66f2f538f7fc5cec9ce5e9160c7b9bdf443748e2fc4b8b4c961
+    maci-crypto: 0.0.0-ci.e7aa4dd
+  checksum: 774cd954fade2f426dd518d12e41f78a2489cfdd12b722640c4dde45ec5cd3e5b92e887c477e1905612732cc145bef121c4f0433f73a535f182f44dc194d18ab
   languageName: node
   linkType: hard
 
@@ -13071,13 +13061,6 @@ __metadata:
   version: 5.0.0
   resolution: "pngjs@npm:5.0.0"
   checksum: 04e912cc45fb9601564e2284efaf0c5d20d131d9b596244f8a6789fc6cdb6b18d2975a6bbf7a001858d7e159d5c5c5dd7b11592e97629b7137f7f5cef05904c8
-  languageName: node
-  linkType: hard
-
-"poseidon-solidity@npm:0.0.5":
-  version: 0.0.5
-  resolution: "poseidon-solidity@npm:0.0.5"
-  checksum: eb2d84962505a3c8a5756752c8e571ad32f90f4d95fafaffbd03552abfa040553945990d96d0243ddd993d6c2e456a816435c97739610a4f6aabb9249ebf47d7
   languageName: node
   linkType: hard
 

@@ -59,7 +59,8 @@ contract MACIWrapper is MACI, Ownable(msg.sender) {
 		ITallyFactory _tallyFactory,
 		SignUpGatekeeper _signUpGatekeeper,
 		InitialVoiceCreditProxy _initialVoiceCreditProxy,
-		uint8 _stateTreeDepth
+		uint8 _stateTreeDepth,
+	    uint256[5] memory _emptyBallotRoots
 	)
 		MACI(
 			_pollFactory,
@@ -67,7 +68,8 @@ contract MACIWrapper is MACI, Ownable(msg.sender) {
 			_tallyFactory,
 			_signUpGatekeeper,
 			_initialVoiceCreditProxy,
-			_stateTreeDepth
+			_stateTreeDepth,
+			_emptyBallotRoots
 		)
 	{}
 

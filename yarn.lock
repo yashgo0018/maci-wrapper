@@ -1346,67 +1346,67 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nomicfoundation/edr-darwin-arm64@npm:0.4.2":
-  version: 0.4.2
-  resolution: "@nomicfoundation/edr-darwin-arm64@npm:0.4.2"
-  checksum: 7835e998c2ef83924efac0694bb4392f6abf770dc7f935dd28abc1a291f830cade14750d83a46a3205338e4ddff943dda60a9849317cf42edd38d7a2ce843588
+"@nomicfoundation/edr-darwin-arm64@npm:0.5.2":
+  version: 0.5.2
+  resolution: "@nomicfoundation/edr-darwin-arm64@npm:0.5.2"
+  checksum: f6ab386603c6e080fe7f611b739eb6d1d6a370220318b725cb582702563577150b3be14b6d0be71cb72bdb854e6992c587ecfc6833216f750eae8e7cd96de46f
   languageName: node
   linkType: hard
 
-"@nomicfoundation/edr-darwin-x64@npm:0.4.2":
-  version: 0.4.2
-  resolution: "@nomicfoundation/edr-darwin-x64@npm:0.4.2"
-  checksum: 94daa26610621e85cb025feb37bb93e9b89c59f908bf3eae70720d2b86632dbb1236420ae3ae6f685d563ba52519d5f860e68ccd898fa1fced831961dea2c08a
+"@nomicfoundation/edr-darwin-x64@npm:0.5.2":
+  version: 0.5.2
+  resolution: "@nomicfoundation/edr-darwin-x64@npm:0.5.2"
+  checksum: 6f91f6d0294c0450e0501983f1de34a48582fe93f48428bc4b798ac93bb5483a96d626c2b4c62ac91102f00c826a3f9bfa16d748301440ebe1bbb2920ba3ba6d
   languageName: node
   linkType: hard
 
-"@nomicfoundation/edr-linux-arm64-gnu@npm:0.4.2":
-  version: 0.4.2
-  resolution: "@nomicfoundation/edr-linux-arm64-gnu@npm:0.4.2"
-  checksum: a7181e237f6ece8bd97e0f75972044dbf584c506bbac5bef586d9f7d627a2c07a279a2d892837bbedc80ea3dfb39fa66becc297238b5d715a942eed2a50745cd
+"@nomicfoundation/edr-linux-arm64-gnu@npm:0.5.2":
+  version: 0.5.2
+  resolution: "@nomicfoundation/edr-linux-arm64-gnu@npm:0.5.2"
+  checksum: bd84cc2741bb2be3c3a60bae9dbb8ca7794a68b8675684c97f2c6e7310e5cba7efd1cf18d392d42481cda83fb478f83c0bd605104c5cf08bab44ec07669c3010
   languageName: node
   linkType: hard
 
-"@nomicfoundation/edr-linux-arm64-musl@npm:0.4.2":
-  version: 0.4.2
-  resolution: "@nomicfoundation/edr-linux-arm64-musl@npm:0.4.2"
-  checksum: 5a849484b7a104a7e1497774c4117afc58f64d57d30889d4f6f676dddb5c695192c0789b8be0b71171a2af770167a28aa301ae3ece7a2a156d82d94388639b66
+"@nomicfoundation/edr-linux-arm64-musl@npm:0.5.2":
+  version: 0.5.2
+  resolution: "@nomicfoundation/edr-linux-arm64-musl@npm:0.5.2"
+  checksum: e7f7d82f16be1b26805bd90964c456aecb4a6a1397e87d507810d37bd383064271fa63932564e725fdb30868925334338ec459fe32f84fc11206644b7b37825c
   languageName: node
   linkType: hard
 
-"@nomicfoundation/edr-linux-x64-gnu@npm:0.4.2":
-  version: 0.4.2
-  resolution: "@nomicfoundation/edr-linux-x64-gnu@npm:0.4.2"
-  checksum: 0520dd9a583976fd0f49dfe6c23227f03cd811a395dc5eed1a2922b4358d7c71fdcfea8f389d4a0e23b4ec53e1435959a544380f94e48122a75f94a42b177ac7
+"@nomicfoundation/edr-linux-x64-gnu@npm:0.5.2":
+  version: 0.5.2
+  resolution: "@nomicfoundation/edr-linux-x64-gnu@npm:0.5.2"
+  checksum: ec025bf75227638b6b2cd01b7ba01b3ddaddf54c4d18d25e9d0364ac621981be2aaf124f4e60a88da5c9e267adb41a660a42668e2d6c9a6a57e55e8671fc76f1
   languageName: node
   linkType: hard
 
-"@nomicfoundation/edr-linux-x64-musl@npm:0.4.2":
-  version: 0.4.2
-  resolution: "@nomicfoundation/edr-linux-x64-musl@npm:0.4.2"
-  checksum: 80c3b4346d8c27539bc005b09db233dedd8930310d1a049827661e69a8e03be9cbac27eb620a6ae9bfd46a2fbe22f83cee5af8d9e63178925d74d9c656246708
+"@nomicfoundation/edr-linux-x64-musl@npm:0.5.2":
+  version: 0.5.2
+  resolution: "@nomicfoundation/edr-linux-x64-musl@npm:0.5.2"
+  checksum: c9ff47f72645492383b2a598675878abc029b86325e2c457db1b2c4281916e11e4ef6336c355d40ae3c1736595bc43da51cfcf1e923464011f526f4db64c245b
   languageName: node
   linkType: hard
 
-"@nomicfoundation/edr-win32-x64-msvc@npm:0.4.2":
-  version: 0.4.2
-  resolution: "@nomicfoundation/edr-win32-x64-msvc@npm:0.4.2"
-  checksum: 736fb866fd5c2708560cbd5ae72815b5fc96e650cd74bc8bab0a1cb0e8baede4f595fdceb445c159814a6a7e8e691de227a5db49f61b3cd0ddfafd5715b397ab
+"@nomicfoundation/edr-win32-x64-msvc@npm:0.5.2":
+  version: 0.5.2
+  resolution: "@nomicfoundation/edr-win32-x64-msvc@npm:0.5.2"
+  checksum: 56da7a1283470dede413cda5f2fef96e10250ec7a25562254ca0cd8045a653212c91e40fbcf37330e7af4e036d3c3aed83ea617831f9c7a5424389c73c53ed4e
   languageName: node
   linkType: hard
 
-"@nomicfoundation/edr@npm:^0.4.1":
-  version: 0.4.2
-  resolution: "@nomicfoundation/edr@npm:0.4.2"
+"@nomicfoundation/edr@npm:^0.5.0":
+  version: 0.5.2
+  resolution: "@nomicfoundation/edr@npm:0.5.2"
   dependencies:
-    "@nomicfoundation/edr-darwin-arm64": 0.4.2
-    "@nomicfoundation/edr-darwin-x64": 0.4.2
-    "@nomicfoundation/edr-linux-arm64-gnu": 0.4.2
-    "@nomicfoundation/edr-linux-arm64-musl": 0.4.2
-    "@nomicfoundation/edr-linux-x64-gnu": 0.4.2
-    "@nomicfoundation/edr-linux-x64-musl": 0.4.2
-    "@nomicfoundation/edr-win32-x64-msvc": 0.4.2
-  checksum: 8c8457257b59ed9a29d88b7492e98e974d24e8318903e876a14dc0f6d5dc77948cd9053937d9730f54f920ba82ce3d244cab518d068359bcc20df88623f171ef
+    "@nomicfoundation/edr-darwin-arm64": 0.5.2
+    "@nomicfoundation/edr-darwin-x64": 0.5.2
+    "@nomicfoundation/edr-linux-arm64-gnu": 0.5.2
+    "@nomicfoundation/edr-linux-arm64-musl": 0.5.2
+    "@nomicfoundation/edr-linux-x64-gnu": 0.5.2
+    "@nomicfoundation/edr-linux-x64-musl": 0.5.2
+    "@nomicfoundation/edr-win32-x64-msvc": 0.5.2
+  checksum: 336b1c7cad96fa78410f0c9cc9524abe9fb1e56384fe990b98bfd17f15f25b4665ad8f0525ccd9511f7c19173841fe712d50db993078629e2fc4047fda4665dc
   languageName: node
   linkType: hard
 
@@ -2158,11 +2158,12 @@ __metadata:
     hardhat-deploy: ^0.12.2
     hardhat-deploy-ethers: ~0.4.1
     hardhat-gas-reporter: ~1.0.9
-    maci-circuits: 0.0.0-ci.e7aa4dd
-    maci-cli: 0.0.0-ci.e7aa4dd
-    maci-contracts: 0.0.0-ci.e7aa4dd
-    maci-crypto: 0.0.0-ci.e7aa4dd
-    maci-domainobjs: 0.0.0-ci.e7aa4dd
+    maci-circuits: 2.0.0
+    maci-cli: 2.0.0
+    maci-contracts: 2.0.0
+    maci-core: 2.0.0
+    maci-crypto: 2.0.0
+    maci-domainobjs: 2.0.0
     prettier: ~2.8.4
     prompt: ^1.3.0
     qrcode: ~1.5.1
@@ -8147,6 +8148,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ethers@npm:^6.13.2":
+  version: 6.13.2
+  resolution: "ethers@npm:6.13.2"
+  dependencies:
+    "@adraffy/ens-normalize": 1.10.1
+    "@noble/curves": 1.2.0
+    "@noble/hashes": 1.3.2
+    "@types/node": 18.15.13
+    aes-js: 4.0.0-beta.5
+    tslib: 2.4.0
+    ws: 8.17.1
+  checksum: 981860c736c7ae121774ad38ea07e3611ce524a77d2fcb77db499b65afe0cbe8f344cd5204d94b68b316349ff770fd2a7d9c8b2039da41c072f98d9864099925
+  languageName: node
+  linkType: hard
+
 "ethers@npm:~6.10.0":
   version: 6.10.0
   resolution: "ethers@npm:6.10.0"
@@ -9432,13 +9448,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hardhat@npm:^2.22.6":
-  version: 2.22.6
-  resolution: "hardhat@npm:2.22.6"
+"hardhat@npm:^2.22.7":
+  version: 2.22.7
+  resolution: "hardhat@npm:2.22.7"
   dependencies:
     "@ethersproject/abi": ^5.1.2
     "@metamask/eth-sig-util": ^4.0.0
-    "@nomicfoundation/edr": ^0.4.1
+    "@nomicfoundation/edr": ^0.5.0
     "@nomicfoundation/ethereumjs-common": 4.0.4
     "@nomicfoundation/ethereumjs-tx": 5.0.4
     "@nomicfoundation/ethereumjs-util": 9.0.4
@@ -9489,7 +9505,7 @@ __metadata:
       optional: true
   bin:
     hardhat: internal/cli/bootstrap.js
-  checksum: 5aec1824db3575d63754de18c2629bcd820bc836d836f8a6346bcd9aa2ae4c397e090c43ea482ee765b704e018001015b5c84c5ded301a6a1144129c1a4c509b
+  checksum: 3b630db8c337d47d220ab0a94a009e61da0a4bb08cc4576ae33cb50e57d9dbb577ab64a85211914fc511e59cd5fca55c986e9ee2180c2e05657c084a14128b16
   languageName: node
   linkType: hard
 
@@ -11353,73 +11369,73 @@ __metadata:
   languageName: node
   linkType: hard
 
-"maci-circuits@npm:0.0.0-ci.e7aa4dd":
-  version: 0.0.0-ci.e7aa4dd
-  resolution: "maci-circuits@npm:0.0.0-ci.e7aa4dd"
+"maci-circuits@npm:2.0.0, maci-circuits@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "maci-circuits@npm:2.0.0"
   dependencies:
     "@zk-kit/circuits": ^0.4.0
     circomkit: ^0.2.1
     circomlib: ^2.0.5
-    maci-core: 0.0.0-ci.e7aa4dd
-    maci-crypto: 0.0.0-ci.e7aa4dd
-    maci-domainobjs: 0.0.0-ci.e7aa4dd
+    maci-core: ^2.0.0
+    maci-crypto: ^2.0.0
+    maci-domainobjs: ^2.0.0
     snarkjs: ^0.7.4
-  checksum: 12a82786efb8c1bbf408e69ebd78ffabc543e4ba119cd7fe550b5b8bdc60343d6e4ddca244261b7529b356b1009c5149df02b062471bc0ad55058d455c702e8f
+  checksum: c1d7607b4c1f88227bd66eb146523b7b0d4b410531dba32a227267d279589f10a337a262a7c9562907177d00b8c9db0880519864a2c08718b562a2ddab18f7c9
   languageName: node
   linkType: hard
 
-"maci-cli@npm:0.0.0-ci.e7aa4dd":
-  version: 0.0.0-ci.e7aa4dd
-  resolution: "maci-cli@npm:0.0.0-ci.e7aa4dd"
+"maci-cli@npm:2.0.0":
+  version: 2.0.0
+  resolution: "maci-cli@npm:2.0.0"
   dependencies:
     "@commander-js/extra-typings": ^12.1.0
     "@nomicfoundation/hardhat-toolbox": ^5.0.0
     commander: ^12.1.0
     dotenv: ^16.4.5
-    ethers: ^6.13.1
-    hardhat: ^2.22.6
-    maci-circuits: 0.0.0-ci.e7aa4dd
-    maci-contracts: 0.0.0-ci.e7aa4dd
-    maci-core: 0.0.0-ci.e7aa4dd
-    maci-crypto: 0.0.0-ci.e7aa4dd
-    maci-domainobjs: 0.0.0-ci.e7aa4dd
+    ethers: ^6.13.2
+    hardhat: ^2.22.7
+    maci-circuits: ^2.0.0
+    maci-contracts: ^2.0.0
+    maci-core: ^2.0.0
+    maci-crypto: ^2.0.0
+    maci-domainobjs: ^2.0.0
     prompt: ^1.3.0
   bin:
     maci-cli: ./build/ts/index.js
-  checksum: 3182f63e5b6c1d9a8c0d9bef87550d6283d7ec66730fd660581eb2c69b84956d05f6f1672f640abd2b1c5faeac6fb7a63212876220990180a579bf5bf3802361
+  checksum: 36ad9a91ac9651ff2bceb84e698ca55869367679b833fc7e18f58ae8a3ccfe9730dfb66a465e88ad209be9f0c0ee2ec60bc2bf4873ef1654a3246106c581c1ab
   languageName: node
   linkType: hard
 
-"maci-contracts@npm:0.0.0-ci.e7aa4dd":
-  version: 0.0.0-ci.e7aa4dd
-  resolution: "maci-contracts@npm:0.0.0-ci.e7aa4dd"
+"maci-contracts@npm:2.0.0, maci-contracts@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "maci-contracts@npm:2.0.0"
   dependencies:
     "@nomicfoundation/hardhat-ethers": ^3.0.6
     "@nomicfoundation/hardhat-toolbox": ^5.0.0
     "@openzeppelin/contracts": ^5.0.2
     circomlibjs: ^0.1.7
-    ethers: ^6.13.1
-    hardhat: ^2.22.6
+    ethers: ^6.13.2
+    hardhat: ^2.22.7
     lowdb: ^1.0.0
-    maci-circuits: 0.0.0-ci.e7aa4dd
-    maci-core: 0.0.0-ci.e7aa4dd
-    maci-crypto: 0.0.0-ci.e7aa4dd
-    maci-domainobjs: 0.0.0-ci.e7aa4dd
+    maci-circuits: ^2.0.0
+    maci-core: ^2.0.0
+    maci-crypto: ^2.0.0
+    maci-domainobjs: ^2.0.0
     solidity-docgen: ^0.6.0-beta.36
     uuid: ^10.0.0
   bin:
     maci-contracts: ./build/ts/index.js
-  checksum: 7eec3f9db0f2082dfd12373065f6647d27c7ebc0a86b1061553db07fe94cda5fae0f508ae575458e169331e00145630410cf5208669a2472cff81a9442ac1a5f
+  checksum: 225151476593a1e79340c19d733c7fd93caa5ca84ad28b49336833419790e56303d982db7314fc224203d3c8335d9cd20c8778e490ca4a417455fd89c1b29c09
   languageName: node
   linkType: hard
 
-"maci-core@npm:0.0.0-ci.e7aa4dd":
-  version: 0.0.0-ci.e7aa4dd
-  resolution: "maci-core@npm:0.0.0-ci.e7aa4dd"
+"maci-core@npm:2.0.0, maci-core@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "maci-core@npm:2.0.0"
   dependencies:
-    maci-crypto: 0.0.0-ci.e7aa4dd
-    maci-domainobjs: 0.0.0-ci.e7aa4dd
-  checksum: d1cc7510d31536d0fcd0fce713bf5f416c7b5579c6427bb9b0aa6c6a2f6a5d05bdc975083f3217407ef6166389f33d28405c2a89e8fb7c075f561fa956948480
+    maci-crypto: ^2.0.0
+    maci-domainobjs: ^2.0.0
+  checksum: c081ba5d0a0b91c5d94ee8bf8bb029c4cd7a3024d24806d4b9aa7e6b5eb4e17da82435f63de5dd64de90aa8e2fd9d93feee5366bfcfcf47b01fc1d97ecfa111a
   languageName: node
   linkType: hard
 
@@ -11435,12 +11451,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"maci-crypto@npm:2.0.0, maci-crypto@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "maci-crypto@npm:2.0.0"
+  dependencies:
+    "@zk-kit/baby-jubjub": ^1.0.1
+    "@zk-kit/eddsa-poseidon": ^1.0.2
+    "@zk-kit/poseidon-cipher": ^0.3.1
+    ethers: ^6.13.2
+  checksum: 6de73653b07428aaad895d98a78353803d9fefb03d3f9c996acc44a3c400691e9538628068c0a57229d3894461e58c6c09a8ec4cefd1b84739a28db3658cea4c
+  languageName: node
+  linkType: hard
+
 "maci-domainobjs@npm:0.0.0-ci.e7aa4dd":
   version: 0.0.0-ci.e7aa4dd
   resolution: "maci-domainobjs@npm:0.0.0-ci.e7aa4dd"
   dependencies:
     maci-crypto: 0.0.0-ci.e7aa4dd
   checksum: 774cd954fade2f426dd518d12e41f78a2489cfdd12b722640c4dde45ec5cd3e5b92e887c477e1905612732cc145bef121c4f0433f73a535f182f44dc194d18ab
+  languageName: node
+  linkType: hard
+
+"maci-domainobjs@npm:2.0.0, maci-domainobjs@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "maci-domainobjs@npm:2.0.0"
+  dependencies:
+    maci-crypto: ^2.0.0
+  checksum: 764e903d83dcaf8008284a4e871c23dc00648492aa6caae00c6ee3e139443f618da0abab6087cdf65a1482462f37cf1305871b4ecc594622d304c77981ba80ae
   languageName: node
   linkType: hard
 

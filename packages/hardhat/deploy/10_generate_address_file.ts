@@ -16,6 +16,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   const poseidonT4 = await hre.ethers.getContract("PoseidonT4", deployer);
   const poseidonT5 = await hre.ethers.getContract("PoseidonT5", deployer);
   const poseidonT6 = await hre.ethers.getContract("PoseidonT6", deployer);
+  const vkRegistry = await hre.ethers.getContract("VkRegistry", deployer);
 
   fs.writeFileSync(
     "./contractAddresses.json",
@@ -31,6 +32,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
           PoseidonT4: await poseidonT4.getAddress(),
           PoseidonT5: await poseidonT5.getAddress(),
           PoseidonT6: await poseidonT6.getAddress(),
+          VkRegistry: await vkRegistry.getAddress(),
         },
       },
       undefined,

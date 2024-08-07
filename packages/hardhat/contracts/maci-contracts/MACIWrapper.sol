@@ -60,7 +60,7 @@ contract MACIWrapper is MACI, Ownable(msg.sender) {
 		SignUpGatekeeper _signUpGatekeeper,
 		InitialVoiceCreditProxy _initialVoiceCreditProxy,
 		uint8 _stateTreeDepth,
-	    uint256[5] memory _emptyBallotRoots
+		uint256[5] memory _emptyBallotRoots
 	)
 		MACI(
 			_pollFactory,
@@ -126,7 +126,7 @@ contract MACIWrapper is MACI, Ownable(msg.sender) {
 
 		uint256 pollId = nextPollId;
 
-		PollContracts memory pollContracts = deployPoll(
+		deployPoll(
 			_duration,
 			treeDepths,
 			coordinatorPubKey,
@@ -134,6 +134,8 @@ contract MACIWrapper is MACI, Ownable(msg.sender) {
 			vkRegistry,
 			isQv
 		);
+
+		PollContracts memory pollContracts = MACI.polls[pollId];
 
 		pollIds[pollContracts.poll] = pollId;
 

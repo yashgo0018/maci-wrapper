@@ -1,5 +1,7 @@
 # Scaffold ETH 2 + MACI Voting Template
 
+Note: This is a test
+
 Welcome to the Scaffold ETH 2 + MACI Voting Template! This template is a powerful starting point for developers aiming to build decentralized voting applications that prioritize privacy and resist collusion. Combining the rapid development environment of Scaffold ETH with the innovative Minimal Anti-Collusion Infrastructure (MACI), this template offers a robust foundation for creating secure and transparent voting systems on the Ethereum blockchain.
 
 ## Features
